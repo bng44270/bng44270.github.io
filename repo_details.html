@@ -78,10 +78,9 @@ code {
   $(document).ready(function() {
     var queryArgs = getQuery();
     if (queryArgs['name'].length > 0) {
-      $('#header').html('<h1>' + queryArgs['name'] + '</h1>');
       $.get('https://raw.githubusercontent.com/bng44270/' + queryArgs['name'] + '/master/README.md',function(data) {
         $.post('https://api.github.com/markdown',JSON.stringify({"text":data,"mode":"gfm"}),function(htmlData) {
-          $('#content').html(htmlData);
+		$('#content').html(htmlData + '<br/><br/><a href="https://github.com/bng44270/' + queryArgs['name'] + '" target="_blank">View Repository</a>');
         });
       });
     }
