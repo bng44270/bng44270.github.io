@@ -38,6 +38,7 @@ code {
 
 						<!-- Content -->
 							<section id="content" class="main">
+								<input type="hidden" id="linktemp"/>
 							</section>
 
 					</div>
@@ -66,9 +67,9 @@ code {
 <script type="text/javascript">
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/repos',function(repoData) {
-      $('#content').html(repoData.map(function(thisRepo) {
-        return ('<a href="./repo_details.html?' + thisRepo['name'] + '">' + thisRepo['name'] + '</a>')
-      }).join('<br/>'));
+		    $('#content').html('<table><tr><th>Repository</th><th>Clone URL</th></tr>' + repoData.map(function(thisRepo) {
+	      return ('<tr>><td><a href="./repo_details.html?name=' + thisRepo['name'] + '">' + thisRepo['name'] + '</a></td><td><a href="https://github.com/bng44270/' + thisRepo['name'] + '.git" onClick="function() { document.getElementById("linktemp").value = this.href; var copy = document.getElementById("linktemp"); copy.select(); copy.setSelectionRange(0, 99999); document.execCommand("copy"); return false;">Copy Clone URL</a></td></tr>')
+      }).join('') + "</table>);
     });
   });
 </script>
