@@ -66,10 +66,12 @@ code {
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 <script type="text/javascript">
+  var skipRepos = ['bng44270.github.io','knowledge_2019_loaner_request','snWebCli','snWebCli-Additions'];
+
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/repos',function(repoData) {
 		    $('#content').html('<table>' + repoData.filter(function(thisRepo) {
-			    return thisRepo['name'] != 'bng44270.github.io';
+			    return skipRepos.indexOf(thisRepo['name']) == -1;
 		    }).map(function(thisRepo) {
 	      return ('<tr><td><a href="./repo_details.html?name=' + thisRepo['name'] + '">' + thisRepo['name'] + '</a></td></tr>');
       }).join('') + '</table>');
