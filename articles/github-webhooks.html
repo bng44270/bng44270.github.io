@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Articles - Andy Does Tech</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<style>
+code {
+	background-color: #cccccc;
+	color: #000000;
+		font-size: 12pt;
+}
+</style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Writing GitHub Web Hooks with Bash</h1>
+						<p>Bring your GitHub repository to the next level of functionality.</p>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<section id="content" class="main">
+							<p>
+For the past year since Microsoft has acquired GitHub, I've been hosting
+my Git repositories on a private server. Although I relished the opportunity
+and challenge of setting it all up, and the end product works well for my
+needs, doing this was not without its sacrifices. GitHub offers a clean interface
+for configuring many Git features that otherwise would require more time and
+effort than simply clicking a button. One of the features made easier to
+implement by GitHub that I was most fond of was web hooks.
+A web hook is
+executed when a specific event occurs within the GitHub application. Upon
+execution, data is sent via an <code>HTTP POST</code> to a specified URL.
+</p>
+
+<p>
+This article
+walks through how to set up a custom web hook, including configuring a
+web server, processing the POST data from GitHub and creating a few basic
+web hooks using Bash.
+</p>
+
+<h3>
+Preparing Apache</h3>
+
+<p>
+For the purpose of this project, let's use the Apache web server to host
+the web hook scripts. The module that Apache uses to run server-side shell
+scripts is <code>mod_cgi</code>, which is available on major Linux distributions.
+</p>
+
+<p>
+Once
+the module is enabled, it's time to configure the directory permissions and
+virtual host within Apache. Use the /opt/hooks directory to host the
+web hooks, and give ownership of this directory to the
+user that runs Apache. To determine the user running an Apache instance,
+run the following command (provided Apache is currently running):
+
+</p><pre>
+<code>
+ps -e -o %U%c| grep 'apache2\|httpd'
+</code>
+</pre>
+
+
+<p>
+These commands will return a two-column output containing the name of the
+user running Apache and the name of the Apache binary (typically either
+<code>httpd</code> or <code>apache2</code>). Grant directory
+permission with the following
+<code>chown</code> command (where <code>USER</code> is the name of the
+user shown in the previous <code>ps</code> command):
+
+</p><pre>
+<code>
+chown -R USER /opt/hooks
+</code>
+</pre>
+
+
+<p>
+Within this directory, two sub-directories will be created: html and
+cgi-bin. The html folder will be used as a web root for the virtual host,
+and cgi-bin will contain all shell scripts for the virtual host. Be aware
+that as new sub-directories and files are created under /opt/hooks, you
+may need to rerun the
+above <code>chown</code> to verify proper access to files
+and sub-directories.
+</p>
+
+<p>
+Here's the configuration for the virtual host within
+Apache:
+
+</p><pre>
+<code>
+&lt;VirtualHost *:80&gt;
+  ServerName SERVERNAME
+  ScriptAlias "/cgi-bin" "/opt/hooks/cgi-bin"
+  DocumentRoot /opt/hooks/html
+&lt;/VirtualHost&gt;
+</code>
+</pre>
+
+
+<p>
+Change the value of the <code>ServerName</code> directive from
+<code>SERVERNAME</code> to
+the name of the host that will be accessed via the web hook. This
+configuration provides base functionality to host files and executes shell
+scripts. The <code>DocumentRoot</code> directive specifies the root of the virtual host
+using an absolute path on the local system. The <code>ScriptAlias</code> directive
+takes two arguments: an absolute path within the virtual host and an
+absolute path on the local system. The path within the virtual host is
+mapped to the local system path. <code>mod_cgi</code> handles all requests made to the path specified
+in the <code>ScriptAlias</code> directive.
+(Note: any additional
+configuration including SSL or logging isn't covered in this
+article.)
+</p>
+
+<h3>
+CGI Basics</h3>
+
+<p>
+You'll need a basic understanding of the HTTP protocol and Bash
+scripting to understand how CGI scripts work. When a request is made to
+an HTTP server, a response is generated and sent back to the client. The
+HTTP request contains headers that instruct the server how to handle the
+request. Likewise, the HTTP response contains headers that instruct the
+client how to handle the response. Viewing and analyzing HTTP traffic can
+be very simple using the developer tools on any modern browser. Here's a
+simple example of an HTTP request and response:
+</p>
+
+<p>
+Request:
+
+</p><pre>
+<code>
+POST /cgi-bin/clone.cgi HTTP/1.1
+Host: hooks.andydoestech.com
+Content-length: 86
+
+{"repository":{"name":webhook-test","url":https://github.com/
+↪bng44270/webhook-test"}}
+</code>
+</pre>
+
+
+<p>
+Response:
+
+</p><pre>
+<code>
+HTTP/1.1 200 OK
+Date: Tue, 11 Jun 2019 02:44:52 GMT
+Content-Length: 18
+Content-Type: text/json
+
+{"success":"true"}
+</code>
+</pre>
+
+
+<p>
+The request is making a <code>POST</code> request to the clone.cgi file
+located in http://hooks.andydoestech.com//cgi-bin/. The response contains
+the response code, date/time when the request was handled, the length of
+the content body (in bytes) and the content body itself. Although there are
+instances when binary data may be sent via HTTP, the examples in this
+article deal only with clear-text transmissions.
+</p>
+
+<p>
+Given the robust text-processing capabilities and commands available, Bash
+is well suited for constructing and manipulating the text in an HTTP
+transaction. If the above HTTP request were to be handled by a Bash
+script, it might look like this:
+
+</p><pre>
+<code>
+#!/bin/bash
+
+JSONPOST="$(cat -)"
+
+echo "Date: $(date)"
+echo "Content-Length: 18"
+echo "Content-Type: text/json"
+echo ""
+echo "{\"success\":\"true\"}"
+</code>
+</pre>
+
+
+<p>
+Although this script is lacking in logic, it nicely illustrates how the HTTP
+<code>POST</code> data is captured as the <code>JSONPOST</code> variable, and how the HTTP response
+headers and data are returned to the client via standard script output.
+</p>
+
+<h3>
+Parsing JSON</h3>
+
+<p>
+Although many GitHub resources can trigger web hooks, this article
+focuses specifically on the push event that fires when data is remotely
+pushed into a code repository. When the HTTP POST request of a web hook is
+made, a JSON object is posted to the URL. This JSON object contains many
+pieces of information relating to the push operation, including information
+about the repository and commits contained in the data push. The command
+to parse individual values out of the POST JSON is <code>jq</code>,
+which is available on major Linux distributions. The syntax for the
+command requires the desired property to be specified in dot notation. As
+an example, consider the following snippet of the JSON object returned from
+GitHub:
+
+</p><pre>
+<code>
+{
+  "repository": {
+    "name": "webhook-test",
+    "git_url": "git://github.com/bng44270/webhook-test.git",
+    "ssh_url": "git@github.com:bng44270/webhook-test.git",
+    "clone_url": "https://github.com/bng44270/webhook-test.git",
+  }
+}
+</code>
+</pre>
+
+
+<p>
+To return the value of the attribute named <code>clone_url</code> using
+<code>jq</code>, you would use the
+following syntax:
+
+</p><pre>
+<code>
+jq -r '.repository.clone_url' &lt;&lt;&lt; 'JSON'
+</code>
+</pre>
+
+
+<p>
+After replacing JSON with the text representation of the JSON object, this
+command would return the HTTP repository clone URL. Using command
+substitution, the value of a JSON attribute can be assigned to a Bash
+variable for use within a script.
+</p>
+
+<h3>
+Hook #1: Simple Backup</h3>
+
+<p>
+The first hook I want to cover will create a backup of the repository
+on the Apache server hosting the web hook scripts. The above VirtualHost
+configuration will be used in this example. Here's the repository backup
+web hook script:
+
+</p><pre>
+<code>
+1  #!/bin/bash
+2
+3  REPODIR="/opt/hooks/html/repos"
+4
+5  json_resp() {
+6       echo '{"result":"'"$([[ $1 -eq 0 ]] &amp;&amp; echo "success"
+ ↪|| echo "failure")"'"}'
+7  }
+8
+9  POSTJSON="$(cat -)"
+10
+11 REPOURL="$(jq -r ".repository.clone_url" &lt;&lt;&lt; "$POSTJSON")"
+12 REPONAME="$(jq -r ".repository.name" &lt;&lt;&lt; "$POSTJSON")"
+13
+14 echo "Content-type: text/json"
+15 echo ""
+16
+17 if [ -d $REPODIR/$REPONAME ]; then
+18      pushd .
+19      cd $REPODIR/$REPONAME
+20      git pull
+21      json_resp $?
+22      popd
+23 else
+24      mkdir $REPODIR/$REPONAME
+25      git clone $REPOURL $REPODIR/$REPONAME
+26      json_resp $?
+27 fi
+</code>
+</pre>
+
+
+<p>
+The <code>REPODIR</code> variable at the beginning of the script indicates the directory
+that will contain all repository directories. The <code>json_resp</code> function
+allows the code that generates a JSON response to be reused multiple
+times in the script. Just like in the example above, the <code>HTTP
+POST</code> data is
+captured in the <code>POSTJSON</code> variable. In lines 11 and 12, the
+<code>clone_url</code> and
+name attributes are pulled from the <code>POSTJSON</code> variable using
+<code>jq</code>. Line 14
+begins the creation of HTTP response headers. The <code>if</code> block on
+lines 17–27
+determines whether the repository already has been cloned. If it has, the
+script moves to the repository folder, pulls down repository changes and
+returns to the original working directory. If the folder does not exist,
+the directory is created, and the repository is cloned to the new directory.
+Note the use of the <code>$REPODIR</code> variable that was set at the beginning of the
+script. Whether the repositor is cloned or updates are pulled down, the
+<code>json_resp</code> function is called to generate the response JSON, which will
+contain a single attribute named "success" with a value of "true" or
+"false" depending on the outcome of the respective <code>git</code> commands.
+</p>
+
+<h3>
+Hook #2: Build and Package</h3>
+
+<p>
+Backing up repositories can be useful. With the vast number of build tools
+available on the command line, it makes sense to create a web hook that will
+deliver a built package for code in a repository. This could be built out
+into a robust solution filling the need for Continuous
+Integration/Deployment (CI/CD). Here's the build/deploy web hook script:
+
+</p><pre>
+<code>
+1  #!/bin/bash
+2
+3  WEBROOT="/opt/hooks/html/archive"
+4  REPODIR="/opt/hooks/html/repos"
+5  WEBURL="http://hooks.andydoestech.com/archive"
+6
+7  json_package() {
+8       echo '{"result":"'$([[ $1 -eq 0 ]] &amp;&amp; echo
+ ↪"\"success\",\"url\":\"$1\"" ||
+ ↪echo "\"package failure\"")"'}'
+9  }
+10
+11 run_make() {
+12      [[ -d $REPODIR/$REPONAME/build ]] &amp;&amp; make -s -C
+ ↪$REPODIR/$REPONAME clean
+13      if [ $1 -eq 0 ]; then
+14              make -s -C $REPODIR/$REPONAME
+15              if [ -d $REPODIR/$REPONAME/build ]; then
+16                      FILENAME="$REPONAME-$COMMITTIME.tar.gz"
+17                      tar -czf $WEBROOT/$FILENAME -C
+ ↪$REPODIR/$REPONAME/build .
+18                      json_package "$?" "$WEBURL/$FILENAME"
+19              else
+20                      echo '{"result":"build failure"}'
+21              fi
+22      else
+23              echo '{"result":"clone/pull failure"}'
+24      fi
+25 }
+26
+27 POSTJSON="$(cat -)"
+28
+29 REPOURL="$(jq -r ".repository.url" &lt;&lt;&lt; "$POSTJSON")"
+30 REPONAME="$(jq -r ".repository.name" &lt;&lt;&lt; "$POSTJSON")"
+31 COMMITTIME="$(jq -r '.commits[0].timestamp' &lt;&lt;&lt;
+ ↪"$POSTJSON" | date -d "$(cat -)" +"%m-%d-%YT%H-%M-%S")"
+32
+33 echo "Content-type: text/json"
+34 echo ""
+35
+36 if [ -d $REPODIR/$REPONAME ]; then
+37      pushd .
+38      cd $REPODIR/$REPONAME
+39      git pull
+40      run_make $?
+41      popd
+42 else
+43      mkdir $REPODIR/$REPONAME
+44      git clone $REPOURL $REPODIR/$REPONAME
+45      run_make $?
+46 fi
+</code>
+</pre>
+
+
+<p>
+In a similar manner to Hook #1, variables are defined at the beginning of
+the script to specify the directory where repositories will be cloned, the
+directory where build packages will be stored and the base URL of build
+packages. The two functions defined on lines 7–25 will be used later in
+the script. Lines 27–31 are capturing the JSON POST data and parsing out
+attributes into shell variables using <code>jq</code>. Note that the format of the date
+in <code>COMMITTIME</code> is being modified from its original form (this will make
+sense later). Lines 33–46 are almost identical to Hook #1 in terms of
+setting HTTP headers and cloning/pulling repository with an addition of a
+call to the <code>run_make</code> function. The return status of the clone/pull is
+passed to the <code>run_make</code> function. If the clone/pull ran
+successfully, the
+function assumes there is a Makefile in the root of the repository. The
+Makefile is assumed to behave in the following manner:
+</p>
+
+<ul><li>
+When <code>make</code> is executed, the solution is built into a folder named "build"
+within the repository.</li>
+
+<li>
+When <code>make clean</code> is executed, the "build" folder is deleted.</li>
+</ul><p>
+Beginning on line 12, if the build folder exists, <code>make clean</code> is executed to
+remove it. If the make in line 13 is successful, an archive filename is
+constructed using <code>REPONAME</code> and <code>COMMITTIME</code>. Note that the value of
+<code>COMMITTIME</code> contains no spaces for a proper filename. The status code of
+the <code>tar</code> command on line 17 is passed into the
+<code>json_package</code> function. If
+the archive was created successfully, a JSON object containing two JSON
+attributes are defined: <code>result</code> is set to "success", and
+<code>url</code> is set to the
+URL of the archive. If the archive was unable to be created, the result
+attribute is set to "package failure".
+</p>
+
+<p>
+GitHub provides many features, but without question, web hooks provides
+the DevOps engineer with tools to accomplish almost any task.
+Leveraging the functionality of Apache with CGI and Bash scripting in such
+a way that it can be consumed by GitHub allows for almost endless
+possibilities.
+</p>
+
+<h3>Resources</h3>
+
+<p>
+For more information on topics mentioned in this article,
+refer to the following links:
+</p>
+
+<ul><li>
+<a href="https://developer.github.com/webhooks">Github Web Hooks
+Documentation</a>
+</li>
+
+<li>
+<a href="https://httpd.apache.org/docs/2.4/mod/mod_alias.html">Apache
+mod_alias (contains ScriptAlias directive)</a>
+</li>
+
+<li>
+<a href="https://httpd.apache.org/docs/2.4/mod/mod_cgi.html">Apache
+mod_cgi</a>
+</li>
+
+<li>
+<a href="https://www.linuxjournal.com/content/building-bare-bones-git-environment">"Building
+a Bare-Bones Git Environment" by Andy Carlson</a>, <em>LJ</em>, July 2018
+</li></ul>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+                                                <section>
+                                                        <h2>Andy Does Tech</h2>
+                                                        <a href="http://www.andydoestech.com">www.andydoestech.com</a>
+                                                </section>
+                                                <section>
+                                                        <ul class="icons">
+                                                                <li><a href="http://twitter.com/linuxfu" alt="@linuxfu on Twitter" target="_blank"><i class="fab fa-twitter fa-2x"></i></a></li>
+                                                                <li><a href="http://facebook.com/linuxfu" alt="linuxfu on Facebook" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
+                                                                <li><a href="https://linkedin.com/in/carlsonandy" alt="LinkedIn" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+                                                        </ul>
+                                                </section>
+                                                <p class="copyright">Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                                        </footer>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
