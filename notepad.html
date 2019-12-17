@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Notepad</title>
+</head>
+<body onLoad="loadText();">
+<textarea style="font-family:courier" width="100%" height="90%" id="localnotepad" onChange="clearStatus();"></textarea><br/>
+<input type="button" value="Save" onClick="saveText()" />&nbsp;&nbsp;<span id="statusbar"></span>
+<script type="text/javascript">
+  function loadText() {
+    if (localStorage.localnotepad) {
+      document.getElementById('localnotepad').value = localStorage.localnotepad;
+    }
+  }
+  
+  function saveText() {
+    localStorage.localnotepad = document.getElementById('localnotepad').value;
+    document.getElementById('statusbar').innerHTML = '<b>Notepad Saved</b>';
+  }
+  
+  function clearStatus() {
+    document.getElementById('statusbar').innerHTML = '';
+  }
+</script>
+</body>
