@@ -24,7 +24,7 @@
   function downloadText() {
     var textToWrite = document.getElementById("localnotepad").value;
     var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
-    var fileNameToSaveAs = "localnotepad.txt";
+    var fileNameToSaveAs = "localnotepad-" + new Date().toISOString().replace(/:/g,".") + ".txt";
     
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
