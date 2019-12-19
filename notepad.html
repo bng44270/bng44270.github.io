@@ -3,17 +3,19 @@
 <title>Notepad</title>
 </head>
 <body onLoad="loadEditor();">
-<span border="2px solid #000000;">Font size:&nbsp;<input type="button" value="+" onclick="fontBigger();" /><input type="button" value="-" onclick="fontSmaller();" /></span>&nbsp;&nbsp;<input type="button" value="Save" onClick="saveText()" />&nbsp;&nbsp;<input type="button" value="Download" onClick="downloadText();" />&nbsp;&nbsp;<select id="inserttable" onchange="if (this.value != 'NONE') insertTable();"><option value="NONE">Insert Table</option></select>&nbsp;&nbsp;<span id="statusbar" style="font-color:#ff0000;"></span>
+<span border="2px solid #000000;">Font size:&nbsp;<input type="button" value="+" onclick="fontBigger();" /><input type="button" value="-" onclick="fontSmaller();" /></span>&nbsp;&nbsp;<input type="button" value="Save" onClick="saveText()" />&nbsp;&nbsp;<input type="button" value="Download" onClick="downloadText();" />&nbsp;&nbsp;Insert List&nbsp;<input type="text" id="tablerows" onKeyUp="if (parseInt(this.value)) insertTable();" />&nbsp;rows&nbsp;&nbsp;<span id="statusbar" style="font-color:#ff0000;"></span>
 <textarea style="width: 100%; height: 90%; box-sizing: border-box; font-family:courier; font-size:12pt;" id="localnotepad" onkeyup="markAsEdited();"></textarea><br/>
 
 <script type="text/javascript">
   function insertTable() {
     document.getElementById('localnotepad').value += '\n\n';
-    for (var i = 0; i < parseInt(document.getElementById('inserttable').value); i++) {
+    for (var i = 0; i < parseInt(document.getElementById('tablerows').value); i++) {
       document.getElementById('localnotepad').value += '  -\n';
     }
     
-    document.getElementById('inserttable').value = 'NONE'; 
+    document.getElementById('tablerows').value = ''; 
+    
+    markAsEdited();
   }
   function fontBigger() {
     var newFont = (parseInt(document.getElementById('localnotepad').style.fontSize.replace(/pt$/,'')) + 1).toString() + 'pt';
@@ -30,10 +32,6 @@
   function loadEditor() {
     document.getElementById('localnotepad').value = (localStorage.localnotepad_content) ? localStorage.localnotepad_content : '';
     document.getElementById('localnotepad').style.fontSize = (localStorage.localnotepad_size) ? localStorage.localnotepad_size : '12pt';
-    
-    for (var i = 1; i <= 100; i++) {
-      document.getElementById('inserttable').innerHTML += '<option value="' + i.toString() + '">' + i.toString() + ' rows</option>';
-    }
   }
   
   function saveText() {
