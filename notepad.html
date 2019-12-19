@@ -3,7 +3,8 @@
 <title>Notepad</title>
 </head>
 <body onLoad="loadText();">
-<textarea style="width: 100%; height: 90%; box-sizing: border-box; font-family:courier" id="localnotepad" onchange="clearStatus();"></textarea><br/>
+<input type="button" value="+" onclick="fontBigger();" /><input type="button" value="-" onclick="fontSmaller();" />
+<textarea style="width: 100%; height: 90%; box-sizing: border-box; font-family:courier; font-size:12pt;" id="localnotepad" onchange="clearStatus();"></textarea><br/>
 <input type="button" value="Save" onClick="saveText()" /><input type="button" value="Download" onClick="downloadText();" />&nbsp;&nbsp;<span id="statusbar"></span>
 <script type="text/javascript">
   function loadText() {
