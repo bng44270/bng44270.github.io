@@ -32,7 +32,7 @@
     document.getElementById('localnotepad').style.fontSize = (localStorage.localnotepad_size) ? localStorage.localnotepad_size : '12pt';
     
     for (var i = 1; i <= 100; i++) {
-      document.getElementById('inserttable').innerHTML += '<option="' + i.toString() + '">' + i.toString() + ' rows</option>';
+      document.getElementById('inserttable').innerHTML += '<option value="' + i.toString() + '">' + i.toString() + ' rows</option>';
     }
   }
   
