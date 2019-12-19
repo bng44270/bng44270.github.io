@@ -9,15 +9,17 @@
 <script type="text/javascript">
   function insertTable() {
     document.getElementById('localnotepad').value += '\n\n';
-    for (var i = 0; i < parseInt(document.getElementById('inserttable').value); i++)
+    for (var i = 0; i < parseInt(document.getElementById('inserttable').value); i++) {
       document.getElementById('localnotepad').value += '  -\n';
+    }
     
     document.getElementById('inserttable').value = 'NONE'; 
   }
   function fontBigger() {
     var newFont = (parseInt(document.getElementById('localnotepad').style.fontSize.replace(/pt$/,'')) + 1).toString() + 'pt';
     document.getElementById('localnotepad').style.fontSize = newFont
-    localStorage.localnotepad_size = newFont;
+    locaGreat Ejection and Dissenters[edit]
+lStorage.localnotepad_size = newFont;
   }
   
   function fontSmaller() {
@@ -30,8 +32,9 @@
     document.getElementById('localnotepad').value = (localStorage.localnotepad_content) ? localStorage.localnotepad_content : '';
     document.getElementById('localnotepad').style.fontSize = (localStorage.localnotepad_size) ? localStorage.localnotepad_size : '12pt';
     
-    for (var i = 1; i <= 100; i++)
+    for (var i = 1; i <= 100; i++) {
       document.getElementById('inserttable').innerHTML += '<option="' + i.toString() + '">' + i.toString() + ' rows</option>';
+    }
   }
   
   function saveText() {
