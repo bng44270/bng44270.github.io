@@ -11,6 +11,7 @@
     if (event.keyCode == 13) {
       document.getElementById('localnotepad').value += '\n\n' + document.getElementById('listname').value + '\n';
       document.getElementById('createlistbox').innerHTML = 'Insert List&nbsp;<input type="text" id="tablerows" onKeyUp="insertTable(event);" />&nbsp;rows';
+      document.getElementById('tablerows').focus();
       markAsEdited();
     }
   }
