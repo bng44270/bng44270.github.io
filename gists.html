@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Repositories - Andy Does Tech</title>
+		<title>Gists - Andy Does Tech</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -29,13 +29,13 @@ code {
 
 				<!-- Header -->
 					<header id="header">
-						<h1>Repositories</h1>
-						<p>Code that I've written</p>
+						<h1>Gists</h1>
+						<p>Little bits of code that I've written</p>
 					</header>
 
 				<!-- Main -->
 					<div id="main">
-
+						<select id="gisttype" onCLick="viewGistType();"></select>
 						<!-- Content -->
 							<section id="content" class="main">
 							</section>
@@ -66,10 +66,36 @@ code {
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 <script type="text/javascript">
-  var skipRepos = ['bng44270.github.io','advanced-js-k2020','knowledge_2019_loaner_request','snWebCli','snWebCli-Additions','devtraining-needit-newyork'];
+  Array.prototype.unique = function() {
+    newAr = [];
+    this.forEach(function(thisItem) {
+      if (newAr.indexOf(thisItem) == -1) newAr.push(thisItem);
+    });
+    return newAr;
+  };
+
+  function viewGistType() {
+    $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
+      $('#content').html(gistData.filter(function(thisGist) {
+        if (thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val()) {
+		return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+	}
+      }).join('<br/>');
+    });
+
+
 
   $(document).ready(function() {
-    $.get('https://api.github.com/users/bng44270/repos',function(repoData) {
+    $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
+		    var types = gistData.map(function(thisGist) {
+			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
+			    return type;
+		    }).unique().sort();
+
+		    types.forEach(function(thisType) {
+			    $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+		    });
+		    
 		    $('#content').html('<table>' + repoData.filter(function(thisRepo) {
 			    return skipRepos.indexOf(thisRepo['name']) == -1;
 		    }).map(function(thisRepo) {
