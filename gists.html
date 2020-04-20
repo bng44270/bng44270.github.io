@@ -116,9 +116,9 @@ code {
 				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 				$.get(link,function(newGistData) {
 					newGistData.map(function(thisGist) {
-			    		var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
-			   			return type;
+			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).unique().forEach(function(thisType) {
+						console.log("TYPE:  " + thisType);
 						types.push(thisType);
 					});
 				});
