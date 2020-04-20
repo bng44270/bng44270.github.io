@@ -75,22 +75,53 @@ code {
   };
 
   function viewGistType() {
-    $.get('https://api.github.com/users/bng44270/gists',function(respData) {
-	  var gistData = respData.responseJSON;
-      $('#content').html(gistData.filter(function(thisGist) {
-        return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
-	  }).map(function(thisGist) {
-		return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
-	  }).join('<br/>'));
+    $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
+		var gists = [];
+
+		gistData.filter(function(thisGist) {
+        	return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
+	  	}).map(function(thisGist) {
+			return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+	  	}).forEach(function(thisGist) {
+			  gists.push(thisGist);
+		});
+
+		xhr.getResponseHeader('link').split(',').map(function(thisLink) {
+			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
+			$.get(link,function(newGistData) {
+				newGistData.map(function(thisGist) {
+			   		var gist = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
+					return type;
+		    	}).unique().forEach(function(thisNewGist) {
+					gists.push(thisNewGist);
+				});
+			});
+		});
+		
+      	$('#content').html(gists.join('<br/>'));
     });
   }
   $(document).ready(function() {
-    $.get('https://api.github.com/users/bng44270/gists',function(respData) {
-		var gistData = respData.responseJSON;
-		    var types = gistData.map(function(thisGist) {
+    $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
+			var types = [];
+		    gistData.map(function(thisGist) {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 			    return type;
-		    }).unique().sort();
+		    }).unique().forEach(function(thisType) {
+				types.push(thisType);
+			});
+
+			xhr.getResponseHeader('link').split(',').map(function(thisLink) {
+				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
+				$.get(link,function(newGistData) {
+					newGistData.map(function(thisGist) {
+			    		var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
+			   			return type;
+		    		}).unique().forEach(function(thisType) {
+						types.push(thisType);
+					});
+				});
+			});
 
 		    types.forEach(function(thisType) {
 			    $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
