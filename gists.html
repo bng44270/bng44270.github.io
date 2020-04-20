@@ -75,7 +75,8 @@ code {
   };
 
   function viewGistType() {
-    $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
+    $.get('https://api.github.com/users/bng44270/gists',function(respData) {
+	  var gistData = respData.responseJSON;
       $('#content').html(gistData.filter(function(thisGist) {
         return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
 	  }).map(function(thisGist) {
@@ -84,7 +85,8 @@ code {
     });
   }
   $(document).ready(function() {
-    $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
+    $.get('https://api.github.com/users/bng44270/gists',function(respData) {
+			
 		    var types = gistData.map(function(thisGist) {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 			    return type;
