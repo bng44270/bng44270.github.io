@@ -75,15 +75,17 @@ code {
   };
 
   function viewGistType() {
+	$('#content').html('');
+	
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
 		var gists = [];
 
 		gistData.filter(function(thisGist) {
         	return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
 	  	}).map(function(thisGist) {
-			return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+			return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  	}).forEach(function(thisGist) {
-			  gists.push(thisGist);
+			$('#content').append(thisGist);
 		});
 
 		xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
@@ -92,16 +94,15 @@ code {
 				newGistData.filter(function(thisGist) {
         			return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
 	  			}).map(function(thisGist) {
-					return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+					return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  			}).forEach(function(thisNewGist) {
-					gists.push(thisNewGist);
+					$('#content').append(thisGist);
 				});
 			});
 		});
-		
-      	$('#content').html(gists.join('<br/>'));
     });
   }
+
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
 			var types = [];
@@ -109,7 +110,7 @@ code {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 			    return type;
 		    }).unique().forEach(function(thisType) {
-				types.push(thisType);
+				$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
 			});
 
 			xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
@@ -118,15 +119,10 @@ code {
 					newGistData.map(function(thisGist) {
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).unique().forEach(function(thisType) {
-						console.log("TYPE:  " + thisType);
-						types.push(thisType);
+						$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
 					});
 				});
 			});
-
-		    types.forEach(function(thisType) {
-			    $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
-		    }); 
 		});
   });
 </script>
