@@ -35,9 +35,9 @@ code {
 
 				<!-- Main -->
 					<div id="main">
-						<select id="gisttype" onCLick="viewGistType();"></select>
+						<span id="loadingsel">Loading...</span><select id="gisttype" onCLick="viewGistType();"></select>
 						<!-- Content -->
-							<section id="content" class="main">
+							<span id="loadinglist">Loading...</span><section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
 
@@ -75,6 +75,8 @@ code {
   };
 
   function viewGistType() {
+	  $('#content').hide();
+	  $('#loadinglist').show();
 	$('#content').html('');
 
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
@@ -82,7 +84,7 @@ code {
 		gistData.filter(function(thisGist) {
         	return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
 	  	}).map(function(thisGist) {
-			return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
+			return '<a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  	}).forEach(function(thisGist) {
 			$('#content').append(thisGist);
 		});
@@ -93,16 +95,21 @@ code {
 				newGistData.filter(function(thisGist) {
         			return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
 	  			}).map(function(thisGist) {
-					return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
+					return '<a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  			}).forEach(function(thisNewGist) {
 					$('#content').append(thisNewGist);
 				});
 			});
 		});
+
+		$('#loadinglist').hide();
+		$('#content').show();
     });
   }
 
   $(document).ready(function() {
+	  $('#loadinglist').hide();
+	  $('#gisttype').hide();
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
 		    gistData.map(function(thisGist) {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
@@ -122,6 +129,9 @@ code {
 				});
 			});
 		});
+
+		$('#loadingsel').hide();
+		$('#gisttype').show();
   });
 </script>
 </body>
