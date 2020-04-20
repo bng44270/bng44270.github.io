@@ -77,10 +77,10 @@ code {
   function viewGistType() {
     $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
       $('#content').html(gistData.filter(function(thisGist) {
-        if (thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val()) {
-	  	  return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
-	    }
-      }).join('<br/>'));
+        return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
+	  }).map(function(thisGist) {
+		return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+	  }).join('<br/>'));
     });
   }
   $(document).ready(function() {
