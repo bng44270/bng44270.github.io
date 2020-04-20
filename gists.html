@@ -86,7 +86,7 @@ code {
 			  gists.push(thisGist);
 		});
 
-		xhr.getResponseHeader('link').split(',').map(function(thisLink) {
+		xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
 			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 			$.get(link,function(newGistData) {
 				newGistData.filter(function(thisGist) {
@@ -112,7 +112,7 @@ code {
 				types.push(thisType);
 			});
 
-			xhr.getResponseHeader('link').split(',').map(function(thisLink) {
+			xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
 				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 				$.get(link,function(newGistData) {
 					newGistData.map(function(thisGist) {
