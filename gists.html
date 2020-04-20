@@ -76,9 +76,8 @@ code {
 
   function viewGistType() {
 	$('#content').html('');
-	
+
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
-		var gists = [];
 
 		gistData.filter(function(thisGist) {
         	return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
@@ -96,7 +95,7 @@ code {
 	  			}).map(function(thisGist) {
 					return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  			}).forEach(function(thisNewGist) {
-					$('#content').append(thisGist);
+					$('#content').append(thisNewGist);
 				});
 			});
 		});
@@ -105,7 +104,6 @@ code {
 
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
-			var types = [];
 		    gistData.map(function(thisGist) {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 			    return type;
