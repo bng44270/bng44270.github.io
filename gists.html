@@ -35,7 +35,7 @@ code {
 
 				<!-- Main -->
 					<div id="main">
-						<span id="loadingsel">Loading...</span><select id="gisttype" onCLick="viewGistType();"></select>
+						Files:<span id="loadingsel">Loading...</span><select id="gisttype" onCLick="viewGistType();"></select>
 						<!-- Content -->
 							<span id="loadinglist">Loading...</span><section id="content" class="main">
 							</section>
@@ -83,7 +83,7 @@ code {
 
 		gistData.filter(function(thisGist) {
         	return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
-	  	}).unique().map(function(thisGist) {
+	  	}).map(function(thisGist) {
 			return '<a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  	}).forEach(function(thisGist) {
 			$('#content').append(thisGist);
@@ -94,7 +94,7 @@ code {
 			$.get(link,function(newGistData) {
 				newGistData.filter(function(thisGist) {
         			return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
-	  			}).unique().map(function(thisGist) {
+	  			}).map(function(thisGist) {
 					return '<a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
 	  			}).forEach(function(thisNewGist) {
 					$('#content').append(thisNewGist);
@@ -124,7 +124,11 @@ code {
 					newGistData.map(function(thisGist) {
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).unique().forEach(function(thisType) {
-						$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+						if ($('#gisttpe').childNodes.map(function(thisOpt) {
+							return thisOpt.value;
+						}).indexOf(thisType) == -1) {
+							$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+						}
 					});
 				});
 			});
