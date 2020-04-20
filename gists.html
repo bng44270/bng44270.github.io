@@ -80,8 +80,7 @@ code {
         if (thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val()) {
 		return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
 	}
-      }).join('<br/>');
-    });
+      }).join('<br/>'));
 
 
 
