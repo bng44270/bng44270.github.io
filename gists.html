@@ -86,7 +86,7 @@ code {
   }
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/gists',function(respData) {
-			
+		var gistData = respData.responseJSON;
 		    var types = gistData.map(function(thisGist) {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 			    return type;
