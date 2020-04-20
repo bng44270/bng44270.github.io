@@ -78,13 +78,11 @@ code {
     $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
       $('#content').html(gistData.filter(function(thisGist) {
         if (thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val()) {
-		return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
-	}
+	  	  return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+	    }
       }).join('<br/>'));
     });
-
-
-
+  }
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/gists',function(gistData) {
 		    var types = gistData.map(function(thisGist) {
@@ -94,14 +92,8 @@ code {
 
 		    types.forEach(function(thisType) {
 			    $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
-		    });
-		    
-		    $('#content').html('<table>' + repoData.filter(function(thisRepo) {
-			    return skipRepos.indexOf(thisRepo['name']) == -1;
-		    }).map(function(thisRepo) {
-	      return ('<tr><td><a href="./repo_details.html?name=' + thisRepo['name'] + '">' + thisRepo['name'] + '</a></td></tr>');
-      }).join('') + '</table>');
-    });
+		    }); 
+		});
   });
 </script>
 </body>
