@@ -89,10 +89,11 @@ code {
 		xhr.getResponseHeader('link').split(',').map(function(thisLink) {
 			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 			$.get(link,function(newGistData) {
-				newGistData.map(function(thisGist) {
-			   		var gist = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
-					return type;
-		    	}).unique().forEach(function(thisNewGist) {
+				newGistData.filter(function(thisGist) {
+        			return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
+	  			}).map(function(thisGist) {
+					return '<a href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></td>';
+	  			}).forEach(function(thisNewGist) {
 					gists.push(thisNewGist);
 				});
 			});
