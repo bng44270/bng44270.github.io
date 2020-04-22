@@ -114,8 +114,12 @@ code {
 		    gistData.map(function(thisGist) {
 			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 			    return type;
-		    }).unique().forEach(function(thisType) {
-				$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+		    }).forEach(function(thisType) {
+				var found = false;
+				for (var thisOpt in $('#gisttype')[0].childNodes) {
+					if (thisOpt.value == thisType) found = true;
+				}
+				if (!found) $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
 			});
 
 			xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
@@ -123,7 +127,7 @@ code {
 				$.get(link,function(newGistData) {
 					newGistData.map(function(thisGist) {
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
-		    		}).unique().forEach(function(thisType) {
+		    		}).forEach(function(thisType) {
 						var found = false;
 						for (var thisOpt in $('#gisttype')[0].childNodes) {
 							if (thisOpt.value == thisType) found = true;
