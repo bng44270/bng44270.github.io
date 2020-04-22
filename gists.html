@@ -112,13 +112,14 @@ code {
 	  $('#gisttype').hide();
     $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
 		    gistData.map(function(thisGist) {
-			    var type = thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
-			    return type;
+				//return file type
+			    return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    }).forEach(function(thisType) {
 				var found = false;
 				for (var thisOpt in $('#gisttype')[0].childNodes) {
 					if (thisOpt.value == thisType) {
 						found = true;
+						break;
 					}
 				}
 				if (!found) {
@@ -130,12 +131,14 @@ code {
 				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 				$.get(link,function(newGistData) {
 					newGistData.map(function(thisGist) {
+						//return file type
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).forEach(function(thisType) {
 						var found = false;
 						for (var thisOpt in $('#gisttype')[0].childNodes) {
 							if (thisOpt.value == thisType) {
 								found = true;
+								break;
 							}
 						}
 						if (!found) {
