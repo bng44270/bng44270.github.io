@@ -121,23 +121,15 @@ code {
 			});
 
 			xhr.getResponseHeader('link').split(',').forEach(thisLink => {
-				var additionalAr = [];
 				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 				$.get(link,newGistData => {
-					var linkAr = [];
 					newGistData.map(thisGist => {
 						//return file type
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).forEach(thisType => {
-						if (linkAr.indexOf(thisType) == -1) linkAr.push(thisType);
+						console.log(JSON.stringify(gistTypeAr));
+						if (gistTypeAr.indexOf(thisType) == -1) gistTypeAr.push(thisType);
 					});
-
-					linkAr.forEach(thisType => {
-						if (additionalAr.indexOf(thisType) == -1) additionalAr.push(thisType);
-					});
-				});
-				additionalAr.forEach(thisType => {
-					if (gistTypeAr.indexOf(thisType) == -1) gistTypeAr.push(thisType);
 				});
 			});
 			
