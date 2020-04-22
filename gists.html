@@ -110,42 +110,30 @@ code {
   $(document).ready(function() {
 	  $('#loadinglist').hide();
 	  $('#gisttype').hide();
-    $.get('https://api.github.com/users/bng44270/gists',function(gistData,status,xhr) {
-		    gistData.map(function(thisGist) {
+	  var gistTypeAr = [];
+    $.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
+			
+		    gistData.map(thisGist => {
 				//return file type
 			    return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
-		    }).forEach(function(thisType) {
-				var found = false;
-				for (var thisOpt in $('#gisttype')[0].childNodes) {
-					if (thisOpt.value == thisType) {
-						found = true;
-						break;
-					}
-				}
-				if (!found) {
-					$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
-				}
+		    }).forEach(thisType => {
+				if (gistTypeAr.indexOf(thisType) == -1) gistTypeAr.push(thisType);
 			});
 
-			xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
+			xhr.getResponseHeader('link').split(',').forEach((thisLink) => {
 				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
-				$.get(link,function(newGistData) {
-					newGistData.map(function(thisGist) {
+				$.get(link,(newGistData) => {
+					newGistData.map((thisGist) => {
 						//return file type
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
-		    		}).forEach(function(thisType) {
-						var found = false;
-						for (var thisOpt in $('#gisttype')[0].childNodes) {
-							if (thisOpt.value == thisType) {
-								found = true;
-								break;
-							}
-						}
-						if (!found) {
-							 $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
-						}
+		    		}).forEach((thisType) => {
+						if (gistTypeAr.indexOf(thisType) == -1) gistTypeAr.push(thisType);
 					});
 				});
+			});
+			
+			gistTypeAr.forEach(thisType => {
+				$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
 			});
 		});
 
