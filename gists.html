@@ -117,9 +117,13 @@ code {
 		    }).forEach(function(thisType) {
 				var found = false;
 				for (var thisOpt in $('#gisttype')[0].childNodes) {
-					if (thisOpt.value == thisType) found = true;
+					if (thisOpt.value == thisType) {
+						found = true;
+					}
 				}
-				if (!found) $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+				if (!found) {
+					$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+				}
 			});
 
 			xhr.getResponseHeader('link').split(',').forEach(function(thisLink) {
@@ -130,9 +134,13 @@ code {
 		    		}).forEach(function(thisType) {
 						var found = false;
 						for (var thisOpt in $('#gisttype')[0].childNodes) {
-							if (thisOpt.value == thisType) found = true;
+							if (thisOpt.value == thisType) {
+								found = true;
+							}
 						}
-						if (!found) $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+						if (!found) {
+							 $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+						}
 					});
 				});
 			});
