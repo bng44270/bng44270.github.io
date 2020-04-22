@@ -124,7 +124,7 @@ code {
 					newGistData.map(function(thisGist) {
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).unique().forEach(function(thisType) {
-						if ($('#gisttpe').childNodes.map(function(thisOpt) {
+						if ($('#gisttpe')[0].childNodes.map(function(thisOpt) {
 							return thisOpt.value;
 						}).indexOf(thisType) == -1) {
 							$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
