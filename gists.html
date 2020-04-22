@@ -110,9 +110,9 @@ code {
   $(document).ready(function() {
 	  $('#loadinglist').hide();
 	  $('#gisttype').hide();
-	  var gistTypeAr = [];
+	  
     $.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
-			
+		var gistTypeAr = [];		
 		    gistData.map(thisGist => {
 				//return file type
 			    return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
