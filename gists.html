@@ -124,11 +124,11 @@ code {
 					newGistData.map(function(thisGist) {
 			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
 		    		}).unique().forEach(function(thisType) {
-						if ($('#gisttype')[0].childNodes.map(function(thisOpt) {
-							return thisOpt.value;
-						}).indexOf(thisType) == -1) {
-							$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+						var found = false;
+						for (var thisOpt in $('#gisttype')[0].childNodes) {
+							if (thisOpt.value == thisType) found = true;
 						}
+						if (!found) $('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
 					});
 				});
 			});
