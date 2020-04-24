@@ -37,7 +37,13 @@ code {
 					<div id="main">
 
 						<!-- Content -->
-							Search for content:  <input style="width:30%;" type="text" id="gitsearch" /><br/>
+							<table style="border-width:0px;">
+							<tr>
+								<td>Search for content:</td>
+								<td style="width:30px;"></td>
+								<td><input style="width:30%;" type="text" id="gitsearch" /></td>
+							</tr>
+							</table><br/>
 							<section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
@@ -102,6 +108,8 @@ code {
 			}).parent().show();
 		}
 	});
+
+	$('#gitsearch').focus();
 
 
 });
