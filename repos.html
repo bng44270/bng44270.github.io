@@ -98,7 +98,7 @@ code {
 		else {
 			$('.gitlink').hide();
 			$('.gitlink').find('a').filter(thisLink => {
-				return thisLink.html().toUpperCase().match('^.*' + $('#gitsearch').val().toUpperCase() + '.*$');
+				return thisLink.html().toUpperCase().indexOf($('#gitsearch').val().toUpperCase()) > -1;
 			}).parent().show();
 		}
 	});
