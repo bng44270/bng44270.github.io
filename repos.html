@@ -97,9 +97,10 @@ code {
 		if ($('#gitsearch').val().length == 0) $('.gitlink').show();
 		else {
 			$('.gitlink').hide();
-			$('.gitlink').find('a').filter(thisLink => {
-				return thisLink.html().toUpperCase().indexOf($('#gitsearch').val().toUpperCase()) > -1;
-			}).parent().show();
+			$('.gitlink').find('a').forEach(thisLink => {
+				if (thisLink.html().toUpperCase().indexOf($('#gitsearch').val().toUpperCase()) > -1)
+					thisLink.parent().show();
+			});
 		}
 	});
 
