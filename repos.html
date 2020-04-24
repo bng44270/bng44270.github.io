@@ -37,7 +37,7 @@ code {
 					<div id="main">
 
 						<!-- Content -->
-							<input type="text" id="gitsearch" /><br/>
+							Search for content:  <input style="width:30%;" type="text" id="gitsearch" /><br/>
 							<section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
@@ -93,9 +93,11 @@ code {
 		});
 	});
 
-	$('#gitsearch').change(function() {
+	$('#gitsearch').keyup(function() {
 		$('.gitlink').hide();
-		$('.gitlink').find('a:contains("' + $('#gitsearch').val() + '")').parent().show();
+		$('.gitlink').find('a').filter(thisLink => {
+			return thisLink.text().toUpperCase().match('^.*' + $('#gitsearch').val().toUpperCase() + '.*$');
+		}).parent().show();
 	});
 
 });
