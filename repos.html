@@ -94,11 +94,15 @@ code {
 	});
 
 	$('#gitsearch').keyup(function() {
-		$('.gitlink').hide();
-		$('.gitlink').find('a').filter(thisLink => {
-			return thisLink.text().toUpperCase().match('^.*' + $('#gitsearch').val().toUpperCase() + '.*$');
-		}).parent().show();
+		if ($('#gitsearch').val().length == 0) $('.gitlink').show();
+		else {
+			$('.gitlink').hide();
+			$('.gitlink').find('a').filter(thisLink => {
+				return thisLink.html().toUpperCase().match('^.*' + $('#gitsearch').val().toUpperCase() + '.*$');
+			}).parent().show();
+		}
 	});
+
 
 });
 </script>
