@@ -92,9 +92,10 @@ code {
 			});
 		});
 	});
+
 	$('#gitsearch').change(function() {
-		$('#gitlink').hide();
-		$('#gitlink').find('a:contains("' + $('#gitsearch').val() + '")').parent().show();
+		$('.gitlink').hide();
+		$('.gitlink').find('a:contains("' + $(this).val() + '")').parent().show();
 	});
 
 });
