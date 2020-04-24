@@ -80,7 +80,7 @@ code {
 	    $('#content').append(repoData.filter(thisRepo => {
 		    return skipRepos.indexOf(thisRepo['name']) == -1;
 	    }).map(thisRepo => {
-     		return ('<div class="gitlink"><a href="' + thisRepo['html_url'] + '" target="_blank">' + thisRepo['description'] + ' (' + thisRepo['name'] + ')</a></div>');
+     		return ('<div class="gitlink"><a href="' + thisRepo['html_url'] + '" target="_blank">' + thisRepo['description'] + ' (' + thisRepo['name'] + ' - ' + (thisRepo['language']) ? thisRepo['language'] : '' + ')</a></div>');
    		}).join(''));
     });
 
