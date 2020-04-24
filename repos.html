@@ -37,6 +37,7 @@ code {
 					<div id="main">
 
 						<!-- Content -->
+							<input type="text" id="gitsearch" /><br/>
 							<section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
@@ -70,13 +71,33 @@ code {
 
   $(document).ready(function() {
     $.get('https://api.github.com/users/bng44270/repos',function(repoData) {
-		    $('#content').html('<table>' + repoData.filter(function(thisRepo) {
-			    return skipRepos.indexOf(thisRepo['name']) == -1;
-		    }).map(function(thisRepo) {
-	      return ('<tr><td><a href="./repo_details.html?name=' + thisRepo['name'] + '">' + thisRepo['name'] + '</a></td></tr>');
-      }).join('') + '</table>');
+	    $('#content').append(repoData.filter(thisRepo => {
+		    return skipRepos.indexOf(thisRepo['name']) == -1;
+	    }).map(thisRepo => {
+     		return ('<div class="gitlink"><a href="' + thisRepo['html_url'] + '" target="_blank">' + thisRepo['description'] + '</a><tr><td><a href="./repo_details.html?name=' + thisRepo['name'] + '">' + thisRepo['name'] + '</a></div>');
+   		}).join(''));
     });
-  });
+
+	$.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
+		$('content').append(gistData.map(thisGist => {
+			return '<div class="gitlink"><a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></div>';
+  		}).join(''));
+	
+		xhr.getResponseHeader('link').split(',').forEach(thisLink => {
+			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
+			$.get(link,newGistData => {	
+				$('#content').append(newGistData.map(thisGist => {
+					return '<div class="gitlink"><a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></div>';
+		  		}).join(''));
+			});
+		});
+	});
+	$('#gitsearch').change(function() {
+		$('#gitlink').hide();
+		$('#gitlink:contains("' + $('#gitsearch').val() + '")').show();
+	});
+
+});
 </script>
 </body>
 </html>
