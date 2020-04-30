@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Repositories - Andy Does Tech</title>
+		<title>Code - Andy Does Tech</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -81,20 +81,20 @@ code {
 		    return skipRepos.indexOf(thisRepo['name']) == -1;
 	    }).map(thisRepo => {
 			var repoLang = (thisRepo['language']) ? thisRepo['language'] : '';
-     		return ('<div class="gitlink"><a href="' + thisRepo['html_url'] + '" target="_blank">' + thisRepo['description'] + ' (' + thisRepo['name'] + ' - ' + repoLang + ')</a></div>');
+			return ('<a class="gitlink" href="' + thisRepo['html_url'] + '" target="_blank">' + thisRepo['description'] + ' (' + thisRepo['name'] + ' - ' + repoLang + ')<br/></a>');
    		}).join(''));
     });
 
 	$.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
 		$('content').append(gistData.map(thisGist => {
-			return '<div class="gitlink"><a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></div>';
+			return ('<a class="gitlink" target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')<br/></a>');
   		}).join(''));
 	
 		xhr.getResponseHeader('link').split(',').forEach(thisLink => {
 			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
 			$.get(link,newGistData => {	
 				$('#content').append(newGistData.map(thisGist => {
-					return '<div class="gitlink"><a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a></div>';
+					return ('<a class="gitlink" target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')<br/></a>');
 		  		}).join(''));
 			});
 		});
@@ -104,9 +104,9 @@ code {
 		if ($('#gitsearch').val().length == 0) $('.gitlink').show();
 		else {
 			$('.gitlink').hide();
-			$('.gitlink').find('a').filter(function() {
+			$('.gitlink').filter(function() {
 				return (new RegExp($('#gitsearch').val(),'i')).test($(this).text())
-			}).parent().show();
+			}).show();
 		}
 	});
 
