@@ -115,7 +115,9 @@ code {
 	}).forEach(x => {
 		if (x.name == 'search') {
 			$('#gitsearch').val(x.value);
-			$('#gitsearch').keyup();
+			setTimeout(function() {
+				$('#gitsearch').keyup();
+			},500);
 		}
 	});
 
