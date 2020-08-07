@@ -110,7 +110,18 @@ code {
 		}
 	});
 
-	$('#gitsearch').focus();
+	document.location.search.replace(/^\?/,'').split('&').map(x => {
+    		return { name:x.split('=')[0], value: x.split('=')[1] };
+	}).forEach(x => {
+		if (x.name == 'search') {
+			$('#gitsearch').val(x.value);
+			$('#gitsearch').keyup();
+		}
+	});
+
+
+	  
+	
 
 
 });
