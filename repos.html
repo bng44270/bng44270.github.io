@@ -37,7 +37,7 @@ code {
 					<div id="main">
 
 						<!-- Content -->
-							<table style="border-width:0px;">
+							<table style="border-width:0px;" id="searchbox">
 							<tr>
 								<td>Search for content:</td>
 								<td style="width:30px;"></td>
@@ -118,7 +118,7 @@ code {
 			setTimeout(function() {
 				$('#gitsearch').keyup();
 			},1000);
-			$('#main').hide();
+			$('#searchbox').hide();
 		}
 	});
 
