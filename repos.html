@@ -43,7 +43,7 @@ code {
 								<td style="width:30px;"></td>
 								<td><input style="width:30%;" type="text" id="gitsearch" /></td>
 							</tr>
-							</table><br/>
+							</table><input type="button" style="display:none" id="resetsearch"/><br/>
 							<section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
@@ -119,6 +119,16 @@ code {
 				$('#gitsearch').keyup();
 			},1000);
 			$('#searchbox').hide();
+			$('#resetsearch').show();
+			$('#resetsearch').click(function() {
+				$('#gitsearch').val('');
+				setTimeout(function() {
+					$('#gitsearch').keyup();
+				},1000);
+				$('#searchbox').show();
+				$('#resetsearch').hide();
+				location.search = '';
+			});
 		}
 	});
 
