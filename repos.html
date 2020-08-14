@@ -114,7 +114,7 @@ code {
     		return { name:x.split('=')[0], value: x.split('=')[1] };
 	}).forEach(x => {
 		if (x.name == 'search') {
-			$('#gitsearch').val(x.value);
+			$('#gitsearch').val(unescape(x.value));
 			setTimeout(function() {
 				$('#gitsearch').keyup();
 			},1000);
