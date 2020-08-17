@@ -43,7 +43,10 @@ code {
 								<td style="width:30px;"></td>
 								<td><input style="width:30%;" type="text" id="gitsearch" /></td>
 							</tr>
-							</table><input type="button" style="display:none" value="Reset Search" id="resetsearch"/><br/>
+							</table><div id="searchingbox">
+							<input type="button" style="display:none" value="Reset Search" id="resetsearch"/>
+							<input type="button" style="display:none" value="Not displaying corrently&#63;  Refresh" id="refreshsearch"/>
+							</div>
 							<section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
@@ -119,16 +122,20 @@ code {
 				$('#gitsearch').keyup();
 			},1000);
 			$('#searchbox').hide();
-			$('#resetsearch').show();
+			$('#searchingbox').show();
 			$('#resetsearch').click(function() {
 				$('#gitsearch').val('');
 				setTimeout(function() {
 					$('#gitsearch').keyup();
 				},1000);
 				$('#searchbox').show();
-				$('#resetsearch').hide();
+				$('#searchingbox').hide();
 				location.search = '';
 			});
+			$('#refreshsearch').click(function() {
+				location.reload();
+			});
+			
 		}
 	});
 
