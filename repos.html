@@ -112,17 +112,18 @@ code {
 			}).show();
 		}
 	});
-
-	$('#content').hide();
-	$('#waiting').show();
 	  
 	document.location.search.replace(/^\?/,'').split('&').map(x => {
     		return { name:x.split('=')[0], value: x.split('=')[1] };
 	}).forEach(x => {
+		$('#content').hide();
+		$('#waiting').show();
 		if (x.name == 'search') {
 			$('#gitsearch').val(unescape(x.value));
 			setTimeout(function() {
 				$('#gitsearch').keyup();
+				$('#waiting').hide();
+				$('#content').show();
 			},1000);
 			$('#searchbox').hide();
 			$('#searchingbox').show();
@@ -134,16 +135,9 @@ code {
 				$('#searchbox').show();
 				$('#searchingbox').hide();
 				location.search = '';
-			});
-			$('#refreshsearch').click(function() {
-				location.reload();
-			});
-			
+			});		
 		}
 	});
-
-	$('#waiting').hide();
-	$('#content').show();
 	  
 	
 
