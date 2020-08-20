@@ -45,8 +45,8 @@ code {
 							</tr>
 							</table><div id="searchingbox" style="display:none">
 							<input type="button" value="Reset Search" id="resetsearch"/>
-							<input type="button" value="Not displaying corrently&#63;  Refresh" id="refreshsearch"/>
 							</div>
+							<section id="waiting" style="display:none;">Loading...</section>
 							<section id="content" class="main">
 							</section>
 							<input type="hidden" id="linktemp"/>
@@ -113,6 +113,9 @@ code {
 		}
 	});
 
+	$('#content').hide();
+	$('#waiting').show();
+	  
 	document.location.search.replace(/^\?/,'').split('&').map(x => {
     		return { name:x.split('=')[0], value: x.split('=')[1] };
 	}).forEach(x => {
@@ -127,7 +130,7 @@ code {
 				$('#gitsearch').val('');
 				setTimeout(function() {
 					$('#gitsearch').keyup();
-				},1000);
+				},3000);
 				$('#searchbox').show();
 				$('#searchingbox').hide();
 				location.search = '';
@@ -139,7 +142,8 @@ code {
 		}
 	});
 
-
+	$('#waiting').hide();
+	$('#content').show();
 	  
 	
 
