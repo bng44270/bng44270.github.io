@@ -20,6 +20,9 @@ code {
 	color: #000000;
 		font-size: 12pt;
 }
+.spad {
+	width:30px;
+}
 </style>
 	</head>
 	<body>
@@ -37,14 +40,12 @@ code {
 					<div id="main">
 
 						<!-- Content -->
+							<div style="display: grid; grid-template-areas: 'slabel spad sbox'; margin: auto;">
+								<div class="slabel">Search for content (regex capable):</div>
+								<div class="spad"></div>
+								<div class="sbox"><input style="width:30%;" type="text" id="gitsearch" /></div>
+							</div>
 							<!--
-							<table style="border-width:0px;" id="searchbox">
-							<tr>
-								<td>Search for content:</td>
-								<td style="width:30px;"></td>
-								<td><input style="width:30%;" type="text" id="gitsearch" /></td>
-							</tr>
-							</table>
 							<div id="searchingbox" style="display:none">
 							<input type="button" value="Reset Search" id="resetsearch"/>
 							</div>
@@ -106,7 +107,7 @@ code {
 			});
 		});
 	});
-	/*
+	
 	$('#gitsearch').keyup(function() {
 		if ($('#gitsearch').val().length == 0) $('.gitlink').show();
 		else {
@@ -116,7 +117,7 @@ code {
 			}).show();
 		}
 	});
-	  
+	/*  
 	document.location.search.replace(/^\?/,'').split('&').map(x => {
     		return { name:x.split('=')[0], value: x.split('=')[1] };
 	}).forEach(x => {
