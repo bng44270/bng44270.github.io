@@ -121,11 +121,9 @@ code {
 		$('#waiting').show();
 		if (x.name == 'search') {
 			$('#gitsearch').val(unescape(x.value));
-			setTimeout(function() {
-				$('#gitsearch').keyup();
-				$('#waiting').hide();
-				$('#content').show();
-			},1000);
+			$('#gitsearch').keyup();
+			$('#waiting').hide();
+			$('#content').show();
 			$('#searchbox').hide();
 			$('#searchingbox').show();
 			$('#resetsearch').click(function() {
