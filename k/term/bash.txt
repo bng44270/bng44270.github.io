@@ -1,0 +1,7 @@
+[?1034hbash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiioooooooooopppppppppp [Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiiooooooooooppppppppp[K
+[K[Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiioooooooooopppppppppp [Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiiooooooooooppppppppp[K
+[K[Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiioooooooooopppppppppp [Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiiooooooooooppppppppp[K
+[K[Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiioooooooooopppppppppp [Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiiooooooooooppppppppp[K
+[K[Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiioooooooooopppppppppp [Abash-4.2$ jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiiooooooooooppppppppp[Kp
+bash: jjjjjjjjjjuuuuuuuuuukkkkkkkkkklllllllllliiiiiiiiiioooooooooopppppppppp: command not found
+bash-4.2$ exit

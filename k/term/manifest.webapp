@@ -1,0 +1,17 @@
+{
+	"name": "Terminal",
+	"description": "A terminal emulator for KaiOS",
+	"type": "certified",
+	"origin": "app://terminal.affe.null",
+	"permissions": {
+		"engmode-extension": {},
+		"tcp-socket": {"description": "Connect to the server"}
+	},
+	"icons": {
+		"56": "/icon56.png"
+	},
+	"theme_color": "#ff4411",
+	"launch_path": "/index.html",
+	"fullscreen": true
+}
+
