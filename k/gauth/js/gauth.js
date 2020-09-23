@@ -208,13 +208,17 @@
             var fileImport = document.createElement('input');
 	        fileImport.id = 'fileselector';
 	        fileImport.type = 'file';
+	        fileImport.style.display = 'none';
 	        fileImport.addEventListener('change',e => {
 	            const f = new FileReader();
 	            f.addEventListener('load',r => {
 	                storageService.setObject('accounts',JSON.parse(f.target.results));
+	                document.getElementById('fileselector').
 	            });
 	            f.readAsText(e.target.files[0]);
 	        });	    
+	        document.appendChild(fileImport);
+	        document.getElementById('fileselector').click();
         };
         
         var exportAccounts = function() {
