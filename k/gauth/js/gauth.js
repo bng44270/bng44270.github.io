@@ -165,6 +165,7 @@
 
             $('#edit').click(function() { toggleEdit(); });
             $('#export').click(function() { exportAccounts(); });
+            $('#import').click(function() { importAccounts(); });
         };
 
         var updateKeys = function() {
@@ -203,6 +204,19 @@
             updateKeys();
         };
 
+        var importAccounts = function() {
+            var fileImport = document.createElement('input');
+	        fileImport.id = 'fileselector';
+	        fileImport.type = 'file';
+	        fileImport.addEventListener('change',e => {
+	            const f = new FileReader();
+	            f.addEventListener('load',r => {
+	                storageService.setObject('accounts',JSON.parse(f.target.results));
+	            });
+	            f.readAsText(e.target.files[0]);
+	        });	    
+        };
+        
         var exportAccounts = function() {
             var accounts = JSON.stringify(storageService.getObject('accounts'));
             var blob = new Blob([accounts], {type: 'text/plain;charset=utf-8'});
