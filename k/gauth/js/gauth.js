@@ -213,7 +213,7 @@
 	            const f = new FileReader();
 	            f.addEventListener('load',r => {
 	                storageService.setObject('accounts',JSON.parse(f.target.results));
-	                document.getElementById('fileselector').
+	                document.getElementById('fileselector').parentElement.removeChild(document.getElementById('fileselector'));
 	            });
 	            f.readAsText(e.target.files[0]);
 	        });	    
