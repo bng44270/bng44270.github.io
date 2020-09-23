@@ -217,7 +217,7 @@
 	            });
 	            f.readAsText(e.target.files[0]);
 	        });	    
-	        document.appendChild(fileImport);
+	        document.body.appendChild(fileImport);
 	        document.getElementById('fileselector').click();
         };
         
