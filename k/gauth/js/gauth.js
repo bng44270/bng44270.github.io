@@ -165,7 +165,7 @@
 
             $('#edit').click(function() { toggleEdit(); });
             $('#export').click(function() { exportAccounts(); });
-            $('#import').click(function() { importAccounts(); });
+            $('#import').change(function(e) { importAccounts(e); });
         };
 
         var updateKeys = function() {
@@ -204,21 +204,13 @@
             updateKeys();
         };
 
-        var importAccounts = function() {
-            var fileImport = document.createElement('input');
-	        fileImport.id = 'fileselector';
-	        fileImport.type = 'file';
-	        fileImport.style.display = 'none';
-	        fileImport.addEventListener('change',e => {
-	            const f = new FileReader();
-	            f.addEventListener('load',r => {
-	                storageService.setObject('accounts',JSON.parse(f.target.results));
-	                document.getElementById('fileselector').parentElement.removeChild(document.getElementById('fileselector'));
-	            });
-	            f.readAsText(e.target.files[0]);
-	        });	    
-	        document.body.appendChild(fileImport);
-	        document.getElementById('fileselector').click();
+        var importAccounts = function(event) {
+            const f = new FileReader();
+            f.addEventListener('load',r => {
+                storageService.setObject('accounts',JSON.parse(r.target.results));
+                document.getElementById('fileselector').parentElement.removeChild(document.getElementById('fileselector'));
+            });
+            f.readAsText(event.target.files[0]);
         };
         
         var exportAccounts = function() {
