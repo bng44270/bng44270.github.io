@@ -13,15 +13,15 @@
         map.options.markerMove = -1;
         
         map.on('click',function(e) {
-	        if (map.options.isMovingMarker) {
-  		      moveMarker(map.options.markerMove,e.latlng);
-  	      }
-  	      else {
-  		      var info = prompt("Enter point info");
-  		      if (info) {
-        			createMarker(e.latlng,info);
-        		}
-  	      }
+          if (map.options.isMovingMarker) {
+            moveMarker(map.options.markerMove,e.latlng);
+          }
+          else {
+            var info = prompt("Enter point info");
+            if (info) {
+              createMarker(e.latlng,info);
+            }
+          }
         });
       }   
       
@@ -35,82 +35,80 @@
       
       //Render popup text
       function createMarker(loc,text) {
-	      thisId = map.options.nextMarkerId++;
+        thisId = map.options.nextMarkerId++;
+        
+        var deleteLink = document.createElement('a');
+        deleteLink.innerText = 'Delete';
+        deleteLink.setAttribute('style','cursor:pointer;');
+        deleteLink.setAttribute('onClick','javascript:deleteMarker(' + thisId + ');');
       
-	      var deleteLink = document.createElement('a');
-	      deleteLink.innerText = 'Delete';
-	      deleteLink.setAttribute('style','cursor:pointer;');
-	      deleteLink.setAttribute('onClick','javascript:deleteMarker(' + thisId + ');');
-      
-	      var editLink = document.createElement('a');
-	      editLink.innerText = 'Edit';
-	      editLink.setAttribute('style','cursor:pointer;');
-	      editLink.setAttribute('onClick','javascript:editMarker(' + thisId + ');');
+        var editLink = document.createElement('a');
+        editLink.innerText = 'Edit';
+        editLink.setAttribute('style','cursor:pointer;');
+        editLink.setAttribute('onClick','javascript:editMarker(' + thisId + ');');
       	
-	      var moveLink = document.createElement('a');
-	      moveLink.innerText = 'Move';
-	      moveLink.setAttribute('style','cursor:pointer;');
+        var moveLink = document.createElement('a');
+        moveLink.innerText = 'Move';
+        moveLink.setAttribute('style','cursor:pointer;');
       	moveLink.setAttribute('onClick','javascript:moveMarker(' + thisId + ');');
       
-	      L.marker(loc,{
-		      info : text,
-		      id : thisId
-	      }).addTo(map).bindPopup(text + '<br/>[' + editLink.outerHTML + '] [' + moveLink.outerHTML + '] [' + deleteLink.outerHTML  + ']');
-      
-      	
+        L.marker(loc,{
+          info : text,
+          id : thisId
+        }).addTo(map).bindPopup(text + '<br/>[' + editLink.outerHTML + '] [' + moveLink.outerHTML + '] [' + deleteLink.outerHTML  + ']');
       }
       
       //Move marker where options.id = id
       function moveMarker(id,newLatLng) {
-	      if (!map.options.isMovingMarker && !newLatLng) {
-		      map.closePopup();
-		      map.options.isMovingMarker = true;
-		      map.options.markerMove = id;
-	      }
-	      else {
-		      var layerIds = Object.keys(map._layers);
-		      for (var i = 0; i < layerIds.length; i++) {
-			      if (map._layers[layerIds[i]].options.id == id) {
-				      var text = map._layers[layerIds[i]].options.info;
-				      deleteMarker(id);
-				      createMarker(newLatLng,text);
-				      map.options.isMovingMarker = false;
-				      map.options.markerMove = -1;
-				      break;
-			      }
-		      }
-	      }
+        if (!map.options.isMovingMarker && !newLatLng) {
+          map.closePopup();
+          map.options.isMovingMarker = true;
+          map.options.markerMove = id;
+        }
+        else {
+          var layerIds = Object.keys(map._layers);
+          for (var i = 0; i < layerIds.length; i++) {
+            if (map._layers[layerIds[i]].options.id == id) {
+              var text = map._layers[layerIds[i]].options.info;
+              deleteMarker(id);
+              createMarker(newLatLng,text);
+              map.options.isMovingMarker = false;
+              map.options.markerMove = -1;
+              break;
+            }
+          }
+        }
       }
       
       //Delete marker where options.id = id
       function deleteMarker(id) {
-	      var layerIds = Object.keys(map._layers);
-	      for (var i = 0; i < layerIds.length; i++) {
-		      if (map._layers[layerIds[i]].options.id == id) {
-			      map.removeLayer(map._layers[layerIds[i]]);
-			      break;
-		      }
-	      }
+        var layerIds = Object.keys(map._layers);
+        for (var i = 0; i < layerIds.length; i++) {
+          if (map._layers[layerIds[i]].options.id == id) {
+            map.removeLayer(map._layers[layerIds[i]]);
+            break;
+          }
+        }
       }
       
       //Edit marker where options.id = id
       function editMarker(id) {
-	      map.closePopup();
-	      var layerIds = Object.keys(map._layers);
-	      for (var i = 0; i < layerIds.length; i++) {
-		      if (map._layers[layerIds[i]].options.id == id) {
-			      var text = map._layers[layerIds[i]].options.info;
-			      var latlng = map._layers[layerIds[i]]._latlng;
-      			var newText = prompt('Enter item info',text);
+        map.closePopup();
+        var layerIds = Object.keys(map._layers);
+        for (var i = 0; i < layerIds.length; i++) {
+          if (map._layers[layerIds[i]].options.id == id) {
+            var text = map._layers[layerIds[i]].options.info;
+            var latlng = map._layers[layerIds[i]]._latlng;
+            var newText = prompt('Enter item info',text);
       			
-      			if (newText) {
-      				deleteMarker(id);
-      				createMarker(latlng,newText);
-      			}
+            if (newText) {
+              deleteMarker(id);
+              createMarker(latlng,newText);
+            }
       			
-      			break;
-		      }
-	      }
+            break;
+          }
+        }
       }
     </script>
   </head>
@@ -118,18 +116,18 @@
     Lat<input type="text" id="lat_box" onKeyUp="updateView();" /><br/>
     Lng<input type="text" id="lng_box" onKeyUp="updateView();" /><br/>
     Zoom<select id="zoom_box" onChange="updateView();"><option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
     </select><br/>
     <div id="map" style="width:500px;height:500px;"></div>
   </body>
