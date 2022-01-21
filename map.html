@@ -16,6 +16,16 @@
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        map.on('moveend',function(e) {
+          var center = map.getCenter();
+          document.getElementById('lat_box').value = center.lat.toString();
+          document.getElementById('lng_box').value = center.lng.toString();
+        });
+        
+        map.on('zoomend',function(e) {
+          var zoom = map.getZoom();
+          document.getElementById('zoom_box').value = zoom.toString();
+        });
         
         map.on('click',function(e) {
           if (map.options.isMovingMarker) {
@@ -135,6 +145,9 @@
       <option value="13">13</option>
       <option value="14">14</option>
       <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
     </select><br/>
     <div id="map" style="width:500px;height:500px;"></div>
   </body>
