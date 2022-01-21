@@ -30,7 +30,7 @@
         var lng = parseFloat(document.getElementById('lng_box').value);
         var zoom = parseInt(document.getElementById('zoom_box').value);
         
-        map.setView([lat,lng],zoom);
+        map.setView([(isNaN(lat) ? 0 : lat,(isNaN(lng) ? 0 : lng],zoom);
       }
       
       //Render popup text
