@@ -12,6 +12,11 @@
         map.options.isMovingMarker = false;
         map.options.markerMove = -1;
         
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        
         map.on('click',function(e) {
           if (map.options.isMovingMarker) {
             moveMarker(map.options.markerMove,e.latlng);
