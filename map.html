@@ -46,7 +46,7 @@
         updateView();
         
         JSON.parse(localStorage.map_points).forEach(m => {
-          L.geoJson(m).addTo(map);
+          createMarker(m.latlng,m.info);
         });
       }   
       
@@ -76,11 +76,16 @@
         moveLink.innerText = 'Move';
         moveLink.setAttribute('style','cursor:pointer;');
       	moveLink.setAttribute('onClick','javascript:moveMarker(' + thisId + ');');
+        
+        var dlLink = document.createElement('a');
+        dlLink.innerText = 'Get GeoJSON';
+        dlLink.setAttribute('style','cursor:pointer;');
+      	dlLink.setAttribute('onClick','javascript:downloadMarker(' + thisId + ');');
       
         L.marker(loc,{
           info : text,
           id : thisId
-        }).addTo(map).bindPopup(text + '<br/>[' + editLink.outerHTML + '] [' + moveLink.outerHTML + '] [' + deleteLink.outerHTML  + ']');
+        }).addTo(map).bindPopup(text + '<br/>[' + editLink.outerHTML + '] [' + moveLink.outerHTML + '] [' + deleteLink.outerHTML  + '] [' + dlLink.outerHTML + ']');
         
         updateLocalStorage();
       }
@@ -144,13 +149,44 @@
         updateLocalStorage();
       }
       
+      //Download a marker as GeoJSON
+      function downloadMarker(id) {
+        var layerIds = Object.keys(map._layers);
+        for (var i = 0; i < layerIds.length; i++) {
+          if (map._layers[layerIds[i]].options.id == id) {
+            var obj = map._layers[layerIds[i]].toGeoJson();
+            
+            var textToWrite = JSON.stringify(obj);
+            var textFileAsBlob = new Blob([textToWrite], { type: 'application/json' });
+            var fileNameToSaveAs = 'all_notes-' + new Date().toISOString().replace(/:/g,".") + ".json";
+        
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "My Hidden Link";
+      
+            window.URL = window.URL || window.webkitURL;
+      
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = function(e) {
+              document.body.removeChild(e.target);
+            };
+    
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+      
+            downloadLink.click();
+            break;
+          }
+        }
+      }
+      
       function updateLocalStorage() {
         localStorage.map_points = JSON.stringify(Object.keys(map._layers).map(l => {
           return map._layers[l];
         }).filter(l => {
           return l instanceof L.Marker;
         }).map(l => {
-          return l.toGeoJSON();
+          return {info:l.options.info,latlng:[l._latlng.lat,l._latlng.lng]};
         }));
       }
         
