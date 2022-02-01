@@ -93,6 +93,8 @@
             }
           }
         }
+        
+        updateView();
       }
       
       //Delete marker where options.id = id
@@ -128,8 +130,8 @@
     </script>
   </head>
   <body onLoad="mapInit();">
-    Lat<input type="text" id="lat_box" onKeyUp="updateView();" /><br/>
-    Lng<input type="text" id="lng_box" onKeyUp="updateView();" /><br/>
+    Lat<input type="text" id="lat_box" onKeyUp="updateView();" value="0" /><br/>
+    Lng<input type="text" id="lng_box" onKeyUp="updateView();" value="0" /><br/>
     Zoom<select id="zoom_box" onChange="updateView();"><option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
