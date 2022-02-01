@@ -154,11 +154,11 @@
         var layerIds = Object.keys(map._layers);
         for (var i = 0; i < layerIds.length; i++) {
           if (map._layers[layerIds[i]].options.id == id) {
-            var obj = map._layers[layerIds[i]].toGeoJson();
+            var obj = map._layers[layerIds[i]].toGeoJSON();
             
             var textToWrite = JSON.stringify(obj);
             var textFileAsBlob = new Blob([textToWrite], { type: 'application/json' });
-            var fileNameToSaveAs = 'all_notes-' + new Date().toISOString().replace(/:/g,".") + ".json";
+            var fileNameToSaveAs = 'geojson-marker-' + new Date().toISOString().replace(/:/g,".") + ".json";
         
             var downloadLink = document.createElement("a");
             downloadLink.download = fileNameToSaveAs;
