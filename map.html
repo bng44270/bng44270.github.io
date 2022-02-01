@@ -145,13 +145,13 @@
       }
       
       function updateLocalStorage() {
-        localStorage.map_points = Object.keys(map._layers).map(l => {
+        localStorage.map_points = JSON.stringify(Object.keys(map._layers).map(l => {
           return map._layers[l];
         }).filter(l => {
           return l instanceof L.Marker;
         }).map(l => {
           return {info:l.options.info,latlng:l._latlng};
-        });
+        }));
       }
         
     </script>
