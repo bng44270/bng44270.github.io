@@ -7,6 +7,10 @@
       var map = null;
       
       function mapInit() {
+        if (!localStorage.map_points) {
+            localStorage.map_points = '[]';
+        }
+        
         map = L.map('map');
         map.options.nextMarkerId = 0;
         map.options.isMovingMarker = false;
@@ -40,6 +44,10 @@
         });
         
         updateView();
+        
+        JSON.parse(localStorage.map_points).forEach(m => {
+          createMarker([m.latlng.lat,m.latlng.lng],info);
+        });
       }   
       
       function updateView() {
@@ -73,6 +81,8 @@
           info : text,
           id : thisId
         }).addTo(map).bindPopup(text + '<br/>[' + editLink.outerHTML + '] [' + moveLink.outerHTML + '] [' + deleteLink.outerHTML  + ']');
+        
+        updateLocalStorage();
       }
       
       //Move marker where options.id = id
@@ -94,6 +104,8 @@
               break;
             }
           }
+          
+          updateLocalStorage();
         }
       }
       
@@ -106,6 +118,8 @@
             break;
           }
         }
+        
+        updateLocalStorage();
       }
       
       //Edit marker where options.id = id
@@ -126,7 +140,20 @@
             break;
           }
         }
+        
+        updateLocalStorage();
       }
+      
+      function updateLocalStorage() {
+        localStorage.map_points = Object.keys(map._layers).map(l => {
+          return map._layers[l];
+        }).filter(l => {
+          return l instanceof L.Marker;
+        }).map(l => {
+          return {info:l.options.info,latlng:l._latlng};
+        });
+      }
+        
     </script>
   </head>
   <body onLoad="mapInit();">
