@@ -8,15 +8,11 @@
     <div id="terminal"></div>								
     <script type="text/javascript">
       document.body.onload = function() {
-        var term = new DomTerm('terminal');
-        term.addCommand('getloc',function(thisTerm,input) {
-          var url = input.replace(/^getloc[ \t]+/,'');
-          var request = new WebRequest('GET','https://ifconfig.co');
-          
-          request.response.then(resp => {
-            thisTerm.showOutput("Location:  " + JSON.stringify(resp.body));
-          });
-        });
+        var term = new DomTerm('terminal',[
+          'echo Welcome to the Terminal',
+          'echo ***********************',
+          'echo type "help" for usage'
+        ]);
       };
     </script>
   </body>
