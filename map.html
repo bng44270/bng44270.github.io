@@ -46,7 +46,7 @@
         updateView();
         
         JSON.parse(localStorage.map_points).forEach(m => {
-          createMarker([m.latlng.lat,m.latlng.lng],info);
+          createMarker([m.latlng.lat,m.latlng.lng],m.info);
         });
       }   
       
