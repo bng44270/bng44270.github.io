@@ -46,7 +46,7 @@
         updateView();
         
         JSON.parse(localStorage.map_points).forEach(m => {
-          createMarker([m.latlng.lat,m.latlng.lng],m.info);
+          L.geoJson(m).addTo(map);
         });
       }   
       
@@ -150,7 +150,7 @@
         }).filter(l => {
           return l instanceof L.Marker;
         }).map(l => {
-          return {info:l.options.info,latlng:l._latlng};
+          return l.toGeoJSON();
         }));
       }
         
