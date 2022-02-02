@@ -8,10 +8,11 @@
     <div id="terminal"></div>								
     <script type="text/javascript">
       document.body.onload = function() {
-        var fs = new JsonFS({
-          type:'jsonfs',
-          fs : {files:{}}
-        });
+        if (!localStorage.term_fs) {
+            localStorage.term_fs = "{'type':'jsonfs','fs' : {'files':{}}}"
+        }
+        
+        var fs = new JsonFS(JSON.parse(localStorage.term_fs));
         var term = new DomTerm('terminal',[
           'echo Welcome to the Terminal',
           'echo ***********************',
@@ -37,6 +38,7 @@
           try {
             var content = prompt("Please enter contents of " + input);
             fs.setFileContent(input,content);
+            thisTerm.showOutput('File ' + input + ' saved');
           }
           catch (e) {
             thisTerm.showOutput("Error:  " + e.message);
@@ -52,6 +54,20 @@
             if (input.length == 0) input = '/files';
             var listing = fs.getDirectoryListing(input);
             thisTerm.showOutput(listing.join('\n'));
+            thisTerm.showOutput("File count:  " + listing.length.toString());
+          }
+          catch (e) {
+            thisTerm.showOutput("Error:  " + e.message);
+          }
+        },{
+          description : 'List contents of a directory',
+          usage : 'ls &lt;path&gt;'
+        });
+          
+        term.addCommand('commit',function(thisTerm) {
+          try {
+            localStorage.term_fs = JSON.stringify(fs.FS);
+            thisTerm.showOutput('Filesystem committed to local storage');
           }
           catch (e) {
             thisTerm.showOutput("Error:  " + e.message);
