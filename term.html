@@ -66,7 +66,7 @@
           
         term.addCommand('commit',function(thisTerm) {
           try {
-            localStorage.term_fs = '[' + JSON.stringify(fs.FS) + ']';
+            localStorage.term_fs = JSON.stringify(fs.FS);
             thisTerm.showOutput('Filesystem committed to local storage');
           }
           catch (e) {
