@@ -45,6 +45,21 @@
           description : 'Create new file',
           usage : 'ed &lt;file-path&gt;'
         });
+        
+        term.addCommand('ls',function(thisTerm,input) {
+          input = input.replace(/^cat[ \t]+/,'');
+          try {
+            if (input.length == 0) input = '/files';
+            var listing = fs.getDirectoryListing(input);
+            thisTerm.showOutput(listing.join('\n'));
+          }
+          catch (e) {
+            thisTerm.showOutput("Error:  " + e.message);
+          }
+        },{
+          description : 'List contents of a directory',
+          usage : 'ls &lt;path&gt;'
+        });
       };
     </script>
   </body>
