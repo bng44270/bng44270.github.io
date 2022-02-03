@@ -156,12 +156,12 @@
           localStorage.graph_data = "{\"bar\":{\"colors\":[\"rgb(255,0,0)\",\"rgb(0,255,0)\",\"rgb(0,0,255)\"],\"height\":300,\"width\":300,\"padding\":30,\"gcolor\":\"rgb(255,255,0)\",\"xlabel\":\"X Axis\",\"ylabel\":\"Y Axis\"},\"line\":{\"linecolor\":\"rgb(255,0,0)\",\"dotcolor\":\"rgb(0,255,0)\",\"height\":300,\"width\":300,\"padding\":30,\"gcolor\":\"rgb(255,255,0)\",\"xlabel\":\"X Axis\",\"ylabel\":\"Y Axis\"},\"data\":[{\"v\":0,\"l\":\"Label\"}]}";
         }
         
-        settings = JSON.parse(localStorage.graph_data);
+        var settings = JSON.parse(localStorage.graph_data);
         
         settings.data.forEach((v,i) => {
           document.getElementById('addvaluebtn').click();
-          document.getElementsByClassName('glabel')[i].value = data[i].l;
-          document.getElementsByClassName('gvalue')[i].value = data[i].v.toString();
+          document.getElementsByClassName('glabel')[i].value = settings.data[i].l;
+          document.getElementsByClassName('gvalue')[i].value = settings.data[i].v.toString();
         });
         
         barGraph = new JGrafBar(settings.bar.height,settings.bar.width,settings.bar.padding,settings.bar.xlabel,settings.bar.ylabel,settings.bar.colors,settings.data,settings.bar.gcolor);
