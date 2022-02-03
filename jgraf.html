@@ -22,8 +22,8 @@
         };
         
         document.getElementById('addvaluebtn').click();
-        document.getElementByClassName('glabel')[0].value = 'Value';
-        document.getElementByClassName('gvalue')[0].value = '100';
+        document.getElementsByClassName('glabel')[0].value = 'Value';
+        document.getElementsByClassName('gvalue')[0].value = '100';
         
         barGraph = new JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
         lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
