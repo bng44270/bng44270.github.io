@@ -49,6 +49,12 @@
         };
         
         document.getElementById('redrawgraphs').onclick = function() {
+          var newData = {
+            bar : null,
+            line : null,
+            data : null
+          };
+          
           // Update Bar Graph and Data
           var barColors = document.getElementById('barcolors').value.split('\n');
           var height = parseInt(document.getElementById('barheight').value);
@@ -66,7 +72,7 @@
           barGraph.setXLabel(xLabel);
           barGraph.setYLabel(yLabel);
           
-          localStorage.graph_data.bar = {
+          newData.bar = {
             colors : barColors,
             height : height,
             width : width,
@@ -95,7 +101,7 @@
           lineGraph.setXLabel(xLabel);
           lineGraph.setYLabel(yLabel);
           
-          localStorage.graph_data.line = {
+          newData.line = {
             linecolor : lineColor,
             dotcolor : dotColor,
             height : height,
@@ -122,7 +128,9 @@
             barGraph.setData(data);
             document.getElementById('bargraph').innerHTML = barGraph.render();
             
-            localStorage.graph_data.data = JSON.stringify(data);
+            newData.data = data;
+            
+            localStorage.graph_data = JSON.stringify(newData);
           }
         };
         
