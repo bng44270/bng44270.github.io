@@ -163,7 +163,7 @@
         }
 
         setColors(colors) {
-            this.colors = colors.populate(this.DATA.length);
+            this.colorList = colors;
         }
 
         getBars() {
