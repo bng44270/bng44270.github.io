@@ -148,12 +148,12 @@
     class JGrafBar extends JGraf {
         constructor(h,w,pad,xl,yl,colors,data,grC) {
             super(h,w,pad,xl,yl,data,grC);
-
-            this.colors = colors.populate(this.DATA.length);
+            this.colorList = colors;
+            this.colors = this.colorList.populate(this.DATA.length);
         }
 
         render() {
-            this.colors = this.colors.populate(this.DATA.length);
+            this.colors = this.colorList.populate(this.DATA.length);
             var bars = this.getBars();
             return this.get(bars);
         }
