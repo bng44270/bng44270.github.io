@@ -5,7 +5,8 @@
   </head>
   <body>
     <div id="datainput"></div><br/>
-    <input type="button" value="Add Value" id="addvaluebtn" /><br/>
+    <input type="button" value="Add Value" id="addvaluebtn" />
+    <input type="button" value="Add Value" id="redrawgraphs" /><br/>
     <table style="border-width:0px;"><tr>
       <td id="bargraph"></td>
       <td style="width:100px;"></td>
@@ -17,9 +18,53 @@
       var barGraph = null;
       var lineGraph = null;
       
-      document.body.onload = function() {  
+      document.body.onload = function() {
+        document.getElementById('redrawgraphs').onclick = function() {
+          var labels = Array.prototype.slice.call(document.getElementsByClassName('glabel'));
+          var values = Array.prototype.slice.call(document.getElementsByClassName('gvalue'));
+        
+          if (labels.length == values.length) {
+            data = [];
+            for (var i = 0; i < labels.length; i++) {
+              if (values[i].value.toString().length == 0 || values[i].value.toString().length == 0) continue;
+              data.push({v:parseFloat(values[i].value),l:labels[i].value});
+            }
+            
+            lineGraph.setData(data);
+            document.getElementById('linegraph').innerHTML = lineGraph.render();
+            
+            barGraph.setData(data);
+            document.getElementById('bargraph').innerHTML = barGraph.render();
+          }
+        };
+        
         document.getElementById('addvaluebtn').onclick = function() {
           createNewPoint('row' + rowCount.toString(),'datainput');
+          
+          var lValue = document.createElement('input');
+          lValue.setAttribute('type','text');
+          lValue.setAttribute('class','glabel');
+          lValue.setAttribute('id','row' + rowCount.toString() + '_label');
+        
+          var lLabel = document.createElement('label');
+          lLabel.setAttribute('for','row' + rowCount.toString() + '_label');
+          lLabel.innerHTML = 'Label';
+        
+          var vValue = document.createElement('input');
+          vValue.setAttribute('type','text');
+          vValue.setAttribute('class','gvalue');
+          vValue.setAttribute('id','row' + rowCount.toString() + '_value');
+        
+          var vLabel = document.createElement('label');
+          vLabel.setAttribute('for','row' + rowCount.toString() + '_value');
+          vLabel.innerHTML = 'Value';
+        
+          document.getElementById('datainput').appendChild(lLabel);
+          document.getElementById('datainput').appendChild(lValue);
+          document.getElementById('datainput').appendChild(vLabel);
+          document.getElementById('datainput').appendChild(vValue);
+          document.getElementById('datainput').appendChild(document.createElement('br'));
+          
           rowCount++;
         };
         
@@ -35,53 +80,6 @@
         document.getElementById('linegraph').innerHTML = lineGraph.render();
         document.getElementById('bargraph').innerHTML = barGraph.render();
       };
-      
-      function createNewPoint(id,target) {
-        var lValue = document.createElement('input');
-        lValue.setAttribute('type','text');
-        lValue.setAttribute('class','glabel');
-        lValue.setAttribute('id',id + '_label');
-        lValue.setAttribute('onblur','updateGraph();');
-        
-        var lLabel = document.createElement('label');
-        lLabel.setAttribute('for',id + '_label');
-        lLabel.innerHTML = 'Label';
-        
-        var vValue = document.createElement('input');
-        vValue.setAttribute('type','text');
-        vValue.setAttribute('class','gvalue');
-        vValue.setAttribute('id',id + '_value');
-        lValue.setAttribute('onblur','updateGraph();');
-        
-        var vLabel = document.createElement('label');
-        vLabel.setAttribute('for',id + '_value');
-        vLabel.innerHTML = 'Value';
-        
-        document.getElementById(target).appendChild(lLabel);
-        document.getElementById(target).appendChild(lValue);
-        document.getElementById(target).appendChild(vLabel);
-        document.getElementById(target).appendChild(vValue);
-        document.getElementById(target).appendChild(document.createElement('br'));
-      }
-      
-      function updateGraph() {
-        var labels = Array.prototype.slice.call(document.getElementsByClassName('glabel'));
-        var values = Array.prototype.slice.call(document.getElementsByClassName('gvalue'));
-        
-        if (labels.length == values.length) {
-          data = [];
-          for (var i = 0; i < labels.length; i++) {
-            if (values[i].value.toString().length == 0 || values[i].value.toString().length == 0) continue;
-            data.push({v:parseFloat(values[i].value),l:labels[i].value});
-          }
-          
-          lineGraph.setData(data);
-          document.getElementById('linegraph').innerHTML = lineGraph.render();
-          
-          barGraph.setData(data);
-          document.getElementById('bargraph').innerHTML = barGraph.render();
-        }
-      }
     </script>
   </body>
 </html>
