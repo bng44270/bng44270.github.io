@@ -16,10 +16,11 @@
         <label for="bargraphcolor">Graph Color (use rgb(r,g,b) format)</label><input type="text" id="bargraphcolor" /><br/>
         <label for="barxlabel">X Label</label><input type="text" id="barxlabel" /><br/>
         <label for="barylabel">Y Label</label><input type="text" id="barylabel" /><br/>
-        <input type="button" id="redrawbar" />
+        <input type="button" id="redrawbar" value="Redraw Bar Graph" />
       </td>
+      <td style="width:100px;"></td>
       <td>
-        <div style="width:100px;"></div>
+        <div id="linegraph"></div>
         <label for="linecolor">Line color (use rgb(r,g,b) format)</label><input type="text" id="linecolor" /><br/>
         <label for="linedotcolor">Dot color (use rgb(r,g,b) format)</label><input type="text" id="linedotcolor" /><br/>
         <label for="lineheight">Height</label><input type="text" id="lineheight" /><br/>
@@ -27,9 +28,8 @@
         <label for="linegraphcolor">Graph Color (use rgb(r,g,b) format)</label><input type="text" id="linegraphcolor" /><br/>
         <label for="linexlabel">X Label</label><input type="text" id="linexlabel" /><br/>
         <label for="lineylabel">Y Label</label><input type="text" id="lineylabel" /><br/>
-        <input type="button" id="redrawline" />
+        <input type="button" id="redrawline" value="Redraw Line Graph" />
       </td>
-      <td id="linegraph"></td>
     </tr></table>
     <script type="text/javascript">
       var rowCount = 0;
