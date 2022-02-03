@@ -12,13 +12,15 @@
       <td id="linegraph"></td>
     </tr></table>
     <script type="text/javascript">
+      var rowCount = 0;
       var data = [];
       var barGraph = null;
       var lineGraph = null;
       
       document.body.onload = function() {  
         document.getElementById('addvaluebtn').onclick = function() {
-          document.getElementById('datainput').innerHTML += 'Label:<input type="text" class="glabel" onKeyUp="updateGraph();" />&nbsp;&nbsp;Value:<input type="text" class="gvalue" onKeyUp="updateGraph();" /><br/>';
+          createNewPoint('row' + rowCount.toString(),'datainput');
+          rowCount++;
         };
         
         document.getElementById('addvaluebtn').click();
@@ -33,6 +35,32 @@
         document.getElementById('linegraph').innerHTML = lineGraph.render();
         document.getElementById('bargraph').innerHTML = barGraph.render();
       };
+      
+      function createNewPoint(id,target) {
+        var lValue = document.createElement('input');
+        lValue.setAttribute('type','text');
+        lValue.setAttribute('class','glabel');
+        lValue.setAttribute('id',id + '_label');
+        
+        var lLabel = document.createElement('label');
+        lLabel.setAttribute('for',id + '_label');
+        lLabel.innerHTML = 'Label';
+        
+        var vValue = document.createElement('input');
+        vValue.setAttribute('type','text');
+        vValue.setAttribute('class','gvalue');
+        vValue.setAttribute('id',id + '_value');
+        
+        var vLabel = document.createElement('label');
+        vLabel.setAttribute('for',id + '_value');
+        vLabel.innerHTML = 'Value';
+        
+        document.getElementById(target).appendChild(lValue);
+        document.getElementById(target).appendChild(lLabel);
+        document.getElementById(target).appendChild(vValue);
+        document.getElementById(target).appendChild(vLabel);
+        document.getElementById(target).appendChild(document.createElement('br'));
+      }
       
       function updateGraph() {
         var labels = Array.prototype.slice.call(document.getElementsByClassName('glabel'));
