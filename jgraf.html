@@ -41,6 +41,15 @@
       
       document.body.onload = function() {
         document.getElementById('redrawbar').onclick = function() {
+          document.getElementById('redrawgraphs').click();          
+        };
+        
+        document.getElementById('redrawline').onclick = function() {
+          document.getElementById('redrawgraphs').click();          
+        };
+        
+        document.getElementById('redrawgraphs').onclick = function() {
+          // Update Bar Graph and Data
           var barColors = document.getElementById('barcolors').value.split('\n');
           var height = parseInt(document.getElementById('barheight').value);
           var width = parseInt(document.getElementById('barwidth').value);
@@ -67,10 +76,7 @@
             ylabel : yLabel
           };
           
-          document.getElementById('redrawgraphs').click();          
-        };
-        
-        document.getElementById('redrawline').onclick = function() {
+          // Update Line Graph and Data
           var lineColor = document.getElementById('linecolor').value;
           var dotColor = document.getElementById('linedotcolor').value;
           var height = parseInt(document.getElementById('lineheight').value);
@@ -100,10 +106,6 @@
             ylabel : yLabel
           };
           
-          document.getElementById('redrawgraphs').click();          
-        };
-        
-        document.getElementById('redrawgraphs').onclick = function() {
           var labels = Array.prototype.slice.call(document.getElementsByClassName('glabel'));
           var values = Array.prototype.slice.call(document.getElementsByClassName('gvalue'));
         
