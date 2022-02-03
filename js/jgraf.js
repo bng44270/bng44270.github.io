@@ -96,6 +96,10 @@
             this.graphColor = (graphColor) ? graphColor : rgb(0,0,0);
         }
 
+        setGraphColor(c) {
+            this.graphColor = c;
+        }
+        
         setWidth(w) {
             this.W = w;
             this.DATA = this.transposeData(this.DATA);
