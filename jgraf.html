@@ -13,10 +13,6 @@
       <td id="linegraph"></td>
     </tr></table>
     <script type="text/javascript">
-      if (!localStorage.graph_data) 
-            localStorage.graph_data = "[{v:100,l:\"Value\"}]";
-        }
-
       var rowCount = 0;
       var data = [];
       var barGraph = null;
@@ -71,6 +67,10 @@
           
           rowCount++;
         };
+        
+        if (!localStorage.graph_data) {
+          localStorage.graph_data = "[{v:100,l:\"Value\"}]";
+        }
         
         data = JSON.parse(localStorage.graph_data);
         
