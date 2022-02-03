@@ -153,6 +153,7 @@
         }
 
         render() {
+            this.colors = this.colors.populate(this.DATA.length);
             var bars = this.getBars();
             return this.get(bars);
         }
