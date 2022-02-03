@@ -41,7 +41,7 @@
         lValue.setAttribute('type','text');
         lValue.setAttribute('class','glabel');
         lValue.setAttribute('id',id + '_label');
-        lValue.setAttribute('onKeyUp','updateGraph();');
+        lValue.setAttribute('onkeyup','updateGraph();');
         
         var lLabel = document.createElement('label');
         lLabel.setAttribute('for',id + '_label');
@@ -51,7 +51,7 @@
         vValue.setAttribute('type','text');
         vValue.setAttribute('class','gvalue');
         vValue.setAttribute('id',id + '_value');
-        lValue.setAttribute('onKeyUp','updateGraph();');
+        lValue.setAttribute('onkeyup','updateGraph();');
         
         var vLabel = document.createElement('label');
         vLabel.setAttribute('for',id + '_value');
@@ -71,6 +71,7 @@
         if (labels.length == values.length) {
           data = [];
           for (var i = 0; i < labels.length; i++) {
+            if (values[i].value.toString().length == 0 || values[i].value.toString().length == 0) continue;
             data.push({v:parseFloat(values[i].value),l:labels[i].value});
           }
           
