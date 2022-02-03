@@ -41,7 +41,7 @@
         lValue.setAttribute('type','text');
         lValue.setAttribute('class','glabel');
         lValue.setAttribute('id',id + '_label');
-        lValue.setAttribute('onkeyup','updateGraph();');
+        lValue.setAttribute('onblur','updateGraph();');
         
         var lLabel = document.createElement('label');
         lLabel.setAttribute('for',id + '_label');
@@ -51,7 +51,7 @@
         vValue.setAttribute('type','text');
         vValue.setAttribute('class','gvalue');
         vValue.setAttribute('id',id + '_value');
-        lValue.setAttribute('onkeyup','updateGraph();');
+        lValue.setAttribute('onblur','updateGraph();');
         
         var vLabel = document.createElement('label');
         vLabel.setAttribute('for',id + '_value');
