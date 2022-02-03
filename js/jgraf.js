@@ -205,7 +205,7 @@
         getLine() {
             var svg = '';
             var linePos = this.PAD;
-            var lineStep = this.W/(data.length-1)
+            var lineStep = this.W/(this.DATA.length-1)
 
             svg += '<!-- Draw Bars -->';
             for (var i = 1; i < this.DATA.length; i++) {
