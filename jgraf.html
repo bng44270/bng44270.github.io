@@ -13,6 +13,10 @@
       <td id="linegraph"></td>
     </tr></table>
     <script type="text/javascript">
+      if (!localStorage.graph_data) 
+            localStorage.graph_data = "[{v:100,l:\"Value\"}]";
+        }
+
       var rowCount = 0;
       var data = [];
       var barGraph = null;
@@ -35,6 +39,8 @@
             
             barGraph.setData(data);
             document.getElementById('bargraph').innerHTML = barGraph.render();
+            
+            localStorage.graph_data = JSON.stringify(data);
           }
         };
         
@@ -66,11 +72,13 @@
           rowCount++;
         };
         
-        document.getElementById('addvaluebtn').click();
-        document.getElementsByClassName('glabel')[0].value = 'Value';
-        document.getElementsByClassName('gvalue')[0].value = '100';
+        data = JSON.parse(localStorage.graph_data);
         
-        data = [{v:100,l:'Value'}];
+        data.forEach((v,i) => {
+          document.getElementById('addvaluebtn').click();
+          document.getElementsByClassName('glabel')[i].value = data[i].l;
+          document.getElementsByClassName('gvalue')[i].value = data[i].v.toString();
+        });
         
         barGraph = new JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
         lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
