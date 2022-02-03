@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>DomTerm test</title>
+    <script src="/js/jgraf.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="datainput"></div><br/>
+    <input type="button" value="Add Value" id="addvaluebtn" /><br/>
+    <table style="border-width:0px;"><tr>
+      <td id="bargraph"></td>
+      <td style="width:100px;"></td>
+      <td id="linegraph"></td>
+    </tr></table>
+    <script type="text/javascript">
+      var barGraph = JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
+      var lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
+      
+      document.body.onload = function() {  
+        document.getElementById('addvaluebtn').onclick = function() {
+          document.getElementById('datainput').innerHTML += 'Label:<input type="text" class="glabel" onKeyUp="updateGraph();" />&nbsp;&nbsp;Value:<input type="text" class="gvalue" onKeyUp="updateGraph();" /><br/>';
+        };
+      };
+      
+      function updateGraph() {
+        var labels = Array.prototype.slice.call(document.getElementsByClassName('glabel'));
+        var values = Array.prototype.slice.call(document.getElementsByClassName('gvalue'));
+        
+        if (labels.length == values.length) {
+          var data = [];
+          for (var i = 0; i < labels.length; i++) {
+            data.push({v:parseFloat(values[i].value),l:labels[i].value});
+          }
+          
+          lineGraph.setData(data);
+          document.getElementById('linegraph').innerHTML = lineGraph.render();
+          
+          barGraph.setData(data);
+          document.getElementById('bargraph').innerHTML = barGraph.render();
+        }
+      }
+    </script>
+  </body>
+</html>
