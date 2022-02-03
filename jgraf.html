@@ -13,13 +13,20 @@
     </tr></table>
     <script type="text/javascript">
       var data = [];
-      var barGraph = new JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
-      var lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
+      var barGraph = null;
+      var lineGraph = null;
       
       document.body.onload = function() {  
         document.getElementById('addvaluebtn').onclick = function() {
           document.getElementById('datainput').innerHTML += 'Label:<input type="text" class="glabel" onKeyUp="updateGraph();" />&nbsp;&nbsp;Value:<input type="text" class="gvalue" onKeyUp="updateGraph();" /><br/>';
         };
+        
+        document.getElementById('addvaluebtn').click();
+        document.getElementByClassName('glabel')[0].value = 'Value';
+        document.getElementByClassName('gvalue')[0].value = '100';
+        
+        barGraph = new JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
+        lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
       };
       
       function updateGraph() {
