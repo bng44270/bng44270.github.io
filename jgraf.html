@@ -41,6 +41,7 @@
         lValue.setAttribute('type','text');
         lValue.setAttribute('class','glabel');
         lValue.setAttribute('id',id + '_label');
+        lValue.setAttribute('onKeyUp','updateGraph();');
         
         var lLabel = document.createElement('label');
         lLabel.setAttribute('for',id + '_label');
@@ -50,15 +51,16 @@
         vValue.setAttribute('type','text');
         vValue.setAttribute('class','gvalue');
         vValue.setAttribute('id',id + '_value');
+        lValue.setAttribute('onKeyUp','updateGraph();');
         
         var vLabel = document.createElement('label');
         vLabel.setAttribute('for',id + '_value');
         vLabel.innerHTML = 'Value';
         
-        document.getElementById(target).appendChild(lValue);
         document.getElementById(target).appendChild(lLabel);
-        document.getElementById(target).appendChild(vValue);
+        document.getElementById(target).appendChild(lValue);
         document.getElementById(target).appendChild(vLabel);
+        document.getElementById(target).appendChild(vValue);
         document.getElementById(target).appendChild(document.createElement('br'));
       }
       
