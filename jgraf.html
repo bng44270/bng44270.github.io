@@ -10,10 +10,11 @@
     <table style="border-width:0px;"><tr>
       <td>
         <div id="bargraph"></div>
-        <label for="barcolors">Bar Colors (use rgb(r,g,b) defintions comma delimited)</label><textarea id="barcolors"></textarea><br/>
+        <label for="barcolors">Bar Colors<br/>(use rgb(r,g,b) format)</label><textarea id="barcolors"></textarea><br/>
         <label for="barheight">Height</label><input type="text" id="barheight" /><br/>
         <label for="barwidth">Width</label><input type="text" id="barwidth" /><br/>
-        <label for="bargraphcolor">Graph Color (use rgb(r,g,b) format)</label><input type="text" id="bargraphcolor" /><br/>
+        <label for="barpadding">Padding</label><input type="text" id="barpadding" /><br/>
+        <label for="bargraphcolor">Graph Color<br/>(use rgb(r,g,b) format)</label><input type="text" id="bargraphcolor" /><br/>
         <label for="barxlabel">X Label</label><input type="text" id="barxlabel" /><br/>
         <label for="barylabel">Y Label</label><input type="text" id="barylabel" /><br/>
         <input type="button" id="redrawbar" value="Redraw Bar Graph" />
@@ -21,11 +22,12 @@
       <td style="width:100px;"></td>
       <td>
         <div id="linegraph"></div>
-        <label for="linecolor">Line color (use rgb(r,g,b) format)</label><input type="text" id="linecolor" /><br/>
-        <label for="linedotcolor">Dot color (use rgb(r,g,b) format)</label><input type="text" id="linedotcolor" /><br/>
+        <label for="linecolor">Line color<br/>(use rgb(r,g,b) format)</label><input type="text" id="linecolor" /><br/>
+        <label for="linedotcolor">Dot color<br/>(use rgb(r,g,b) format)</label><input type="text" id="linedotcolor" /><br/>
         <label for="lineheight">Height</label><input type="text" id="lineheight" /><br/>
         <label for="linewidth">Width</label><input type="text" id="linewidth" /><br/>
-        <label for="linegraphcolor">Graph Color (use rgb(r,g,b) format)</label><input type="text" id="linegraphcolor" /><br/>
+        <label for="linepadding">Padding</label><input type="text" id="linepadding" /><br/>
+        <label for="linegraphcolor">Graph Color<br/>(use rgb(r,g,b) format)</label><input type="text" id="linegraphcolor" /><br/>
         <label for="linexlabel">X Label</label><input type="text" id="linexlabel" /><br/>
         <label for="lineylabel">Y Label</label><input type="text" id="lineylabel" /><br/>
         <input type="button" id="redrawline" value="Redraw Line Graph" />
@@ -39,24 +41,64 @@
       
       document.body.onload = function() {
         document.getElementById('redrawbar').onclick = function() {
-          barGraph.setColors(document.getElementById('barcolors').value.split('\n'));
-          barGraph.setHeight(parseInt(document.getElementById('barheight').value));
-          barGraph.setWidth(parseInt(document.getElementById('barwidth').value));
-          barGraph.setGraphColor(document.getElementById('bargraphcolor').value);
-          barGraph.setXLabel(document.getElementById('barxlabel').value);
-          barGraph.setYLabel(document.getElementById('barylabel').value);
+          var barColors = document.getElementById('barcolors').value.split('\n');
+          var height = parseInt(document.getElementById('barheight').value);
+          var width = parseInt(document.getElementById('barwidth').value);
+          var padding = parseInt(document.getElementById('barpadding').value);
+          var graphColor = document.getElementById('bargraphcolor').value;
+          var xLabel = document.getElementById('barxlabel').value;
+          var yLabel = document.getElementById('barylabel').value;
+          
+          barGraph.setColors(barColors);
+          barGraph.setHeight(height);
+          barGraph.setWidth(width);
+          barGraph.setPadding(padding);
+          barGraph.setGraphColor(graphColor);
+          barGraph.setXLabel(xLabel);
+          barGraph.setYLabel(yLabel);
+          
+          localStorage.graph_data.bar = {
+            colors : barColors,
+            height : height,
+            width : width,
+            padding : padding,
+            gcolor : graphColor,
+            xlabel : xLabel,
+            ylabel : yLabel
+          };
           
           document.getElementById('redrawgraphs').click();          
         };
         
         document.getElementById('redrawline').onclick = function() {
-          lineGraph.setLineColor(document.getElementById('linecolor').value);
-          lineGraph.setDotColor(document.getElementById('linedotcolor').value);
-          lineGraph.setHeight(parseInt(document.getElementById('lineheight').value));
-          lineGraph.setWidth(parseInt(document.getElementById('linewidth').value));
-          lineGraph.setGraphColor(document.getElementById('linegraphcolor').value);
-          lineGraph.setXLabel(document.getElementById('linexlabel').value);
-          lineGraph.setYLabel(document.getElementById('lineylabel').value);
+          var lineColor = document.getElementById('linecolor').value;
+          var dotColor = document.getElementById('linedotcolor').value;
+          var height = parseInt(document.getElementById('lineheight').value);
+          var width = parseInt(document.getElementById('linewidth').value);
+          var padding = parseInt(document.getElementById('linepadding').value);
+          var graphColor = document.getElementById('linegraphcolor').value;
+          var xLabel = document.getElementById('linexlabel').value;
+          var yLabel = document.getElementById('lineylabel').value;
+          
+          lineGraph.setLineColor(lineColor);
+          lineGraph.setDotColor(dotColor);
+          lineGraph.setHeight(height);
+          lineGraph.setWidth(width);
+          lineGraph.setPadding(padding);
+          lineGraph.setGraphColor(graphColor);
+          lineGraph.setXLabel(xLabel);
+          lineGraph.setYLabel(yLabel);
+          
+          localStorage.graph_data.line = {
+            linecolor : lineColor,
+            dotcolor : dotColor,
+            height : height,
+            width : width,
+            padding : padding,
+            gcolor : graphColor,
+            xlabel : xLabel,
+            ylabel : yLabel
+          };
           
           document.getElementById('redrawgraphs').click();          
         };
@@ -78,7 +120,7 @@
             barGraph.setData(data);
             document.getElementById('bargraph').innerHTML = barGraph.render();
             
-            localStorage.graph_data = JSON.stringify(data);
+            localStorage.graph_data.data = JSON.stringify(data);
           }
         };
         
@@ -111,19 +153,36 @@
         };
         
         if (!localStorage.graph_data) {
-          localStorage.graph_data = "[{\"v\":100,\"l\":\"Value\"}]";
+          localStorage.graph_data = "{\"bar\":{\"colors\":[\"rgb(255,0,0)\",\"rgb(0,255,0)\",\"rgb(0,0,255)\"],\"height\":300,\"width\":300,\"padding\":30,\"gcolor\":\"rgb(255,255,0)\",\"xlabel\":\"X Axis\",\"ylabel\":\"Y Axis\"},\"line\":{\"linecolor\":\"rgb(255,0,0)\",\"dotcolor\":\"rgb(0,255,0)\",\"height\":300,\"width\":300,\"padding\":30,\"gcolor\":\"rgb(255,255,0)\",\"xlabel\":\"X Axis\",\"ylabel\":\"Y Axis\"},\"data\":[{\"v\":0,\"l\":\"Label\"}]}";
         }
         
-        data = JSON.parse(localStorage.graph_data);
+        settings = JSON.parse(localStorage.graph_data);
         
-        data.forEach((v,i) => {
+        settings.data.forEach((v,i) => {
           document.getElementById('addvaluebtn').click();
           document.getElementsByClassName('glabel')[i].value = data[i].l;
           document.getElementsByClassName('gvalue')[i].value = data[i].v.toString();
         });
         
-        barGraph = new JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
-        lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
+        barGraph = new JGrafBar(settings.bar.height,settings.bar.width,settings.bar.padding,settings.bar.xlabel,settings.bar.ylabel,settings.bar.colors,settings.data,settings.bar.gcolor);
+        lineGraph = new JGrafLine(settings.line.height,settings.line.width,settings.line.padding,setting.line.xlabel,settings.line.ylabel,settings.line.linecolor,settings.line.dotcolor,settings.data,settings.line.gcolor);
+        
+        document.getElementById('linecolor').value = settings.line.linecolor;
+        document.getElementById('linedotcolor').value = settings.line.dotcolor;
+        document.getElementById('lineheight').value = settings.line.height.toString();
+        document.getElementById('linewidth').value = settings.line.width.toString();
+        document.getElementById('linepadding').value = settings.line.padding.toString();
+        document.getElementById('linegraphcolor').value = settings.line.gcolor;
+        document.getElementById('linexlabel').value = settings.line.xlabel;
+        document.getElementById('lineylabel').value = settings.line.ylabel;
+        
+        document.getElementById('barcolors').value = settings.bar.colors.join('\n');
+        document.getElementById('barheight').value = settings.bar.height.toString();
+        document.getElementById('barwidth').value = settings.bar.width.toString();
+        document.getElementById('barpadding').value = settings.bar.padding.toString();
+        document.getElementById('bargraphcolor').value = setting.bar.gcolor;
+        document.getElementById('barxlabel').value = settings.bar.xlabel;
+        document.getElementById('barylabel').value = settings.bar.ylabel;
         
         document.getElementById('linegraph').innerHTML = lineGraph.render();
         document.getElementById('bargraph').innerHTML = barGraph.render();
