@@ -25,8 +25,13 @@
         document.getElementsByClassName('glabel')[0].value = 'Value';
         document.getElementsByClassName('gvalue')[0].value = '100';
         
+        data = [{v:100,l:'Value'}];
+        
         barGraph = new JGrafBar(300,300,30,'Labels','Test Data Bar Graph',['rgb(255,0,0)','rgb(0,255,0)','rgb(0,0,255)'],data,'rgb(0,0,255)');
         lineGraph = new JGrafLine(300,300,30,'Labels','Test Line Graph','rgb(255,0,0)','rgb(0,0,255)',data,'rgb(0,255,0)');
+        
+        document.getElementById('linegraph').innerHTML = lineGraph.render();
+        document.getElementById('bargraph').innerHTML = barGraph.render();
       };
       
       function updateGraph() {
