@@ -83,7 +83,7 @@
         dlLink.setAttribute('style','cursor:pointer;');
       	dlLink.setAttribute('onClick','javascript:downloadMarker(' + thisId + ');');
       
-      var plusCode = (new PlusCode(loc[0],loc[1])).plus;
+      var plusCode = (new PlusCode(loc.lat,loc.lng)).plus;
       
         L.marker(loc,{
           info : text,
@@ -189,7 +189,7 @@
         }).filter(l => {
           return l instanceof L.Marker;
         }).map(l => {
-          return {info:l.options.info,latlng:[l._latlng.lat,l._latlng.lng]};
+          return {info:l.options.info,latlng:{lat:l._latlng.lat,lng:l._latlng.lng}};
         }));
       }
         
