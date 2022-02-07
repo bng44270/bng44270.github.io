@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Repositories - Andy Does Tech</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<style>
+code {
+	background-color: #cccccc;
+	color: #000000;
+		font-size: 12pt;
+}
+</style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<section id="content" class="main">
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+                                                <section>
+                                                        <ul class="icons">
+                                                                <li><a href="http://twitter.com/linuxfu" alt="@linuxfu on Twitter" target="_blank"><i class="fab fa-twitter fa-2x"></i></a></li>
+                                                                <li><a href="http://facebook.com/linuxfu" alt="linuxfu on Facebook" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
+                                                                <li><a href="https://linkedin.com/in/carlsonandy" alt="LinkedIn" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+                                                        </ul>
+                                                </section>
+                                                <p class="copyright">Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                                        </footer>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+<script type="text/javascript">
+  function getQuery() {
+    var queryAr = {};
+
+    var currentArgs = window.location.search.replace(/^\?/,'').split('&');
+    
+    if (currentArgs[0].length > 0)
+      currentArgs.forEach(function(thisData) {
+        queryAr[thisData.split('=')[0]] = thisData.split('=')[1];
+      });
+
+    return queryAr;
+  }
+
+  $(document).ready(function() {
+    var queryArgs = getQuery();
+    if (queryArgs['name'].length > 0) {
+      $.get('https://raw.githubusercontent.com/bng44270/' + queryArgs['name'] + '/master/README.md',function(data) {
+        $.post('https://api.github.com/markdown',JSON.stringify({"text":data,"mode":"gfm"}),function(htmlData) {
+		$('#content').html(htmlData + '<br/><br/><a href="https://github.com/bng44270/' + queryArgs['name'] + '" target="_blank">View Repository</a>');
+        });
+      });
+    }
+  });
+</script>
+	</body>
+</html>

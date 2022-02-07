@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Gists - Andy Does Tech</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<style>
+code {
+	background-color: #cccccc;
+	color: #000000;
+		font-size: 12pt;
+}
+</style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Gists</h1>
+						<p>Little bits of code that I've written</p>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						Files:<span id="loadingsel">Loading...</span><select id="gisttype" onCLick="viewGistType();"></select>
+						<!-- Content -->
+							<span id="loadinglist">Loading...</span><section id="content" class="main">
+							</section>
+							<input type="hidden" id="linktemp"/>
+
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+                                                <section>
+                                                        <ul class="icons">
+                                                                <li><a href="http://twitter.com/linuxfu" alt="@linuxfu on Twitter" target="_blank"><i class="fab fa-twitter fa-2x"></i></a></li>
+                                                                <li><a href="http://facebook.com/linuxfu" alt="linuxfu on Facebook" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
+                                                                <li><a href="https://linkedin.com/in/carlsonandy" alt="LinkedIn" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+                                                        </ul>
+                                                </section>
+                                                <p class="copyright">Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                                        </footer>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+<script type="text/javascript">
+  Array.prototype.unique = function() {
+    newAr = [];
+    this.forEach(function(thisItem) {
+      if (newAr.indexOf(thisItem) == -1) newAr.push(thisItem);
+    });
+    return newAr;
+  };
+
+  function viewGistType() {
+	  $('#content').hide();
+	  $('#loadinglist').show();
+	$('#content').html('');
+
+    $.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
+
+		gistData.filter(thisGist => {
+        	return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
+	  	}).map(thisGist => {
+			return '<a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
+	  	}).forEach(thisGist => {
+			$('#content').append(thisGist);
+		});
+
+		xhr.getResponseHeader('link').split(',').forEach(thisLink => {
+			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
+			$.get(link,newGistData => {
+				newGistData.filter(thisGist => {
+        			return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1") == $('#gisttype').val();
+	  			}).map(thisGist => {
+					return '<a target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')</a><br/>';
+	  			}).forEach(thisNewGist => {
+					$('#content').append(thisNewGist);
+				});
+			});
+		});
+
+		$('#loadinglist').hide();
+		$('#content').show();
+    });
+  }
+
+  $(document).ready(function() {
+	  $('#loadinglist').hide();
+	  $('#gisttype').hide();
+	  
+    $.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
+		var gistTypeAr = [];		
+		    gistData.map(thisGist => {
+				//return file type
+			    return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
+		    }).forEach(thisType => {
+				if (gistTypeAr.indexOf(thisType) == -1) gistTypeAr.push(thisType);
+			});
+
+			xhr.getResponseHeader('link').split(',').forEach(thisLink => {
+				var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
+				$.get(link,newGistData => {
+					newGistData.map(thisGist => {
+						//return file type
+			    		return thisGist.files[Object.keys(thisGist.files)[0]].filename.replace(/^.*\.([^$]+)$/,"$1");
+		    		}).forEach(thisType => {
+						console.log(JSON.stringify(gistTypeAr));
+						if (gistTypeAr.indexOf(thisType) == -1) gistTypeAr.push(thisType);
+					});
+				});
+			});
+			
+			gistTypeAr.forEach(thisType => {
+				$('#gisttype').append('<option value="' + thisType + '">' + thisType + ' files</option>');
+			});
+		});
+
+		$('#loadingsel').hide();
+		$('#gisttype').show();
+  });
+</script>
+</body>
+</html>

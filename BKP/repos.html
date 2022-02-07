@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Code - Andy Does Tech</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<style>
+code {
+	background-color: #cccccc;
+	color: #000000;
+		font-size: 12pt;
+}
+.spad {
+	width:30px;
+}
+</style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Code</h1>
+						<p>Some stuff I've written</p>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Content -->
+							<input style="margin-left:30px;width:200px;color:#cccccc;width:30%;" value="Search" type="text" id="gitsearch" />
+							<!--
+							<div id="searchingbox" style="display:none">
+							<input type="button" value="Reset Search" id="resetsearch"/>
+							</div>
+							<section id="waiting"><br/><span style="width:50px;"></span>Loading...</section>
+							-->
+							<section id="content" class="main">
+							</section>
+							<input type="hidden" id="linktemp"/>
+
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+                                                <section>
+                                                        <ul class="icons">
+                                                                <li><a href="http://twitter.com/linuxfu" alt="@linuxfu on Twitter" target="_blank"><i class="fab fa-twitter fa-2x"></i></a></li>
+                                                                <li><a href="http://facebook.com/linuxfu" alt="linuxfu on Facebook" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
+								<li><a href="https://github.com/bng44270" alt="Github" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+                                                                <li><a href="https://linkedin.com/in/carlsonandy" alt="LinkedIn" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+                                                        </ul>
+                                                </section>
+                                                <p class="copyright">Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                                        </footer>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+<script type="text/javascript">
+  var skipRepos = ['pyver','tubestream','bng44270.github.io','advanced-js-k2020','knowledge_2019_loaner_request','snWebCli','snWebCli-Additions','devtraining-needit-newyork'];
+
+  $(document).ready(function() {
+    $.get('https://api.github.com/users/bng44270/repos',function(repoData) {
+	    $('#content').append(repoData.filter(thisRepo => {
+		    return skipRepos.indexOf(thisRepo['name']) == -1;
+	    }).map(thisRepo => {
+			var repoLang = (thisRepo['language']) ? thisRepo['language'] : '';
+			return ('<a class="gitlink" href="' + thisRepo['html_url'] + '" target="_blank">' + thisRepo['description'] + ' (' + thisRepo['name'] + ' - ' + repoLang + ')<br/></a>');
+   		}).join(''));
+    });
+
+	$.get('https://api.github.com/users/bng44270/gists',(gistData,status,xhr) => {
+		$('#content').append(gistData.map(thisGist => {
+			return ('<a class="gitlink" target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')<br/></a>');
+  		}).join(''));
+	
+		xhr.getResponseHeader('link').split(',').forEach(thisLink => {
+			var link = thisLink.replace(/^[ \t]*<([^>]+)>.*$/,"$1");
+			$.get(link,newGistData => {	
+				$('#content').append(newGistData.map(thisGist => {
+					return ('<a class="gitlink" target="_blank" href="' + thisGist.html_url + '">'  + thisGist.description + ' (' + thisGist.files[Object.keys(thisGist.files)[0]].filename + ')<br/></a>');
+		  		}).join(''));
+			});
+		});
+	});
+	
+	$('#gitsearch').keyup(function() {
+		if ($('#gitsearch').val().length == 0) $('.gitlink').show();
+		else {
+			$('.gitlink').hide();
+			$('.gitlink').filter(function() {
+				return (new RegExp($('#gitsearch').val(),'i')).test($(this).text())
+			}).show();
+		}
+	});
+	$('#gitsearch').click(function() {
+		$('#gitsearch').val('');
+		$('#gitsearch').css('color','#000000');
+	});
+	/*  
+	document.location.search.replace(/^\?/,'').split('&').map(x => {
+    		return { name:x.split('=')[0], value: x.split('=')[1] };
+	}).forEach(x => {
+		$('#content').hide();
+		$('#waiting').show();
+		if (x.name == 'search') {
+			$('#gitsearch').val(unescape(x.value));
+			$('#gitsearch').keyup();
+			$('#waiting').hide();
+			$('#content').show();
+			$('#searchbox').hide();
+			$('#searchingbox').show();
+			$('#resetsearch').click(function() {
+				$('#gitsearch').val('');
+				setTimeout(function() {
+					$('#gitsearch').keyup();
+				},3000);
+				$('#searchbox').show();
+				$('#searchingbox').hide();
+				location.search = '';
+			});		
+		}
+	});
+	*/
+	
+
+
+});
+</script>
+</body>
+</html>
