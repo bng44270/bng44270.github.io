@@ -17,6 +17,25 @@
       div.row {
         margin-bottom:  50px;
       }
+      
+      div.header {
+        color:white;
+      }
+      
+      div.body {
+        background-color:white;
+        border-radius: 25px;
+        padding: 25px;
+      }
+      
+      div.section {
+        margin-top:50px;
+        margin-bottom:50px;
+      }
+      
+      div.footer {
+        margin-top:50px;
+      }
             
       a {
         color : black;
@@ -28,7 +47,7 @@
     </style>
   </head>
   <body>
-    <div class="container">
+    <div class="container header">
       <div class="row" style="margin-top:100px;">
         <div class="one column"></div>
         <div class="ten columns" style="text-align:center;">
@@ -37,7 +56,9 @@
         </div>
         <div class="one column"></div>
       </div>
-      <div class="row">
+    </div>
+    <div class="container body" >
+      <div class="row section">
         <div class="one column"></div>
         <div class="ten columns">
           <i class="fas fa-code fa-3x" style="float:left;margin-right:30px;"></i>From small scripts to larger projects I've written a little bit of everything including Bash, Python, JavaScript, and other languages.  Search through some of the I've written and see if there's anything you find interesting.<br/><br/>
@@ -48,14 +69,14 @@
         </div>
         <div class="one column"></div>
       </div>
-      <div class="row">
+      <div class="row section">
         <div class="one column"></div>
         <div class="ten columns">
           <i class="fas fa-edit fa-3x" style="float:left;margin-right:30px;"></i>If you'd like to read up on subjects including Bash and Apache, <a href="/articles.html">click here</a> to check some of the articles I've written.
         </div>
         <div class="one column"></div>
       </div>
-      <div class="row">
+      <div class="row section">
         <div class="one column"></div>
         <div class="ten columns">
           <i class="fas fa-bolt fa-3x" style="float:left;margin-right:30px;"></i>There are a few web apps that I have developed that are available for you to play with.  Much of the functionality used in the demos are available in one of my repositories or gists.<br/><br>
@@ -68,6 +89,8 @@
         </div>
         <div class="one column"></div>
       </div>
+    </div>
+    <div class="column footer">
       <div class="row">
         <div class="one column"></div>
         <div class="ten columns">
