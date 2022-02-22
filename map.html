@@ -49,6 +49,36 @@
         JSON.parse(localStorage.map_points).forEach(m => {
           createMarker(m.latlng,m.info);
         });
+        
+        document.getElementById('downloadall').onclick = function() {
+          var allMarkerObj = Object.keys(map._layers).map(k => {
+            return map._layers[k]
+          }).filter(l => {
+            return l instanceof L.Marker;
+          }).map(m => {
+            return m.toGeoJSON()
+          });
+          
+          var textToWrite = JSON.stringify(allMarkerObj);
+          var textFileAsBlob = new Blob([textToWrite], { type: 'application/json' });
+          var fileNameToSaveAs = 'geojson-all-markers-' + new Date().toISOString().replace(/:/g,".") + ".json";
+        
+          var downloadLink = document.createElement("a");
+          downloadLink.download = fileNameToSaveAs;
+          downloadLink.innerHTML = "My Hidden Link";
+      
+          window.URL = window.URL || window.webkitURL;
+      
+          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+          downloadLink.onclick = function(e) {
+            document.body.removeChild(e.target);
+          };
+    
+          downloadLink.style.display = "none";
+          document.body.appendChild(downloadLink);
+      
+          downloadLink.click();
+        };
       }   
       
       function updateView() {
@@ -218,5 +248,6 @@
       <option value="18">18</option>
     </select><br/>
     <div id="map" style="width:500px;height:500px;"></div>
+    <button id="downloadall">Download GeoJSON</button>
   </body>
 </html>
