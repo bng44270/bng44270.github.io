@@ -6,6 +6,7 @@
     <script type="text/javascript" src="/js/pluscode.js"></script>
     <script type="text/javascript">
       var map = null;
+      var bases = [];
       
       function mapInit() {
         if (!localStorage.map_points) {
@@ -17,9 +18,17 @@
         map.options.isMovingMarker = false;
         map.options.markerMove = -1;
         
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        bases.push({
+          name : 'OSM',
+          layer : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          })
+        },{
+          name : 'GoogleAerial',
+          layer : L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+            attribution : '&copy; Google Maps'
+          })
+        });
 
         map.on('moveend',function(e) {
           var center = map.getCenter();
@@ -79,8 +88,48 @@
       
           downloadLink.click();
         };
-      }   
-      
+      }
+
+      function populateBaseMaps() {
+        bases.push({
+          name : 'OSM',
+          layer : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          })
+        },{
+          name : 'GoogleAerial',
+          layer : L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+            attribution : '&copy; Google Maps'
+          })
+        });
+
+	bases.forEach(b => {
+	  var option = document.create('option');
+	  option.value = b.name;
+	  option.innerHTML = b.name;
+	  document.getElementById('basemaps').appendChild(option);
+	});
+
+	map.addLayer(bases.filter(b => b.name == 'OSM')[0].layer);
+	document.getElementById('basemaps').value = 'OSM';
+      }
+
+      function changeBasemap() {
+        bases.forEach(b => {
+	  try {
+	    map.removeLayer(b.layer);
+	  }
+	  catch(e) {
+	    Function.prototype();
+	  }
+	});
+
+	var selectedBase = document.getElementById('basemaps').value;
+	map.addLayer(bases.filter(b => b.name == selectedBase)[0].layer);
+      }
+
+
+
       function updateView() {
         var lat = parseFloat(document.getElementById('lat_box').value);
         var lng = parseFloat(document.getElementById('lng_box').value);
@@ -247,6 +296,7 @@
       <option value="17">17</option>
       <option value="18">18</option>
     </select><br/>
+    <select id="basemaps" onChange="changeBasemap();"></select>
     <div id="map" style="width:500px;height:500px;"></div>
     <button id="downloadall">Download GeoJSON</button>
   </body>
