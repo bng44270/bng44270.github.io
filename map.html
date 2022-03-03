@@ -18,18 +18,6 @@
         map.options.isMovingMarker = false;
         map.options.markerMove = -1;
         
-        bases.push({
-          name : 'OSM',
-          layer : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          })
-        },{
-          name : 'GoogleAerial',
-          layer : L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-            attribution : '&copy; Google Maps'
-          })
-        });
-
         map.on('moveend',function(e) {
           var center = map.getCenter();
           document.getElementById('lat_box').value = center.lat.toString();
@@ -52,7 +40,8 @@
             }
           }
         });
-        
+       
+        populateBaseMaps();
         updateView();
         
         JSON.parse(localStorage.map_points).forEach(m => {
@@ -104,7 +93,7 @@
         });
 
 	bases.forEach(b => {
-	  var option = document.create('option');
+	  var option = document.createElement('option');
 	  option.value = b.name;
 	  option.innerHTML = b.name;
 	  document.getElementById('basemaps').appendChild(option);
