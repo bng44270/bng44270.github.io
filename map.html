@@ -91,7 +91,17 @@
           layer : L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
             attribution : '&copy; Google Maps'
           })
-        });
+        },{
+          name : 'GoogleRoad',
+          layer : L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+            attribution : '&copy; Google Maps'
+          })
+        },{
+          name : 'GoogleTerrain',
+          layer : L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+            attribution : '&copy; Google Maps'
+          })
+        }	);
 
 	bases.forEach(b => {
 	  var option = document.createElement('option');
