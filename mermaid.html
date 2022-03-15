@@ -50,7 +50,7 @@
 	  };
 
           document.getElementById('makegraph').onclick = function() {
-	    var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
+	    var htmlDoc = '<html><head><script type="text/javascript" src="/js/dragdoc.js"><\/script><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body onLoad="new DragDoc(\'graph\');"><div style="height:390px;width:390px;overflow:auto;" class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
 
 	    var fileToInclude = new Blob([htmlDoc], {type:'text/html'});
 
