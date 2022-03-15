@@ -3,11 +3,14 @@
     <title>Mermaid Demo</title>
     </head>
     <body>
-
-        <textarea id="graphtext"></textarea><br/>
-        <button id="makegraph">Graph!</button><br/>
-        <button id="framesmall">-</button><button id="framebig">+</button><br/>
-        <iframe style="width:300px;height:300px;" id="graphtarget"></iframe><br/>
+        <button id="makegraph">Graph!</button>
+        <button id="heightdown">H-</button>
+	<button id="heightup">H+</button>
+	<button id="widthdown">W-</button>
+	<button id="widthup">W+</button>
+	<button id="downloadsvg">Download SVG</button><br/>
+	<textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
+        <iframe style="height:400px;width:400px;" id="graphtarget"></iframe>
 
         <script type="text/javascript">
           document.body.onload = function() {
@@ -17,18 +20,53 @@
             }
           };
           
+	  document.getElementById('downloadsvg').onclick = function() {
+	    var svgText = document.getElementById('graphtarget').contentDocument.getElementById('graph').innerHTML;
+
+	    var fileToDownload = new Blob([svgText],{type:'image/svg+xml'});
+
+	    var fileName = "mermaid-graph-" + (new Date().toISOString().replace(/:/g,'.')) + '.svg';
+
+
+	    var downloadLink = document.createElement("a");
+            downloadLink.download = fileName;
+            downloadLink.innerHTML = "My Hidden Link";
+
+            window.URL = window.URL || window.webkitURL;
+
+            downloadLink.href = window.URL.createObjectURL(fileToDownload);
+            downloadLink.onclick = function(e) {
+              document.body.removeChild(e.target);
+            };
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+
+            downloadLink.click();
+	  };
+
           document.getElementById('makegraph').onclick = function() {
-            document.getElementById('graphtarget').src = "data:text/html;charset=utf-8," + escape('<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid">' + document.getElementById('graphtext').value + '<\/div></body></html>');
+	    var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
+
+	    var fileToInclude = new Blob([htmlDoc], {type:'text/html'});
+
+	    document.getElementById('graphtarget').src = window.URL.createObjectURL(fileToInclude);
+
             localStorage.mermaid_graph = document.getElementById('graphtext').value;
           };
           
-          document.getElementById('framesmall').onclick = function() {
+          document.getElementById('widthdown').onclick = function() {
             document.getElementById('graphtarget').style.width = (parseInt(document.getElementById('graphtarget').style.width) - 25).toString() + 'px';
+	  };
+
+	  document.getElementById('heightdown').onclick = function() {
             document.getElementById('graphtarget').style.height = (parseInt(document.getElementById('graphtarget').style.height) - 25).toString() + 'px';
           };
           
-          document.getElementById('framebig').onclick = function() {
+          document.getElementById('widthup').onclick = function() {
             document.getElementById('graphtarget').style.width = (parseInt(document.getElementById('graphtarget').style.width) + 25).toString() + 'px';
+	  };
+
+	  document.getElementById('heightup').onclick = function() {
             document.getElementById('graphtarget').style.height = (parseInt(document.getElementById('graphtarget').style.height) + 25).toString() + 'px';
           };
         </script>
