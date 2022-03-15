@@ -1,10 +1,18 @@
+/*
+
+Make content within a DOM container dragable
+
+Usage:
+
+  <div id="content"></div>
+  
+  var container = new DragDoc('content');
+
+*/
+
 class DragDoc {
   constructor(id) {
     this.DOC = document.getElementById(id);
-    this.initDocument();
-  }
-  
-  initDocument() {
     this.mouseDown = false;
     this.pos = { top: 0, left: 0, x: 0, y: 0 };
     document.addEventListener('mousedown',this.mouseDownHandler.bind(this),false);
