@@ -18,6 +18,11 @@
               document.getElementById('graphtext').value = localStorage.mermaid_graph;
               document.getElementById('makegraph').click();
             }
+	    else {
+	      localStorage.mermaid_graph = 'graph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server01]\nB --> D[Server02]';
+	      document.getElementById('graphtext').value = localStorage.mermaid_graph;
+              document.getElementById('makegraph').click();
+	    }
           };
           
 	  document.getElementById('downloadsvg').onclick = function() {
