@@ -55,7 +55,9 @@
           }).filter(l => {
             return l instanceof L.Marker;
           }).map(m => {
-            return m.toGeoJSON()
+	    var j = m.toGeoJSON();
+            j['properties']['name'] = m['options']['info'];
+            return j;
           });
           
           var textToWrite = JSON.stringify(allMarkerObj);
@@ -242,6 +244,7 @@
         for (var i = 0; i < layerIds.length; i++) {
           if (map._layers[layerIds[i]].options.id == id) {
             var obj = map._layers[layerIds[i]].toGeoJSON();
+	    obj['properties']['name'] = map._layers[layerIds[i]]['options']['info'];
             
             var textToWrite = JSON.stringify(obj);
             var textFileAsBlob = new Blob([textToWrite], { type: 'application/json' });
