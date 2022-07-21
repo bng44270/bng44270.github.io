@@ -56,7 +56,12 @@
             return l instanceof L.Marker;
           }).filter(l => {
             var j = l.toGeoJSON();
-            return j['options']['info'] == 'My Current Location';
+            if (Object.keys(j['options']).indexOf('info') > -1) {
+              return j['options']['info'] == 'My Current Location';
+            }
+            else {
+              return false;
+            }
           }).length == 0) {
             navigator.geolocation.getCurrentPosition(function(pos) {
               createMarker({'lat':pos.coords.latitude,'lng':pos.coords.longitude},'My Current Location')
