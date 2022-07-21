@@ -55,9 +55,8 @@
           }).filter(l => {
             return l instanceof L.Marker;
           }).filter(l => {
-            var j = l.toGeoJSON();
             if (Object.keys(j['options']).indexOf('info') > -1) {
-              return j['options']['info'] == 'My Current Location';
+              return l['options']['info'] == 'My Current Location';
             }
             else {
               return false;
