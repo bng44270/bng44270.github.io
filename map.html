@@ -49,6 +49,21 @@
           createMarker(m.latlng,m.info);
         });
         
+        document.getElementById('marklocation').onclick = function() {
+          if (Object.keys(map._layers).map(k => {
+            return map._layers[k];
+          }).filter(l => {
+            return l instanceof L.Marker;
+          }).filter(l => {
+            var j = l.toGeoJSON();
+            return j['options']['info'] == 'My Current Location';
+          }).length == 0) {
+            navigator.geolocation.getCurrentPosition(function(pos) {
+              createMarker({'lat':pos.coords.latitude,'lng':pos.coords.longitude},'My Current Location')
+            });
+          }
+        };
+        
         document.getElementById('downloadall').onclick = function() {
           var allMarkerObj = Object.keys(map._layers).map(k => {
             return map._layers[k]
@@ -169,7 +184,7 @@
         dlLink.setAttribute('style','cursor:pointer;');
       	dlLink.setAttribute('onClick','javascript:downloadMarker(' + thisId + ');');
       
-      var plusCode = (new PlusCode(loc.lat,loc.lng)).plus;
+        var plusCode = (new PlusCode(loc.lat,loc.lng)).plus;
       
         L.marker(loc,{
           info : text,
@@ -307,5 +322,6 @@
     <select id="basemaps" onChange="changeBasemap();"></select>
     <div id="map" style="width:500px;height:500px;"></div>
     <button id="downloadall">Download GeoJSON</button>
+    <button id="marklocation">Mark Your Location</button>
   </body>
 </html>
