@@ -3,6 +3,7 @@
 <title>OpenLayers GeoJSON Demo</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script type="text/javascript" src="/js/pluscode.js"></script>
 <script type="text/javascript">
  	var map = null;
 	var bases = [];
@@ -664,7 +665,10 @@
                 	return L.marker(latlng, {icon: myIcon});
        		},
             	onEachFeature: function (feature, layer) {
-                	layer.bindPopup("<b>" + feature.properties.name + "</b><br/>" + feature.properties.description);
+            		var lat = feature.geometry.coordinates[1];
+            		var lng = feature.geometry.coordinates[0];
+            		var thisPlusCode = (new PlusCode(lat,lng)).plus;
+                	layer.bindPopup("<b>" + feature.properties.name + "</b><br/>" + feature.properties.description + "<br/>Latitude: " + lat.toString() + "<br/>Longitude: " + lng.toString() + "<br/>Plus Code:  " + plus);
            	}
       	  }).addTo(map);
       }
