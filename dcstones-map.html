@@ -668,7 +668,7 @@
             		var lat = feature.geometry.coordinates[1];
             		var lng = feature.geometry.coordinates[0];
             		var thisPlusCode = (new PlusCode(lat,lng)).plus;
-                	layer.bindPopup("<b>" + feature.properties.name + "</b><br/>" + feature.properties.description + "<br/>Latitude: " + lat.toString() + "<br/>Longitude: " + lng.toString() + "<br/>Plus Code:  " + plus);
+                	layer.bindPopup("<b>" + feature.properties.name + "</b><br/>" + feature.properties.description + "<br/>Latitude: " + lat.toString() + "<br/>Longitude: " + lng.toString() + "<br/>Plus Code:  " + thisPlusCode);
            	}
       	  }).addTo(map);
       }
