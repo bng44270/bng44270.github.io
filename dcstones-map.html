@@ -652,19 +652,21 @@
       }
       
       function populateMap() {
-      var myIcon = L.icon({
-    iconUrl: 'images/stone.png',
-    iconSize: [35, 41],
-    iconAnchor: [17, 20],
-    popupAnchor: [17, 20],
-});
 
-      	featureAr.forEach(f => {
-      	  var popUpText = "<b>" + f.properties.name + "</b><br/>" + f.properties.description;
-      	  L.geoJSON(f,{
-      	  	icon : myIcon
-      	  }).addTo(map).bindPopup(popUpText);
-      	});
+      	  L.geoJSON(featureAr,{
+      	  	pointToLayer: function(feature, latlng) {
+                	var myIcon = L.icon({
+		        	iconUrl: 'images/stone.png',
+	    			iconSize: [35, 41],
+				iconAnchor: [17, 20],
+	    			popupAnchor: [17, 20],
+			});
+                	return L.marker(latlng, {icon: myIcon});
+       		},
+            	onEachFeature: function (feature, layer) {
+                	layer.bindPopup("<b>" + f.properties.name + "</b><br/>" + f.properties.description);
+           	}
+      	  }).addTo(map);
       }
       
       function updateView() {
