@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Key Code Tester</title>
+</head>
+<body>
+This is an interactive way to view JavaScript keyup and keydown keyCodes including the shift, alt, and ctrl modifier codes.<br/><br/>
+Key Codes:<br/>
+<div style="margin-left:50px;height:200px;width:200px;overflow:auto;" id="codeview"></div>
+<script type="text/javascript">
+  document.body.onload = function() {
+    var mod = [];
+    
+    document.addEventListener('keydown',(e)  => {
+      if ([16,17,18].indexOf(e.keyCode) > -1) {
+        if (e.ctrlKey) mod.push("ctrl=17");
+        if (e.altKey) mod.push("alt=18");
+        if (e.shiftKey) mod.push("shift=16");
+      }
+    });
+    
+    document.addEventListener('keyup',(e) => {
+      //Exclude shift, alt, and ctrl
+      if ([16,17,18].indexOf(e.keyCode) == -1) {
+        document.getElementById('codeview').innerHTML = ((mod.length > 0) ? "(" + mod.join(",") + ") " : "") + e.key.toString() + '=&gt;' + e.keyCode.toString() + '<br/>' + document.getElementById('codeview').innerHTML;
+      }
+      mod = [];
+    });
+  };
+</script>
+</body>
+</html>
