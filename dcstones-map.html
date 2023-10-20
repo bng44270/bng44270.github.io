@@ -8,8 +8,6 @@
 <script type="text/javascript">
  	var map = null;
 	var bases = [];
-	
-	var featureAr = [];
       
       function mapInit() {
         if (!localStorage.map_points) {
@@ -92,8 +90,15 @@
 	map.addLayer(bases.filter(b => b.name == selectedBase)[0].layer);
     }
       
-    function populateMap() {
-	pullStoneJson();
+    async function populateMap() {
+    var featureAr = [];
+    
+	var req = new WebRequest('https://gist.githubusercontent.com/bng44270/c4de6eacce51cf1cdd3c07cdd1fb99d3/raw/f3de1b8401123a6ed357028e57ee8a0a2c8321fd/dcstones.json');
+      var resp = await req.response;
+      
+      JSON.parse(resp.body)['features'].forEach(f => {
+      	featureAr.push(f);
+      });
 	
       	  L.geoJSON(featureAr,{
       	  	pointToLayer: function(feature, latlng) {
@@ -114,14 +119,6 @@
       	  }).addTo(map);
     }
     
-    function pullStoneJson() {
-      var req = new WebRequest('https://gist.githubusercontent.com/bng44270/c4de6eacce51cf1cdd3c07cdd1fb99d3/raw/f3de1b8401123a6ed357028e57ee8a0a2c8321fd/dcstones.json');
-      var resp = await req.response;
-      
-      JSON.parse(resp.body)['features'].forEach(f => {
-      	featureAr.push(f);
-      });
-    }
       
     function updateView() {
         var lat = parseFloat(document.getElementById('lat_box').value);
