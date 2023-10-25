@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>DragDoc demo</title>
+<script type="text/javascript" src="/js/dragdoc.js"></script>
+</head>
+<body>
+	<div id="container"></div>
+	<script type="text/javascript">
+		document.body.onload = function() {
+			new DragDoc('container','/images/kyoto_map.png',{
+				height : '600px',
+				width : '600px'
+			},{
+				'top' : '-845px',
+				left : '-518px',
+				transform : 'scale(0.2)'
+			});
+		};
+	</script>
+</body>
+</html>

@@ -58,7 +58,10 @@ class DragDoc {
     const contentStyle = {
       cursor : 'grab',
       overflow : 'hidden',
-      position : 'absolute'
+      position : 'absolute',
+      'top' : '0px',
+      left : '0px'
+
     };
 
     var image = document.createElement('img');
