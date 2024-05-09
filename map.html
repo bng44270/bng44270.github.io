@@ -102,6 +102,7 @@
       }
 
       function populateBaseMaps() {
+	var usgs_bases = [["USGS_NatGeo_World_Map","https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"],["USGS_USA_Topo_Maps","https://services.arcgisonline.com/arcgis/rest/services/USA_Topo_Maps/MapServer/tile/{z}/{y}/{x}"],["USGS_World_Imagery","https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],["USGS_World_Physical_Map","https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"],["USGS_World_Shaded_Relief","https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}"],["USGS_World_Street_Map","https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"],["USGS_World_Terrain_Base","https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"],["USGS_World_Topo_Map","https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"]];
         bases.push({
           name : 'OSM',
           layer : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -128,6 +129,16 @@
             attribution: '&copy; USGS'
           }) 
 	});
+
+	usgs_bases.forEach(m => {
+		bases.push({
+	  name : m[0],
+	  layer : L.tileLayer(m[1],{
+            attribution: '&copy; USGS'
+          })
+		});
+			
+	
 
 	bases.forEach(b => {
 	  var option = document.createElement('option');
