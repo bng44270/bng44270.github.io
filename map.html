@@ -55,7 +55,7 @@
           }).filter(l => {
             return l instanceof L.Marker;
           }).filter(l => {
-            if (Object.keys(j['options']).indexOf('info') > -1) {
+            if (Object.keys(l['options']).indexOf('info') > -1) {
               return l['options']['info'] == 'My Current Location';
             }
             else {
