@@ -123,12 +123,7 @@
           layer : L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
             attribution : '&copy; Google Maps'
           })
-        },{
-	  name : 'USGSTopo',
-	  layer : L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer/tile/{z}/{y}/{x}',{
-            attribution: '&copy; USGS'
-          }) 
-	});
+        });
 
 	usgs_bases.forEach(m => {
 		bases.push({
