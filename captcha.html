@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Captcha Test</title>
+    <script src="/js/captcha.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <table style="border-width:0px;">
+      <tr>
+        <td id="countercell"></td>
+	<td><button id="resetcounter">Reset</button></td>
+      </tr>
+      <tr>
+        <td id="matchcell"></td>
+	    <td><button id="resetmatch">Reset<button></td>
+      </tr>
+    </table>
+    <div id="webnote"></div>								
+    <script type="text/javascript">
+      var thisCounter = null;
+      var thisMatch = null;
+
+      document.getElementById('resetcounter').onclick = () => {
+        var obj = document.getElementById('countercell');;
+
+        if (obj.children.length > 0) {
+          obj.children[obj.children.length -1].remove();
+        }
+
+        counterCaptcha = new CounterCaptcha(obj);
+      };
+
+      document.getElementById('resetmatch').onclick = () => {
+        var obj = document.getElementById('matchcell');;
+
+        if (obj.children.length > 0) {
+          obj.children[obj.children.length -1].remove();
+        }
+
+        counterCaptcha = new MatchCaptcha(obj);
+      };
+
+      document.body.onload = function() {
+        document.getElementById('resetcounter').click();
+        document.getElementById('resetmatch').click();
+      };
+    </script>
+  </body>
+</html>
