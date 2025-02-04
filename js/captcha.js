@@ -59,7 +59,7 @@ class BaseCaptcha {
 }
 
 class CounterCaptcha extends BaseCaptcha {
-    constructor(obj,color,max,successfunction) {
+    constructor(id,color,max,successfunction) {
         var useColor = (color) ? color : "#000000";
         super(id,useColor);
 
