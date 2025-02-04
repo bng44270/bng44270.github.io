@@ -116,7 +116,7 @@ class MatchCaptcha extends BaseCaptcha {
 
     endClick() {
         clearTimeout(this.timeout);
-        if (
+        if (this.success) {
             this.clickArea.innerText = "Success";
             this.clickArea.style.cursor = "default";
             this.onSuccess();
