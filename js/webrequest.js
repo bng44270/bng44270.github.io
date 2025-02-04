@@ -84,7 +84,7 @@ class WebRequest {
                 });
 		
                 if (this.data)
-                        this.xhr.send(JSON.stringify(this.data));
+                        this.xhr.send(this.data);
                 else
                         this.xhr.send();
         }
