@@ -1,5 +1,5 @@
 /*
-
+  Requires range.js (https://github.com/bng44270/js-tools/blob/main/range.js)
   This library contains two client-side Captcha libraries:  CounterCaptcha and MatchCaptcha
 
   MatchCaptcha - Creates a Captcha where the user must match a number with a random number from a list
@@ -55,6 +55,68 @@ class BaseCaptcha {
 
     endClick() {
         return false;
+    }
+}
+
+class CounterCaptcha extends BaseCaptcha {
+    constructor(obj,color,max,successfunction) {
+        var useColor = (color) ? color : "#000000";
+        super(id,useColor);
+
+        this.onSuccess = (successfunction) ? successfunction : function() { return true; };
+        this.current = 0;
+
+        this.range = (max) ? new Range(1,max) : new Range(1,5);
+    }
+
+    get success() {
+        return this.current == (this.range.length - 1);
+    }
+
+    startClick() {
+        if (!this.success) {
+            var updateText = () => {
+                if (this.success) {
+                    clearTimeout(this.timeout);
+                    this.clickArea.innerText = "Success";
+                    this.clickArea.style.cursor = "default";
+                    this.onSuccess();
+                }
+                else {
+                    this.clickArea.innerText = this.range[this.current].toString();
+                    this.current++;
+                    this.timeout = setTimeout(updateText,1000);
+                }
+            };
+
+            if (this.success) {
+                this.clickArea.innerText = "Success";
+                this.clickArea.style.cursor = "default";
+                this.onSuccess();
+            }
+            else {
+                updateText();
+            }
+        }
+        else {
+            this.clickArea.innerText = "Success";
+            this.clickArea.style.cursor = "default";
+            this.onSuccess();
+        }
+    }
+
+    endClick() {
+        clearTimeout(this.timeout);
+        if (this.success) {
+            this.clickArea.innerText = "Success";
+            this.clickArea.style.cursor = "default";
+            this.onSuccess();
+        }
+        else {
+            this.clickArea.innerText = "Try again";
+            this.resetNumbers();
+            this.current = 1;
+        }
     }
 }
 
