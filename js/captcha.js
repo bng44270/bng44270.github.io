@@ -17,7 +17,7 @@
 
         //Optionally instantiate with a color for the text and border (default is #000000) and the number of numbers (default is 15) and a callback
         //function to be executed upon sucessful captcha
-        var captcha = new CounterCaptcha(document.body,"#ff0000",10,function() {
+        var captcha = new MatchCaptcha(document.body,"#ff0000",10,function() {
           alert("Yay!!!  Success!!!");
         });
 
