@@ -2,7 +2,6 @@
 
   This library contains two client-side Captcha libraries:  CounterCaptcha and MatchCaptcha
 
-  CounterCaptcha - Creates a Captcha where the user must match a number from a sequential list
   MatchCaptcha - Creates a Captcha where the user must match a number with a random number from a list
 
   Functionality:
@@ -12,26 +11,21 @@
 
   Usage:
 
-        //CounterCaptcha
-        //Instantiate the object with any DOM object
-        var captcha = new CounterCaptcha(document.body);
-
-        //Optionally instantiate with a color for the text and border (default is #000000)
-        var captcha = new CounterCaptcha(document.body,"#ff0000");
-
         //MatchCaptcha
         //Instantiate the object with any DOM object
         var captcha = new MatchCaptcha(document.body);
 
-        //Optionally instantiate with a color for the text and border (default is #000000) and the number of numbers (default is 15)
-        var captcha = new CounterCaptcha(document.body,"#ff0000",10);
+        //Optionally instantiate with a color for the text and border (default is #000000) and the number of numbers (default is 15) and a callback
+        //function to be executed upon sucessful captcha
+        var captcha = new CounterCaptcha(document.body,"#ff0000",10,function() {
+          alert("Yay!!!  Success!!!");
+        });
 
 */
 
 class BaseCaptcha {
     constructor(obj,color) {
         this.timeout = null;
-        this.success = false;
 
         this.clickArea = document.createElement('div');
 
@@ -51,62 +45,32 @@ class BaseCaptcha {
         obj.appendChild(this.clickArea);
     }
 
+    get success() {
+      return false;
+    }
+
     startClick() {
         return false;
     }
 
     endClick() {
         return false;
-    }
-}
-
-class CounterCaptcha extends BaseCaptcha {
-    constructor(id,color) {
-        var useColor = (color) ? color : "#000000";
-        super(id,useColor);
-
-        this.maxCount = parseInt(Math.random() * 10 + 2);
-        this.currentCount = 0;
-    }
-
-    startClick() {
-        if (!this.success) {
-            var updateText = () => {
-                var text = this.maxCount.toString() + ' = ' + this.currentCount.toString();
-                this.clickArea.innerText = text;
-                this.currentCount++;
-                this.timeout = setTimeout(updateText,1000);
-            };
-
-            updateText();
-        }
-    }
-
-    endClick() {
-        if (!this.success) {
-            clearTimeout(this.timeout);
-            if (this.maxCount == (this.currentCount - 1)) {
-                this.clickArea.innerText = "Success";
-                this.clickArea.style.cursor = "default";
-                this.success = true;
-            }
-            else {
-                this.clickArea.innerText = "Try again";
-                this.maxCount = parseInt(Math.random() * 10 + 1);
-                this.currentCount = 0;
-            }
-        }
     }
 }
 
 class MatchCaptcha extends BaseCaptcha {
-    constructor(id,color,count) {
+    constructor(id,color,count,successfunction) {
         var useColor = (color) ? color : "#000000";
         super(id,useColor);
 
+        this.onSuccess = (successfunction) ? successfunction : function() { return true; };
         this.numberCount = (count) ? count : 15;
         this.generateNumbers();
         this.pointer = 0;
+    }
+
+    get success() {
+        return this.numbers[this.pointer - 1] == (this.match);
     }
 
     resetNumbers() {
@@ -143,21 +107,24 @@ class MatchCaptcha extends BaseCaptcha {
 
             updateText();
         }
+        else {
+            this.clickArea.innerText = "Success";
+            this.clickArea.style.cursor = "default";
+            this.onSuccess();
+        }
     }
 
     endClick() {
-        if (!this.success) {
-            clearTimeout(this.timeout);
-            if (this.numbers[this.pointer - 1] == (this.match)) {
-                this.clickArea.innerText = "Success";
-                this.clickArea.style.cursor = "default";
-                this.success = true;
-            }
-            else {
-                this.clickArea.innerText = "Try again";
-                this.resetNumbers();
-                this.pointer = 0;
-            }
+        clearTimeout(this.timeout);
+        if (
+            this.clickArea.innerText = "Success";
+            this.clickArea.style.cursor = "default";
+            this.onSuccess();
+        }
+        else {
+            this.clickArea.innerText = "Try again";
+            this.resetNumbers();
+            this.pointer = 0;
         }
     }
 }
