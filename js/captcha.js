@@ -116,7 +116,6 @@ class CounterCaptcha extends BaseCaptcha {
         }
         else {
             this.clickArea.innerText = "Try again";
-            this.resetNumbers();
             this.current = 0;
         }
     }
