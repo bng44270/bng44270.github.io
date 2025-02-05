@@ -40,6 +40,8 @@ class BaseCaptcha {
         this.clickArea.innerText = "Click and hold";
         this.clickArea.addEventListener('mousedown',this.startClick.bind(this),false);
         this.clickArea.addEventListener('mouseup',this.endClick.bind(this),false);
+        this.clickArea.addEventListener('touchstart',this.startClick.bind(this),false);
+        this.clickArea.addEventListener('touchend',this.endClick.bind(this),false);
         this.clickArea.onselectstart = (e) => {e.preventDefault()};
 
         obj.appendChild(this.clickArea);
@@ -66,7 +68,7 @@ class CounterCaptcha extends BaseCaptcha {
         this.onSuccess = (successfunction) ? successfunction : function() { return true; };
         this.current = 0;
 
-        this.range = (max) ? new Range(1,max) : new Range(1,5);
+        this.range = (max) ? new Range(1,max) : new Range(1,6);
     }
 
     get success() {
@@ -115,7 +117,7 @@ class CounterCaptcha extends BaseCaptcha {
         else {
             this.clickArea.innerText = "Try again";
             this.resetNumbers();
-            this.current = 1;
+            this.current = 0;
         }
     }
 }
