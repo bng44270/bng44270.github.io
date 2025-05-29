@@ -79,7 +79,10 @@
             return j;
           });
           
-          var textToWrite = JSON.stringify(allMarkerObj);
+          var textToWrite = JSON.stringify({
+  		"type": "FeatureCollection",
+		"features": allMarkerObj
+	  });
           var textFileAsBlob = new Blob([textToWrite], { type: 'application/json' });
           var fileNameToSaveAs = 'geojson-all-markers-' + new Date().toISOString().replace(/:/g,".") + ".json";
         
