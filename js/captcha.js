@@ -45,7 +45,9 @@ class BaseCaptcha {
         this.clickArea.style.cursor = "pointer";
         this.clickArea.innerText = "Click and hold";
         this.clickArea.addEventListener('mousedown',this.startClick.bind(this),false);
+	this.clickArea.addEventListener('touchstart',this.startClick.bind(this),false);
         this.clickArea.addEventListener('mouseup',this.endClick.bind(this),false);
+	this.clickArea.addEventListener('touchend',this.endClick.bind(this),false);
         this.clickArea.onselectstart = (e) => {e.preventDefault()};
         
         obj.appendChild(this.clickArea);

@@ -1,0 +1,16 @@
+.grid-table {
+    border:0;
+}
+
+.grid-datarow {
+    height: 20px;
+}
+
+.grid-datacell {
+    width:150px;
+    border:2px solid #000000;
+}
+
+.grid-dataedit {
+    width:150px;
+}

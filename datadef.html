@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>DataDef Editor</title>
+        <script type="text/javascript" src="./js/datadef.js"></script>
+        <script type="text/javascript" src="./js/ddeditor.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            document.body.onload = function() {
+                if (Object.keys(localStorage).indexOf('datastorage_schema') == -1) {
+                    localStorage['datastorage_schema'] = JSON.stringify({
+                        "Name" : DataDef.StringType,
+                        "Age" : DataDef.NumberType,
+                        "Active" : DataDef.BooleanType
+                    });
+                }
+
+
+                var editor = new DataDefEditor('ddeditor',{
+                    fields : JSON.parse(localStorage['datastorage_schema']),
+                    onCommit : function(d) {
+                        localStorage['datastorage'] = JSON.stringify(d);
+                        localStorage['datastorage_schema'] = JSON.stringify(d.SCHEMA);
+
+                    },
+                    onLoad : function(d) {
+                        var localStorageExists = Object.keys(localStorage).indexOf('datastorage') > -1;
+
+                        if (localStorageExists) {
+                            JSON.parse(localStorage['datastorage']).forEach(row => {
+                                d.insert(row);
+                            });
+                        }
+                    }
+                });
+
+                document.body.appendChild(editor);
+            };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>DataDef Editor</title>
+        <script type="text/javascript" src="./js/csvfile.js"></script>
+        <script type="text/javascript" src="./js/datagrid.js"></script>
+        <link rel="stylesheet" href="/css/csv.css" />
+    </head>
+    <body>
+        <textarea id="csvsrc"></textarea><br/>
+        <button id="importcsv">Load CSV</button><br/>
+        <div id="gridview"></div>
+        <script type="text/javascript">
+            function removeAllChildren(container) {
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+            }
+
+            document.body.onload = function() {
+                if (Object.keys(localStorage).indexOf('griddata') > -1) {
+                    document.getElementById('csvsrc').style.display = 'none';
+                    document.getElementById('importcsv').style.display = 'none';
+
+                    var csvData = JSON.parse(localStorage['griddata']);
+
+                    var gridviewContainer = document.getElementById('gridview');
+
+                    removeAllChildren(gridviewContainer);
+
+                    var dataGrid = new DataGrid('mydata',{
+                        data : csvData,
+                        onCommit : function(d) {
+                            localStorage['griddata'] = JSON.stringify(d);
+                            location.reload();
+                        },
+                        header : true
+                    });
+
+                    gridviewContainer.appendChild(dataGrid);
+                }
+                else {
+                    document.getElementById('importcsv').onclick = function() {
+
+                        var csvText = document.getElementById('csvsrc').value;
+                        var csvData = new CsvFile(csvText, {twodim:true});
+
+                        localStorage['griddata'] = JSON.stringify(csvData);
+                        location.reload();
+                    };
+                }
+            };
+        </script>
+    </body>
+</html>
