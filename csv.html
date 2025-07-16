@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/css/csv.css" />
     </head>
     <body>
+    	<span id="info">When loading CSV be sure there is no empty lines at the end of the file</span><br/>
         <textarea id="csvsrc"></textarea><br/>
         <button id="importcsv">Load CSV</button><br/>
         <div id="gridview"></div>
@@ -20,7 +21,7 @@
                 if (Object.keys(localStorage).indexOf('griddata') > -1) {
                     document.getElementById('csvsrc').style.display = 'none';
                     document.getElementById('importcsv').style.display = 'none';
-
+		    document.getElementById('info').innerText = "To edit a field, double click.  Press 'Enter' to save changes or 'Esc' to cancel.";
                     var csvData = JSON.parse(localStorage['griddata']);
 
                     var gridviewContainer = document.getElementById('gridview');
