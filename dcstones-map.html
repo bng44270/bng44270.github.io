@@ -39,7 +39,7 @@
         
     function populateBaseMaps() {
         bases.push({
-          name : 'OSM',
+          name : 'OpenStreetMap',
           layer : L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           })
@@ -72,8 +72,8 @@
 	  document.getElementById('basemaps').appendChild(option);
 	});
 
-	map.addLayer(bases.filter(b => b.name == 'OSM')[0].layer);
-	document.getElementById('basemaps').value = 'OSM';
+	map.addLayer(bases.filter(b => b.name == 'OpenStreetMap')[0].layer);
+	document.getElementById('basemaps').value = 'OpenStreetMap';
     }
 
     function changeBasemap() {
@@ -131,9 +131,13 @@
 </head>
 <body onLoad="mapInit();">
 <div id="map" style="width:500px;height:500px;"></div>
-Lat<input type="text" id="lat_box" onKeyUp="updateView();" value="38.88942947447528" /><br/>
-    Lng<input type="text" id="lng_box" onKeyUp="updateView();" value="-77.05879211425783" /><br/>
-    Zoom<select id="zoom_box" onChange="updateView();"><option value="11">1</option>
+<div style="position:absolute;top:100px;left:600px;">
+    <b>How to use:</b><br/><br/>
+    Click on the stones to view detailed information including<br/>
+    a description and geographic location information<br/><br/>
+    <label style="display:none;" for="lat_box">Latitude</label><input style="display:none;" type="text" id="lat_box" onKeyUp="updateView();" value="38.88942947447528" readonly />
+    <label style="display:none;" for="lng_box">Longitude</label><input style="display:none;" type="text" id="lng_box" onKeyUp="updateView();" value="-77.05879211425783" readonly />
+    <label style="display:none;" for="zoom_box">Zoom level</label><select style="display:none;" id="zoom_box" onChange="updateView();"><option value="11">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
@@ -151,8 +155,9 @@ Lat<input type="text" id="lat_box" onKeyUp="updateView();" value="38.88942947447
       <option value="16">16</option>
       <option value="17">17</option>
       <option value="18">18</option>
-    </select><br/>
-    <select id="basemaps" onChange="changeBasemap();"></select><br/><br/>
+    </select>
+    <label for="basemaps">Change base map</label><select id="basemaps" onChange="changeBasemap();"></select><br/><br/>
     <i>For more information please visit <a href="https://boundarystones.org/" target="_blank">boundarystones.org</a>.</i>
+</div>
 </body>
 </html>
