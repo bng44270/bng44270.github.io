@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Flash Light</title>
+</head>
+<body>
+	<div style="cursor:pointer;background-color:#000000;color:#ffffff;font-weight:bold;text-align:center;width:100%;height:100%" id="flashlight">Turn On</div>
+	<script type="text/javascript">
+		document.body.onload = function() {
+			var flashLightCtrl = document.getElementById('flashlight');
+			flashLightCtrl.onclick = function() {
+                var t = flashLightCtrl.innerText;
+
+                if (t == "Turn On") {
+                    flashLightCtrl.style.backgroundColor = "#ffffff";
+                    flashLightCtrl.style.color = "#000000";
+                    flashLightCtrl.innerText = "Turn Off";
+                }
+                else {
+                    flashLightCtrl.style.backgroundColor = "#000000";
+                    flashLightCtrl.style.color = "#ffffff";
+                    flashLightCtrl.innerText = "Turn On";
+                }
+			};
+		};
+	</script>
+</body>
+</html>
