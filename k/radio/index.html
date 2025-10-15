@@ -18,6 +18,7 @@
 			var stationListBox = document.getElementById('stationlist');
 			stationListBox.onchange = function() {
 				const v = stationListBox.value;
+				const l = stationListBox.selectedOptions[0].innerText;
 				if (v != 'NONE') {
 					removeChildren('playerview');
 
@@ -31,7 +32,7 @@
 
 					document.getElementById('playerview').appendChild(a);
 
-					document.getElementById('playerstatus').innerText = "Now playing " + stationListBox.selectedOptions[0].innerText + "...";
+					document.getElementById('playerstatus').innerText = "Now playing " + l + "...";
 
 					stationListBox.value = 'NONE';
 				}
