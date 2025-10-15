@@ -18,7 +18,7 @@
 			var stationListBox = document.getElementById('stationlist');
 			stationListBox.onchange = function() {
 				const v = stationListBox.value;
-				const l = stationListBox.selectedOptions[0].innerText;
+				const l = stationListBox.options[stationListBox.selectedIndex].innerText;
 				if (v != 'NONE') {
 					removeChildren('playerview');
 
