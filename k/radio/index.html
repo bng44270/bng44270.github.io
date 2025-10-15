@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Radio Player</title>
+</head>
+<body>
+	<select style="margin-bottom:40px;" id="stationlist">
+	</select>
+	<div style="margin-bottom:15px;" id="playerstatus"></div>
+	<div id="playerview"></div>
+	<script type="text/javascript">
+		function removeChildren(id) {
+			var c = document.getElementById(id);
+
+			while (c.lastChild) c.removeChild(c.lastChild);
+		}
+
+		document.body.onload = function() {
+			var stationListBox = document.getElementById('stationlist');
+			stationListBox.onchange = function() {
+				const v = stationListBox.value;
+				if (v != 'NONE') {
+					removeChildren('playerview');
+
+					var s = document.createElement('source');
+					s.src = v;
+					var a = document.createElement('audio');
+					a.crossOrigin = 'anonymous';
+					a.controls = true;
+					a.autoplay = true;
+					a.appendChild(s);
+
+					document.getElementById('playerview').appendChild(a);
+
+					document.getElementById('playerstatus').innerText = "Now playing " + stationListBox.selectedOptions[0].innerText + "...";
+
+					stationListBox.value = 'NONE';
+				}
+			};
+
+			var noneopt = document.createElement('option');
+			noneopt.innerText = 'Select Station';
+			noneopt.value = 'NONE';
+			stationListBox.appendChild(noneopt);
+
+			if (Object.keys(localStorage).indexOf('stationobj') == -1) {
+				var ob = [
+					{ name : 'WAMU', url : 'https://wamu.cdnstream1.com/wamu.mp3'},
+					{ name : 'WETA', url : 'https://26303.live.streamtheworld.com/WETAFM.mp3?nocache=XcJbxNld'},
+					{ name : 'WCBU', url : 'https://playerservices.streamtheworld.com/api/livestream-redirect/WCBUFM.mp3'},
+					{ name : 'WCBU Classical', url : 'https://playerservices.streamtheworld.com/api/livestream-redirect/WCBUFM_CLASSICAL.mp3'},
+					{ name : 'WVXU', url : 'https://stream.cinradio.org/wvxu'},
+					{ name : 'WGUC', url : 'https://stream.cinradio.org/wguc'}
+				];
+
+				localStorage['stationobj'] = JSON.stringify(ob);
+			}
+
+			var stations = JSON.parse(localStorage['stationobj']);
+
+			stations.forEach(function(s) {
+				var o = document.createElement('option');
+				o.innerText = s['name'];
+				o.value = s['url'];
+				stationListBox.appendChild(o);
+			});
+		};
+	</script>
+</body>
+</html>
