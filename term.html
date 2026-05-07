@@ -63,7 +63,22 @@
           description : 'List contents of a directory',
           usage : 'ls &lt;path&gt;'
         });
-          
+        
+        term.addCommand('get',function(thisTerm) {
+          input = input.replace(/^get[ \t]+/,'');
+          try {
+            var resp = await fetch(input);
+            var body = await resp.text();
+            thisTerm.showOutput(body);
+          }
+          catch(e) {
+            thisTerm.showOutput("Error:  " + e.message);
+          }
+        },{
+          description : 'Return contents of a HTTP endpoint',
+          usage : 'get &lt;url&gt;'
+        });
+        
         term.addCommand('commit',function(thisTerm) {
           try {
             localStorage.term_fs = JSON.stringify({
