@@ -1,160 +1,1295 @@
-<!DOCTYPE HTML>
-<!--
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-  <head>
-    <title>Andy Carlson - Articles</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://kit.fontawesome.com/c192718117.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/skeleton.css" />
-    <style>
-      div.row {
-        margin-bottom:  50px;
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>My Articles</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src=""></script><script type="text/javascript"></script><script type="text/javascript">
+	  function hideElements(selector) {
+	    document.querySelectorAll(selector).forEach(function(x) {
+		  x.style.display = 'none';
+		});
+      }
+	  
+	  function showElement(selector) {
+	    document.querySelector(selector).style.display = 'block';
+	  }
+	  
+	  function resetActivePage(selector) {
+	    document.querySelectorAll(selector).forEach(function(x) {
+	      x.removeAttribute('class');
+		  x.parentElement.removeAttribute('class');
+		});
+	  }
+	  
+	  function setActivePage(selector) {
+		document.querySelector(selector).setAttribute('class','active');
+  		document.querySelector(selector).parentElement.setAttribute('class','active');
+      }
+	  
+	  function toggleLeftNav() {
+	    var url = location.hash;
+		
+		var toggle = document.querySelector('nav');
+	    if (toggle.style.display == 'none') {
+			document.querySelector('.togglenav').innerHTML = '&lt;&lt;';
+			history.pushState({}, "", url);
+			toggle.style.display = 'block';			
+		}
+		else {
+			document.querySelector('.togglenav').innerHTML = '&gt;&gt;';
+			history.pushState({}, "", url);
+			toggle.style.display = 'none';
+		}
+
+		scrollToTop();
+	  }
+
+	  function scrollToTop() {
+        window.document.body.scroll({
+		  top: 0,
+		  left: 0,
+		  behavior: 'smooth'
+		});
+      }
+	
+	  function switchNav() {
+        var width = parseInt(window.getComputedStyle(document.querySelector('content')).width.replace(/px$/,''));
+        if (width < 640) {
+          document.querySelector('div.navcontainer').style.display = 'none';
+          document.querySelector('topnav').style.display = 'block';
+        }
+        else {
+          document.querySelector('div.navcontainer').style.display = 'block';
+          document.querySelector('topnav').style.display = 'none';
+        }
+
+		
+      }
+	</script><script type="text/javascript">
+	  
+	  window.onload = function() {
+	    //Configure links
+		document.querySelectorAll('nav ul li a').forEach(function(x) {
+		  x.onclick = function() {
+		    hideElements('article.homepage');
+			hideElements('article.page');
+			resetActivePage('nav ul li a');
+			resetActivePage('topnav ul li a');
+			resetActivePage('a#homepage');
+			showElement('article' + x.hash);
+			setActivePage('a' + x.hash);
+			setActivePage('a#top' + x.id);
+			document.title = x.innerText;
+			history.pushState({}, "", x.hash);
+			scrollToTop();
+
+			return false;
+		  };
+		 
+		  x.parentElement.onclick = function() {
+		    hideElements('article.homepage');
+			hideElements('article.page');
+			resetActivePage('nav ul li a');
+			resetActivePage('topnav ul li a');
+			resetActivePage('a#homepage');
+			showElement('article' + x.hash);
+			setActivePage('a' + x.hash);
+			setActivePage('a#top' + x.id);
+			document.title = x.innerText;
+			history.pushState({}, "", x.hash);
+			scrollToTop();
+
+			return false;
+		  };
+		  
+		});
+		
+		var homeLink = function() {
+	      hideElements('article.page');
+		  hideElements('article.homepage');
+		  resetActivePage('nav ul li a');
+          resetActivePage('topnav ul li a');
+		  resetActivePage('a#homepage');
+		  showElement('article.homepage');
+		  setActivePage('a#homepage');
+		  setActivePage('a#tophomepage');
+		  document.title = 'Home';
+		  history.pushState({}, "",'#homepage');
+		  scrollToTop();
+
+		  return false;
+		};
+
+		
+
+		document.querySelector('a#homepage').onclick = homeLink;
+		document.querySelector('a#homepage').parentElement.onclick = homeLink;		
+		
+		//Load page on load
+		if (location.hash.length > 1) {
+		  document.querySelector('a' + location.hash).click();
+		  document.querySelector('a' + location.hash).blur();
+		}
+		else {
+		  document.querySelector('a#homepage').click();
+		  document.querySelector('a#homepage').blur();
+		}
+		
+	  };
+    </script><style>
+      div.container {
+		border-radius: 25px;
+        width: 90%;
+        border: 1px solid gray;
+        margin: auto;
+      }
+
+      div header {
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+      }
+
+      div footer {
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+      }
+
+      div header, div footer {
+        padding: 1em;
+        background-color: #444444;
+		color: #cccccc;  
+	    clear: left;
+        text-align: center;
       }
       
-      div.header {
-        color:white;
+      footer a {
+      	color: white;
+        text-decoration: none;      
       }
       
-      div.body {
-        background-color:white;
-        border-radius: 25px;
-        padding: 25px;
+      footer span {
+        display: inline-block;
+        width: 20px;
+      }
+
+      footer p {
+        font-size: 10pt;
+      }
+
+      belowpage {
+        padding-top: 30px;
+        display: flex;
+        margin:auto;
+        width: 300px;
+      }
+
+      belowpage div {
+        text-align: center;
+        width: 100px;
       }
       
-      div.section {
-        margin-top:50px;
-        margin-bottom:50px;
+      belowpage div a {
+        text-decoration: none;
+        color: #000000;
+      }
+
+      belowpage div.left {
+        float: left;
+      }
+
+      belowpage div.right {
+        float: right;
+      }
+
+	  div.navcontainer {
+		float: left;
+		max-width: 20%;
+		margin: 0px;
+        padding: 0px;
+	  }
+	  
+	  
+	  div.navcontainer {
+		display:none;
+	  }
+	  
+
+      nav {
+        padding-top: 15px;
+        top:0px;
+        
+      }
+
+      nav ul {
+        list-style-type: none;
+        padding: 0px;
+		padding: 10px;
       }
       
-      div.footer {
-        margin-top:50px;
+      nav ul li {
+		background-color: #444444;
+		border-top: 15px solid #444444;
+		border-bottom: 15px solid #444444;
+		border-right: 30px solid #444444;
+		border-left: 30px solid #444444;
+		color: #cccccc;
+        
+      }
+   
+      nav ul li:hover, nav ul li.active {
+        background-color: #dddddd;
+		border-top: 15px solid #dddddd;
+		border-bottom: 15px solid #dddddd;
+		border-right: 30px solid #dddddd;
+		border-left: 30px solid #dddddd;
+		cursor:pointer;
       }
       
-      i.icon {
-        margin-bottom:10px;
+	  
+	  
+      nav ul li a {
+        color: #cccccc;
+        text-decoration: none;
       }
-            
-      a {
-        color : black;
+	  
+	  nav ul li a:hover {
+		color: #333333;
+        text-decoration: none;
+	  }
+      
+      nav ul a:hover {
+        color: #ffffff;
+      }
+	  
+	  .togglenav {
+		float: left;
+		text-decoration: none;
+        margin: 0;
+        padding: 1em;
+	  }
+
+	  topnav {
+        text-align:center;
+		
+      }
+
+      topnav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        background-color: #444444;
+		color: #cccccc;
+      }
+
+      topnav ul li {
+        float:left;
+      }
+
+      topnav ul li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      topnav ul li a:hover, topnav ul li a.active {
+        background-color: #dddddd;
+		color: #333333;
+      }
+
+      
+	  
+      content {
+        float: left;
+        left: 20%;
+        border-left: 0px solid gray;
+        padding: 1em;
+        overflow: hidden;
+        width:80%;
       }
       
-      a:hover {
-        color: #333333;
+      article {
+        display: none;
       }
-    </style>
-  </head>
-  <body>
-    <div class="container header">
-      <div class="row" style="margin-top:100px;">
-        <div class="one column"></div>
-        <div class="ten columns" style="text-align:center;">
-          <h1 style="font-weight:bold;">Articles</h1>
-          <p>Some of the pieces I've written</p>
-        </div>
-        <div class="one column"></div>
-      </div>
-    </div>
-    <div class="container body" >
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" target="_blank" href="http://www.linuxpromagazine.com/Issues/2020/230/PXE-Boot-with-TinyCore">Boot Story</a>
-          <i class="fas fa-power-off fa-5x icon" style="float:left;margin-right:30px;"></i>
-          <p>
-            Implementing PXE boot with TinyCore Linux lets you boot a computer over the network.<br/><br/>
-            Published in <a href="http://linux-magazine.com" target="_blank">Linux Pro Magazine</a> January 2020 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" href="https://www.linuxjournal.com/content/writing-github-web-hooks-bash" target="_blank">Writing Github Web Hooks with Bash</a>
-          <i class="fas fa-project-diagram fa-5x icon" style="float:left;margin-right:30px;"></i>
-          <p>
-            Bring your GitHub repository to the next level of functionality.<br/><br/>
-            Published in <a href="http://www.linuxjournal.com" target="_blank">Linux Journal</a> August 2019 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" href="https://www.linuxjournal.com/content/bare-bones-monitoring-monit-and-rrdtool" target="_blank">Bare-Bones Monitoring with Monit and RRDTool</a>
-          <i class="fas fa-chart-line fa-5x icon" style="float:left;margin-right:30px;"></i>
-          <p>
-            How to provide robust monitoring to low-end systems.<br/><br/>
-            Published in <a href="http://www.linuxjournal.com" target="_blank">Linux Journal</a> November 2018 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" href="https://www.linuxjournal.com/content/building-bare-bones-git-environment" target="_blank">Building a Bare-Bones Git Environment</a>
-          <i class="fas fa-code-branch fa-5x icon" style="float:left;margin-right:30px;"></i>
-          <p>
-            How to get started with hosting Git repositories on your own Linux server.<br/><br/>
-            Published in <a href="http://www.linuxjournal.com" target="_blank">Linux Journal</a> July 2018 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" href="http://www.linux-magazine.com/Issues/2018/210/Binary-Data-in-Bash" target="_blank">Bit Trip</a>
-          <i class="fas fa-terminal fa-5x icon" style="float:left;margin-right:30px;"></i>
-          <p>
-            The bash shell included includes some powerful commands for manipulating binary data.<br/><br/>
-            Published in <a href="http://linux-magazine.com" target="_blank">Linux Pro Magazine</a> May 2018 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" href="https://www.linuxjournal.com/content/developing-console-applications-bash" target="_blank">Developing Console Applications with Bash</a>
-          <i class="fas fa-edit fa-5x icon" style="float:left;margin-right:30px"></i>
-          <p>
-            Bring the power of the Linux command line into your application development process.<br/><br/>
-            Published in <a href="http://linuxjournal.com" target="_blank">Linux Journal</a> October 2017 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-      <div class="row section">
-        <div class="one column"></div>
-        <div class="ten columns">
-          <a style="font-size:14pt;font-weight:bold;" href="https://www.linuxjournal.com/content/integrating-web-applications-apache" target="_blank">Integrating Web Applications with Apache</a>
-          <i class="fas fa-globe fa-5x icon" style="float:left;margin-right:30px;"></i>
-          <p>
-            Learn how to write your own custom Apache configurations.<br/><br/>
-            Published in <a href="http://linuxjournal.com" target="_blank">Linux Journal</a> March 2017 Issue
-          </p>
-        </div>
-        <div class="one column"></div>
-      </div>
-    </div>
-    <div class="column footer">
-      <div class="row">
-        <div class="one column"></div>
-        <div class="ten columns">
-            <a href="http://twitter.com/linuxfu" alt="@linuxfu on Twitter" target="_blank"><i class="fab fa-twitter-square fa-2x" style="margin-right:20px;"></i></a><a href="https://github.com/bng44270" alt="Github" target="_blank"><i class="fab fa-github-square fa-2x" style="margin-right:20px;"></i></a><a href="https://linkedin.com/in/carlsonandy" alt="LinkedIn" target="_blank"><i class="fab fa-linkedin fa-2x" style="margin-right:20px;"></i></a>
-        </div>
-        <div class="one column"></div>
-      </div>
-    </div>
-  </body>
+	  
+	  </style>
+</head>
+<body><div class="container">
+<header><h1 id="pageheader">My Articles</h1></header><div class="navcontainer">
+<a href="#" onClick="toggleLeftNav();return false;" class="togglenav">&lt;&lt;</a><nav><ul>
+<li><a href="#homepage" id="homepage" class="homenav">Home</a></li>
+<li><a href="#barebonesmonitoringwithmonitandrrdtool" id="barebonesmonitoringwithmonitandrrdtool" class="navitem">Barebones Monitoring with monit and rrdtool</a></li>
+<li><a href="#bittripmanipulatingbinarydatawithbash" id="bittripmanipulatingbinarydatawithbash" class="navitem">Bit Trip: Manipulating Binary Data with Bash</a></li>
+<li><a href="#bootstoryimplementingpxebootwithtinycorelinux" id="bootstoryimplementingpxebootwithtinycorelinux" class="navitem">Boot Story: Implementing PXE boot with TinyCore Linux</a></li>
+<li><a href="#buildingabarebonesgitenvironment" id="buildingabarebonesgitenvironment" class="navitem">Building a Barebones Git Environment</a></li>
+<li><a href="#creatinganapplication-basedterminalsession" id="creatinganapplication-basedterminalsession" class="navitem">Creating an Application-Based Terminal Session</a></li>
+<li><a href="#developingconsoleapplicationswithbash" id="developingconsoleapplicationswithbash" class="navitem">Developing Console Applications with Bash</a></li>
+<li><a href="#integratingwebapplicationswithapache" id="integratingwebapplicationswithapache" class="navitem">Integrating Web Applications with Apache</a></li>
+</ul>
+<ul style="display:none"></ul></nav>
+</div>
+<topnav><ul>
+<li><a href="#barebonesmonitoringwithmonitandrrdtool" id="topbarebonesmonitoringwithmonitandrrdtool" onClick="
+			    document.querySelector('#barebonesmonitoringwithmonitandrrdtool').click();
+			  ">Barebones Monitoring with monit and rrdtool</a></li>
+<li><a href="#bittripmanipulatingbinarydatawithbash" id="topbittripmanipulatingbinarydatawithbash" onClick="
+			    document.querySelector('#bittripmanipulatingbinarydatawithbash').click();
+			  ">Bit Trip: Manipulating Binary Data with Bash</a></li>
+<li><a href="#bootstoryimplementingpxebootwithtinycorelinux" id="topbootstoryimplementingpxebootwithtinycorelinux" onClick="
+			    document.querySelector('#bootstoryimplementingpxebootwithtinycorelinux').click();
+			  ">Boot Story: Implementing PXE boot with TinyCore Linux</a></li>
+<li><a href="#buildingabarebonesgitenvironment" id="topbuildingabarebonesgitenvironment" onClick="
+			    document.querySelector('#buildingabarebonesgitenvironment').click();
+			  ">Building a Barebones Git Environment</a></li>
+<li><a href="#creatinganapplication-basedterminalsession" id="topcreatinganapplication-basedterminalsession" onClick="
+			    document.querySelector('#creatinganapplication-basedterminalsession').click();
+			  ">Creating an Application-Based Terminal Session</a></li>
+<li><a href="#developingconsoleapplicationswithbash" id="topdevelopingconsoleapplicationswithbash" onClick="
+			    document.querySelector('#developingconsoleapplicationswithbash').click();
+			  ">Developing Console Applications with Bash</a></li>
+<li><a href="#integratingwebapplicationswithapache" id="topintegratingwebapplicationswithapache" onClick="
+			    document.querySelector('#integratingwebapplicationswithapache').click();
+			  ">Integrating Web Applications with Apache</a></li>
+</ul></topnav><content><article class="homepage"><section>Select an article above</section></article><article class="page" id="barebonesmonitoringwithmonitandrrdtool"><section>Click <a href="https://www.linuxjournal.com/content/bare-bones-monitoring-monit-and-rrdtool" target="_blank">here</a> to read original<br><br><pre>When running a critical system it is necessary to know the resources being consumed by the system, to be alerted when resource utilization reaches a specific level, and to trend long-term performance.  Zabbix and Nagios are two large scale solutions to monitor, alert, and trend system performance and they provide a rich user interface.  Due to the requirements of these solutions dedicated hardware/VM resources are typically required to host the monitoring solution.  For smaller server implementations there options for providing basic monitoring, alerting, and trending functionality.  This article will show how to accomplish basic and custom monitoring and alerting using Monit along with long-term trending of system performance using rrdtool.
+
+Initial configuration of Monit
+
+On many popular Linux distros Monit can be installed from the associated software repository.  Once installed all configuration can be done using the monitrc configuration file.  This file is generally located within the /etc directory structure but the exact location will vary based on your distribution.  Within the config file there are two sections:  Global and Services.  The Global section allows the custom configuration of the Monit application.  The Monit service contains a web-based front end that is fully configurable through the config file.  While the section will be commented out by default it can be selectively uncommented for granular customization.  The web configuration block will look like this:
+
+set httpd port 2812 and
+    use address localhost
+    allow localhost
+    allow admin:monit
+
+The first line will set the port number where the Monit can be access via a web browser.  The second line will set the hostname (the HTTP Host header) that can be used to access monit.  The third line sets the host from which the Monit application can be accessed.  Note that this could also be accomplished using a local firewall access restriction if a firewall is currently in place.  The fourth line allows the configuration of a username/password pair for use when accessing monit.  There is also a section allowing SSL options for encrypted connections to monit.  While enabling SSL is recommended when passing authentication data this could also be accomplished by reverse proxying Monit through an existing web server such as Nginx or Apache provided SSL is already configured on the web server.  For further information on reverse proxying Monit through Apache see the reference link at the end of the article.
+
+The next items that will need to be enabled configure the sending of email alerts.  To set up the email server through which email will be relayed to the recipient add or enable the following line:
+
+set mailserver mailserver.company.com
+
+Note that if there is a local SMTP server running the server name of mailserver.company.com in this example may be replaced with localhost.  The next block that will be enabled sets the contents of alert email messages that will be sent out and will look similar to this:
+
+set mail-format {
+  from:    Monit &lt;monit@$HOST&gt;
+  subject: Monit alert --  $EVENT $SERVICE
+  message: $EVENT Service $SERVICE
+                Date:        $DATE
+                Action:      $ACTION
+                Host:        $HOST
+                Description: $DESCRIPTION
+
+                Your faithful employee,
+                Monit
+}
+
+Within this block various predefined variables are used to provide alert-specific information (denoted by '$' sign).  Text may be modified within the from, subject, or message field and additional data may be added to the message field as desired.  To finish the alerting functionality an email address may be configured that will receive all email alerts from monit.  This is accomplished by adding the following line:
+
+set alert user@domain.com
+
+At this point the specified email address will recieve all alerts generated by monit.  At this point however there are no alerts configured.  To begin configuring alert we will first look at the Services section mentioned earlier.  This section provides some basic monitoring functionality for the local machine including CPU, memory, swap, filesystem, and basic network monitoring.  Each of these configuration items provides for the definition of thresholds which after being met actions may be taken including sending an alert.  As an example, the out-of-the-box alert for CPU/memory/swap monitoring will look like the following:
+
+check system $HOST
+   if loadavg (1min) &gt; 4 then alert
+   if loadavg (5min) &gt; 2 then alert
+   if cpu usage &gt; 95% for 10 cycles then alert
+   if memory usage &gt; 75% then alert
+   if swap usage &gt; 25% then alert
+
+Again note the use of variables to define the host to be monitored.  While all of the triggers defined here result in an alert there are other actions that may be taken.  For more information on these settings consult the Monit documentation.  
+
+Custom Configuration of Monit
+
+Once initial configuration is complete and the definition of custom alerts is needed it is best to define the custom alerts outside the monitrc file.  This is accomplished by defining an include directory in the monitrc file as follows:
+
+include /opt/monit-custom/*
+
+This line will include all configuration files located in the /opt/monit-custom folder.  The two types of monitoring that will be covered are host checks and program checks.  Host checks allows for the monitoring of TCP-based services running on remote hosts.  While basic TCP port connection testing may be done for simpler services Monit also provides the ability to do HTTP-based content checks to a specific URL.  Consider the following example:
+
+check host linuxjournal-website with address www.linuxjournal.com
+    if failed
+        port 443 protocol https
+        with request / with content = "Become a Patron"
+    then alert
+
+The first line of the host check defines the identifier within Monit for this host (linuxjournal-website) and the address with which the host will be accessed (www.linuxjournal.com).  In this example the trigger within the host definition contains multiple conditions:  it must be accessed via port 443 using the https protocol and when accessed at the root URL the text "Become a Patron" shows up in the response body.  This check could be reconfigured to use port 80 and the http protocol.
+
+Along with host monitoring Monit allows the definition of script-based monitors which is called a program check.  Once a script is configured within monit, the script will be periodically executed and, based on the exit code of the script, action may be taken.  The example we will be looking at is a script that alerts when an SSL certificate expiration date is within a specified number of days.
+
+#!/bin/bash
+
+domainexpiredate() {
+    openssl x509 -text -in &lt;(echo -n | \
+    openssl s_client -connect $1:$2 2&gt;/dev/null | \
+    sed -n '/-*BEGIN/,/-*END/p') 2&gt;/dev/null | sed -n 's/ *Not After : *//p'
+}
+
+daysleft() {
+    echo "((($(date -d "$(domainexpiredate $1 $2)" +%s)-$(date +%s))/24)/60)/60" | bc
+}
+
+defaultport() {
+    if [ -z "$1" ]; then
+        echo "443"
+    else
+        echo "$1"
+    fi
+}
+
+[[ $(daysleft $2 $(defaultport $3)) -le $1 ]] &amp;&amp; exit 1 || exit 0
+
+
+This script is executed with two arguments:  minimum number of days until expiration and the hostname of the server with an optional third parameter for port number.  Here is an example execution of the script:
+
+$ checkcertexpire.sh 31 www.linuxjournal.com
+$ echo $?
+0
+
+When the script is executed with the two required arguments there is no console output.  After the execution if the return code is echoed (identified as $?) the value is 0 which indicates that the domain does not expire within 31 days.  To configure this item within Monit would require the following:
+
+check program linuxjournal-ssl with path "/etc/monit/scripts/checkcertexpire.sh 31 www.linuxjournal.com"
+    if status != 0 then alert
+
+In the same way as the host check, the program check has an identifier within Monit (linuxjournal-ssl in this case).  In the first line of the program check, along with the identifier, is the script to be executed along with the command-line arguments.  Note that the trigger indicates that if the exit code is not 0 then an alert should be sent.
+
+Collecting Data with rrdtool
+
+A very robust tool that will allow the collection of data over a long period of time is rrdtool.  Named after it's database format (Round-robin database), rrdtool saves time-based data to it's database and then allows the retrieval and graphing of the data.  Any data that can be presented through a command to a shell script may be graphed in rrdtool.  Before data is captured the database must be initialized.  For this example we will be creating a database to capture the 5-minute load average.  Here is the command to initialize this specific database:
+
+rrdtool create loadavg_db.rrd --step 60 DS:loadavg:GAUGE:120:0:10000 RRA:MAX:0.5:1:1500
+
+The first two arguments indicate that a database named loadavg_db.rrd is being created.  The --step argument defines the expected time gap between samplings of data.  In this case there there is expected to the 60 seconds between samplings.  There are two more arguments that will be examined separately.  The first of the two arguments begins with "DS" and defines a data set which we have named loadavg.  Note that the options for this data set are separated by colons.  The GAUGE keyword says that when the data is read it will be written to the database as is and unaltered.  The 120 is the timeout in seconds to wait for data to be written to the database.  If data is note written to the database within that window zero's will be written to the database to indicate an error in the data feed.  The 0 and 10000 are the minimum and maximum values that can be written to the database.  The argument beginning with RRA defines the round robin archive value.  This defined how many values may be stored in the database and how long they will be stored.  The "MAX" indicates that the variable contains one value and shouldn't be modified in any way.  The 0.5 indicates the initial resolution value.  This is a standard value and should not be changed.  The "1" identifies how many steps should be averaged when storing a final value.  In this case, we one one step value per value stored in the database.  The final argument, 1440, is how many steps will be stored in the database.  Since our step length is 60 seconds this configuration will provide 25 hours of data to be stored in the database.  
+
+Not that the data is initialized we can capture data and store it in the database.  To maintain accurate periodic collection of data it is best to create a crontab entry and have the data be collected at the desired interval.  For our example we would have the cron job run every minute.  To collect data and put it in the database the following command would be used:
+
+rrdtool update loadavg_db.rrd --template loadavg N:$(cat /proc/loadavg | sed 's/^\([0-9\.]\+\) .*$/\1/g')
+
+To perform the collection of data the update argument along with the database name was used.  The --template argument allows us to specify the variable name to populate with data.  This is the same loadavg variable that was defined when the database was initialized.  The "N" argument defines the data to be put into the loadavg variable.  In this case the result of the command substitution will be put into the database which will be the 5-minute load average.  This command could be placed in the crontab for minute-by-minute execution.  The crotab entry would look like this:
+
+* * * * * /path/to/rrdtool-script.sh
+
+Since all of the time fields contain asterisks the specified script will urn every minute.  Once the database has been populated a graph can be rendered which is done using the following command:
+
+rrdtool graph loadavg_graph-$(date +"%m-%d-%Y").png \
+-w 785 -h 120 -a PNG \
+--slope-mode \
+--start -86400 --end now \
+--font DEFAULT:7: \
+--title "5-minute load average" \
+--watermark "`date`" \
+--vertical-label "load average" \
+--lower-limit 0 \
+--right-axis 1:0 \
+--x-grid MINUTE:10:HOUR:1:MINUTE:120:0:%R \
+--alt-y-grid --rigid \
+DEF:loadaverage=loadavg_db.rrd:loadavg:MAX \
+LINE1:loadaverage#0000FF:"load" \
+GPRINT:loadaverage:LAST:"Cur\: %5.2lf" \
+GPRINT:loadaverage:AVERAGE:"Avg\: %5.2lf" \
+GPRINT:loadaverage:MAX:"Max\: %5.2lf" \
+GPRINT:loadaverage:MIN:"Min\: %5.2lf\t\t\t"
+
+The first line calls the rrdtool graph function along with the filename of the image to create.  In this instance the image filename will contain the current date.  All of the arguments beginning with "--" are setting up the look-and-feel of the graph including labels, axis configuration, image format, and the timeframe to pull the data from.  For detailed information on these arguments the rrdtool documentation should be consulted.  The line beginning with "DEF:loadaverage" is defining a graph variable named loadaverage which will have the values from the loadavg variable we created in the database.  The line beginning with "LINE" specified the color of the graph line and the label to use in the legend.  The GPRINT lines indicate various statistic details to be printed at the bottom of the graph.  In this case the last recorded value and the average, minimum, and maximum values during the timeframe will be displayed.  Note that the %5.2lf specified the value to be printed as a floating point number with up to 5 digits to the left of the decimal point and two digits to the right.  For ease of capturing daily graphs this command could also be added to the crontab to run daily with the following entry:
+
+0 0 * * * /path/to/rrdtool-graph.sh
+
+This is will run the graph script daily at midnight.  The images may now be placed in a folder that is accessible via a browser for easy viewing.  
+
+While there are many monitoring solutions that provide robust graphical UI these solutions provide basic monitoring and trending functionality while using a minimum of system resources and providing a basic framework for disseminating the data collected.  For more information please refer to the following documentation links:
+
+Monit Documentation - https://mmonit.com/monit/documentation/monit.html
+Monit Apache Integration - http://git.andydoestech.com/git/scripts/.git/tree/config/monit.conf
+rrdtool graph Function Reference - https://oss.oetiker.ch/rrdtool/doc/rrdgraph.en.html</pre></section></article><article class="page" id="bittripmanipulatingbinarydatawithbash"><section>Click <a href="https://www.linux-magazine.com/Issues/2018/210/Binary-Data-in-Bash/" target="_blank">here</a> to read original<br><br><pre>One of the most versatile scripting environments available on Linux is the bash shell.  The core functionality of bash includes many mechanisms for string processing, mathematical computation, data I/O, and process management just to name a few item.  When coupled with countless command-line utilities available for everything from image processing to VM management you have the most powerful scripting platform out there.  Surely there are uses that bash is best suited for and tend to garner much popularity such as text processing.  When combined with awk and sed there is little you cannot do when it comes to manipulating text.  However something that bash tends to not be known for is it's ability to process data at the bit level.  There are many standard features within bash that facilitate the manipulation and editing of binary data and when combined with a few standard Linux utilities there are many things that can be done.  This article will show some basic data transformation operations along with a few advanced mathematical functions.  Then it will build on those capabilities and present some use cases for manipulating binary data with bash.
+
+Viewing and Converting Data
+
+Before we manipulate data at the bit level we must first see a representation of the data in either hexadecimal or binary.  Two tools that can be used for this task are hexdump and xxd.  The hexdump utility provides many options for outputting hexadecimal data.  While xxd lacks some of these options, there is a key feature of xxd has that hexdump lacks.  Along with the ability to output hexadecimal values xxd also has the ability to convert a hexadecimal string into binary data.  Examples 1 and 2 will differentiate between a hexadecimal string and binary data.
+
+	Example 1:
+	
+	command&gt; echo -n "hello" | xxd -p
+	output&gt; 68656c6c6f
+	
+	Example 2:
+	
+	command&gt; echo -n "6162" | xxd -p -r
+	output&gt; ab
+	
+In Example 1 the hexadecimal values of the word "hello" are being returned using the xxd command.  To be clear, the data being returned by this command is a string containing the ASCII characters "68656c6c6f"; that is, a ASCII string of valid hexadecimal values.  This is an example of converting binary data into a hexadecimal string (don't let the fact that "hello" is text distract from the fact that it's still binary).  In Example 2, the hexadecimal string "6162" is being converted into binary data.  Since hexadecimal 61 and 62 correspond to ASCII characters "a" and "b" respectively the string "ab" is returned.  This is an example of converting a hexadecimal string into binary data.  Example 3 takes this conversion between binary data and hexadecimal string data and provides two functions:  pack and unpack (named because of their similarity to the PHP pack function).
+
+	Example 3:
+	
+	pack() {
+	  echo -n "$1" | xxd -p -r
+	}
+	
+	unpack() {
+	  echo -n "$1" | xxd -p
+	}
+	
+Along with outputting hexadecimal values, xxd also has the ability to output binary values.  In all of the xxd commands given as examples, the "-p" switch is used.  This switch indicates that the plain formatting will be used when packing or unpacking data.  The plain formatting option also specifies hexadecimal format.  To output data as a binary string (containing 1's and 0's) we must use some different switches.  In Example 4 a function is provided that returns a binary string representation of binary data along with a sample command and output.
+
+	Example 4:
+	
+	tobin() {
+	  echo -n "$1" | xxd -b -g0 | awk '{ printf("%s",$2) }'
+	}
+	
+	command&gt; tobin ab
+	output&gt; 0110000101100010
+	
+The two character string we provided was converted into a binary string containing 2 8-bit values:  01100001 and 01100010 corresponding to the characters "a" and "b"  respectively.  While there is no mechanism within xxd to convert data from a binary string to binary data this can still be very useful when analyzing data.
+
+Transforming Binary Data
+
+Binary data can be transformed by using mathematical and logical operations.  Bash provides native functionality to perform mathematic operations and this is call arithmetic expansion.  Example 5 contains a simple example of a calculation using arithmetic expansion.
+
+	Example 5:
+	
+	command&gt; echo $(( 4*5 ))
+	output&gt; 20
+	
+The output of the echo command is the value calculated by the statement enclosed in the $(( and )).  The other method of performing mathematic operations is done using bc.  The bc utility is a command-line calculator and is able to read statements from standard input.  Example 6 reproduces example 5 using the bc command.
+
+	Example 6:
+	
+	command&gt; echo "4*5" | bc
+	output&gt; 20
+	
+Both of the operations performed with arithmetic expansion and the bc command have been done in base 10.  Since there is no native functionality to perform mathematic operation on hexadecimal numbers we must convert numbers to base 10 and then perform the desired operation.  Consider the possibility that we want to perform simple addition and subtraction operations against hexadecimal numbers.  Example 7 provides a simple function to add a provided number to a provided hexadecimal number along with an example command.
+
+	Example 7:
+	
+	hexadd() {
+	  echo "obase=16;ibase=A;$((16#$1))+$2" | bc
+	}
+	
+	command&gt; hexadd A 2
+	output&gt; C
+	
+The hexadd function from this example provides the ability to add or subtract (add a negative number) to a valid hexadecimal number in a single command.  Similar to Example 6 this function pipes a string of commands into bc however the commands are more complex.  The first command, "obase=16", sets the base in which data will be outputted (in this case, hexadecimal or base 16).  The second command, "ibase=A", sets the base used to read input data.  The input base is set up A which corresponds to base 10.  The third and final command is an addition statement comprised a arithmetic expansion and the second function argument.  The arithmetic expansion uses the "#" operator to convert the number following it from the base specified before the "#" to base 10.  This being said, in the command in Example 7 the hexadecimal A is converted to decimal 10 using arithmetic expansion, added to 2 using bc, and converted back into hexadecimal using bc.  
+
+Since we are dealing with hexadecimal and binary data it is perfectly assumed that bitwise operations could be performed on the data.  The bitwise operations we will be using include logical and, or, xor, and shift.  The and operation (using the "&amp;" operator) returns the bits shared between the two numbers.  The or operation (using the "|" operator) returns all bits used by either of the two numbers.  The xor operation (using the '^" operator) returns all bits that are unique to one of the numbers.  Consider Example 8 which provides functions and commands.
+
+	Example 8:
+	
+	logicand() {
+	  echo $(($1&amp;$2))
+	}
+	
+	logicor() {
+	  echo $(($1|$2))
+	}
+	
+	logicxor() {
+	  echo $(($1^$2))
+	}
+	
+	command&gt; logicand 3 6
+	output&gt; 2
+	command&gt; logicor 3 6
+	output&gt; 7
+	command&gt; logicxor 3 6
+	output&gt; 5
+	
+The first command example performs a binary and on 3 (or 0011 in binary) and 6 (or 0110 in binary).  Since the only bits are shared are the second bit, 2 (or 0010 in binary).  The second command example performs an or operation against the same two number: 3 and 6.  Between the two numbers, the lower 3 bits are used so 7 (or 0111 in binary) is returned.  In the third example an xor is performed against the same two numbers.  Bits second and fourth bits are the same between the two numbers, however the third and first bit are different therefor 5 (or 0101 in binary) is returned.  The other bitwise operations is the shift operation which shifts the bits in a number one direction or another (right or left).  Example 9 provides functions for shifting right (using the &gt;&gt; operator) and left (using the &lt;&lt; operator) along with commands.
+
+	Example 9:
+	
+	shiftr() {
+	  echo $(($1&gt;&gt;$2))
+	}
+	
+	shiftl() {
+	  echo $(($1&lt;&lt;$2))
+	}
+	
+	command&gt; shiftl 4 2
+	output&gt; 16
+	command&gt; shiftr 16 4
+	output&gt; 1
+	
+Much like the logical operations above, we will examine the bits and how they are manipulated by the functions.  In the first example the bits in 4 (0100) are shifted to the left by to spaces returning a value of 16 (1 0000).  The second example shifts the bits in 16 (1 0000) to the right 4 spaces returning a value of 1 (0001).  As you might have noticed for each bit space shifted to the left the number is multiplied by 2 and for each bit space shifted to the right the number is divided by 2.
+
+Application Example 1: ASCII to Unicode
+
+As we have seen all throughout the examples, the ability for the console to render ASCII characters is key.  Every character, whether it is representing a hexadecimal, binary, or decimal number or any other character is rendered as ASCII.  There are specific use cases where an ASCII character will need to be converted into Unicode.  ASCII is a 8-bit character set where as Unicode starts at 16-bit length.  While this might seem complicated it is quite simple thanks to the backward compatibility built into the Unicode standard.  All that is necessary to convert ASCII to Unicode is to prepend the value of 0 onto each ASCII character thus making it a 16-bit character.  Consider Example 10.
+
+	Example 10:
+	
+	ascii2unicode() {
+	  echo "$1" | sed 's/\(.\)/\1\n/g' | awk '/^.$/{ printf("%c%c",0,$0) }'
+	}
+	
+	command&gt; ascii2unicode jello
+	output&gt; jello
+	
+When the command output is viewed in the console there is no noticeable change in the data.  To get a better view of the binary data behind this text we will pipe the output into xxd in Example 11.
+
+	Example 11:
+	
+	command&gt; ascii2unicode jello | xxd
+	output&gt; 0000000: 006a 0065 006c 006c 006f                 .j.e.l.l.o
+		
+After examining the output of xxd, it can be seen that the ASCII values have been prepended with "00" which comprises the 16-bit Unicode character.  Let's examine how the function from Example 10 and see what's happening.  The output of the echo statement is piped into the sed statement which places each character of the output on a separate line.  The awk command reads the input from the sed command line-by-line and when the line contains a single character it prints the character prepended by the character value "0".
+
+Application Example 2: URL Encode/Decode
+
+Hexadecimal data is something that is likely seen everyday but goes unnoticed.  When data is passed as a query string in a URL it may be encoded using a special formatting.  This formatting is comprised of the a percent sign followed by the hexadecimal value of an ASCII character.  For example, the URL encoded string of "%61%62%63" when decoded evaluates to "abc".  Example 12 provides functions for performing URL encoding and decoding.
+
+	Example 12:
+	
+	urlencode() {
+	  echo -n "$1" | xxd -p | tr -d '\n' | sed 's/\(..\)/%\1/g'
+	}
+	
+	urldecode() {
+	  tr -d '%' &lt;&lt;&lt; "$1" | xxd -r -p
+	}
+	
+	command&gt; urlencode name
+	output&gt; %6e%61%6d%65
+	command&gt; urldecode %64%6f%6e%65
+	output&gt; done
+
+The above functions use the standard functionality of xxd.  When encoding a string the output of xxd is split into 1-byte chunks and prepended with a "%" by the sed command.  When decoding all percent signs are stripped and and output is piped into xxd to revert the hexadecimal string to ASCII.
+
+Application Example 3:  Calculating IP Subnets
+
+When setting up an IP network it is necessary to know the number of hosts IPs available on that network.  Since IP addressing and subnetting leverages bit-level operations we can determine three things very easily given a subnet mask:  the number of bits in the subnet mask defining the network and defining the host and the number of host IPs available.  While the function is complex Example 13 shows the conversion to a binary string and the evaluation of the state of bits a string.
+
+	Example 13:
+	
+	subnetcalc() {
+	  echo -n "$1" | \
+	  awk 'BEGIN { FS="." ; printf("obase=2;ibase=A;") } { printf("%s;%s;%s;%s;\n",$1,$2,$3,$4) }' | \
+	  bc | sed 's/^0$/00000000/g;s/\(.\)/\1\n/g' | \
+	  awk 'BEGIN { ht = 0; nt = 0; } 
+	       /[01]/ { if ($0=="1") nt++; if ($0=="0") ht++; } 
+	       END { printf("Network bits: %s\nHost bits: %s\nHost IP Count: %d\n",nt,ht,2^ht); }'
+	}
+
+Given the complexity of this function we will go one line at a time.  The output of the echo statement is fed into the awk statement.  This first awk statement will generate the statement to be piped into the following bc command.  The statement will include ibase, obase, and each individual number of the subnet mask.  Once bc evaluates the statements, it returns 4 lines: 1 for each number in the subnet mask.  The following sed statement finds lines containing only "0" and extends it so there are 8-bits of zeros.  The sed statement also puts each bit on a line by itself  This will be necessary to properly evaluate the host bit length.  The find awk statement has three sections.  The first section initializes the ht and nt variables which store the host total bits and network total bits respectively.  The next section searches for lines containing 0 or 1.  If the value is 1 then the network total is incremented and if the value is 0 the host total is incremented.  The final section of the awk statement prints the summary data for the network including the host and network bit counts along with the host IP count.</pre></section></article><article class="page" id="bootstoryimplementingpxebootwithtinycorelinux"><section>Click <a href="https://www.linux-magazine.com/Issues/2020/230/PXE-Boot-with-TinyCore/" target="_blank">here</a> to read original<br><br><pre>One of my passions is enabling the reuse of older computer hardware that many might view as out of date or obsolete.  When using Linux the idea of obsolescence is a bit of a red herring given its broad array of hardware support and the wide variety of software available.  We see this every day when we use some great multimedia software, fire up a web server, or use educational software with our kids.  There are big moments during our time of using Linux that this reality shows itself in a big way.  For me this happened when I picked up a used laptop at our local universities surplus computer equipment sale for $15.  It was a pretty decent little thing.  It was an older 32-bit dual core CPU with 1 or 2 GB of memory but my thought was it would be a great laptop for my kids.  The problem:  it had no harddrive.  My initial thought was to put Linux on a USB drive and boot of that.  This worked wonderfully for the first few days until they failed remember to shut it down properly which hosed up the USB filesystem.  To their sadness and my frustration the computer sat for a few months.  Then one day the most bizarre idea popped in my head:  PXE boot the laptop.  But how does it work?  I knew it used DHCP but little else.  This is the story of what I learned about PXE Boot, how I implemented it using TinyCore Linux, and how I made the coolest, geekiest solution for my kids.
+
+Laying the Groundwork for a PXE environment
+
+Almost all of us have seen the PXE or Network boot option on our BIOS screen.  PXE is an abbreviation for Preboot eXecution Environment and uses the network interface to load operating system and necessary configuration files over a network.  This is accomplished using two particular network protocols:  DHCP and TFTP.  DHCP is used to request client configuration data before any operating system is loaded.  Once the client has network access files are downloaded via TFTP and are loaded into memory on the client machine.  Once the files are loaded the operating system will boot on the client completely in memory without requiring any local storage.  Knowing a little about these two components will improve ones ability to properly implement a PXE environment.
+
+One of the key component of a PXE boot environment is a DHCP server.  The Dynamic Host Configuration Protocol allows client configuration to be requested and delivered over a network.  When a client device connects to a network there is a series of requests and responses that must take place to compelte a DHCP session.  They are as follows:
+
+	1. The client device issues a broadcast request for available DHCP servers.
+	2. If there is an available DHCP server it will respond to the client indicating it is available.
+	3. The client sends a request to the DHCP server.
+	4. The server responds with the configuration data for the client device.
+
+The data returned to the client in step 4 is where the power of DHCP lives.  While the host configuration portion of this response contains the client IP address and gateway address (along with a few other pieces of data) the response also contains a section containing other configuration options.  Depending on the configuration of the DHCP server this can be used to provide many other pieces of client configuration data including DHCP lease information, router addresses, DNS servers, time server, TFTP server address, and many others.  The PXE hardware on most computers has the ability to perform the above steps necessary to obtain configuration data from a DHCP server.  At this point the client can begin loading the operating system and prepare the boot environment.
+
+To complete the loading of the boot environment PXE will request the necessary files from a TFTP server.  The Trivial File Transfer Protocol allows for discrete transferring of files over a network without the authentication or filesystem browsing overhead of other protocol such as FTP.  This minimal functionality means a small memory footprint making it ideal for a PXE environment.  In order to create the boot environment PXE firmware for the operating system must be loaded onto the client device.  The firmware along with other boot files and TFTP path to download further files are specified in the DHCP response along with other client configuration options.  
+
+Back to the project of my kids laptop.  While the network boot environment provided the resiliency of being able to reboot and attain a clean running operating system I also wanted a limited environment allowing them to do specific tasks like e-mail or web browsing.  Having played with TinyCore Linux in the past I looked at it first.  It's small memory footprint made it incredibly desirable for the PXE environment.  For a bit of context the TinyCore ISO image for the command-line and  GUI desktop environments are 11 MB and 16 MB respectively.  While it does not measure up to a mature distribution like Debian or CentOS it does provide a repository of popular software packages.  All of the software I wanted to be able to run, such as ThunderBird, FireFox, GIMP, and AbiiWord, are all available through the TinyCore repository.
+
+All of the high-level moving parts of this custom PXE environment have been identified.  The implementation will require the installation and configuration of a DHCP server and TFTP Server.  It will also involve customizing the out-of-the-box distribution of TinyCore.  This will involve installing the desired applications and reconfiguring the GUI.  This approach will not only provide a stable and functional environment to do various tasks but it will provide a platform to easily deploy new applications that can be delivered via PXE boot.
+
+Preparing the Base Files
+
+All of the files that will be used to boot our PXE environment will come from two places.  The first place we will look is the syslinux project.  This project contains bootloaders for Linux including ones designed for network booting (pxelinux) and CD-ROM booting (isolinux).  While the pxelinux will be the bootloader we will focus on, isolinux will be references later in this article.  The PXE bootloader file is named pxelinux.0.  While it is technically possible to build this file from the syslinux source there is an older version available on the syslinux website containing a pre-built binary version of pxelinux.0 that will work nicely.  To download the syslinux package and and extract the necessary file run the following command
+
+	curl -s https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/syslinux-4.04.tar.gz | tar -zxvf - syslinux-4.04/core/pxelinux.0
+
+This will create a folder syslinux-4.04 in the current working directory.  Within that folder is a folder named core and within that folder is the pxelinux.0 firmware file.  To make this file available to a PXE client it will need to reside within the TFTP root folder which we will create using the following command:
+
+	mkdir -p /opt/lib/tftp/boot
+
+For this example we have set the TFTP root directory to be /opt/lib/tftp and the PXE firmware should be placed in the boot folder within the TFTP root.  The second place we will look for completing the file configuration is the TinyCore ISO image.  For this project I am opting to go with the 16 MB ISO containing the GUI environment.  As the process of preparing the TinyCore specific files is quite involved it will be divided into two steps:  preparing the base operating system and adding new applications.  The initial setup of the base system requires the content of the /boot folder to be extracted for further customization.  This can be accomplished using the following template script:
+
+	sudo mount -o loop TINYCORE.ISO /mnt/cdrom
+	cp -R /mnt/cdrom/boot/* /opt/lib/tftp/boot
+
+In this script the TINYCORE.ISO should be replace with the path to the TinyCore ISO image.  All of the files files mentioned in this section (PXE firmware, kernel, init ramdisk, and boot folder contents) will need to be located within the TFTP root.  Leave the ISO image mounted as more files will be needed later in the process.  Once extracted the target folder will contain three items:  vmlinuz (the kernel), core.gz (the init ramdisk), and isolinux (folder containing boot menu configuration).  The kernel file will not be modified and will remain in the boot folder in the TFTP root.  The init ramdisk file will be modified to contain the contain all of the files necessary to run the GUI environment.  To modify the contents of the init ramdisk it must be extracted to a folder.  This can be done using the following template script:
+
+	mkdir /tmp/initrd-contents
+	cd /tmp/initrd-contents
+	gzip -cd /opt/lib/tftp/boot/core.gz | cpio -i
+
+The &lt;target-folder&gt; placeholder should be replaced with the folder where the contents of the init ramdisk will be extracted.  Note that the cpio command is available for all popular distributions and may need to be installed.  Now the contents of the init ramdisk is located in /tmp/initrd-contents and can be traversed and manipulated.  As mentioned earlier the whole desktop environment will be copied onto the init ramdisk.  To accomplish this file will need to be copied from the ISO image to a folder on the init ramdisk.  Use the following template script to accomplish this:
+
+	mkdir -p /tmp/initrd-contents/usr/local/share/install-base
+	cp /mnt/cdrom/cde/optional/*tcz /tmp/initrd-contents/usr/local/share/install-base
+
+Note that the two placeholders in this script are the same as the previous scripts.  The files that were copied with the tcz file extension will be installed at boot time.  Since TinyCore is a single-user distribution this can be accomplished by editing the script located at /etc/profile to install the files and start X-windows.  The following lines will be added to the end of the /etc/profile file in the init ramdisk:
+
+	tce-load -i /usr/local/share/install-base/*tcz
+	startx
+
+At this point the init ramdisk content is configured to boot into the default out-of-the-box GUI configuration.  This is a great time to re-package the init ramdisk as a base boot image.  This can be done using the following script template:
+
+	cd /tmp/initrd-contents
+	find . | cpio -H newc -o &gt; /opt/lib/tftp/boot/core
+	gzip -f /opt/lib/tftp/boot/core
+
+Note that running this script will overwrite the init ramdisk in the boot folder under the TFTP root folder.  Now the a base image has been created the Firefox application will be added and saved as a new init ramdisk image.  This will be accomplished by modifying the above commands that were added to the /etc/profile script to the following:
+
+	tce-load -i /usr/local/share/install-base/*tcz
+	tce-load -w -i firefox-esr.tcz
+	startx
+
+This modification will allow the Firefox package to be installed after the base system has been installed.  It should be noted that the larger an application is the longer it will take to install and therefore boot the environment.  Now that we have 
+is ready to be re-packaged in a new init ramdisk image.  This can be accomplished with the following template script:
+
+	cd /tmp/initrd-contents
+	find . | cpio -H newc -o &gt; /opt/lib/tftp/boot/core-firefox
+	gzip -f /opt/lib/tftp/boot/core-firefox
+
+Note that the name of the new init ramdisk will be core-firefox.gz.  The last step of our process is to modify the boot menu to display two boot options:  the base image and the new Firefox image.  The boot menu is contained in the /opt/lib/tftp/boot/isolinux/isolinux.cfg file.  The file has three main sections separated by empty lines.  The first section contains general configuration items such as DEFAULT, UI, PROMPT, and so on.  The second section contains configurations beginning with MENU which will be used to configure the look and feel of the boot menu.  The third secions contain multiple line-separated groups of configurations that correspond to menu items.  The first line in each group of configurations should begin with a LABEL statement.  All of the entries in the third section may be removed for this project.  After removing the existing menu entries the file should look something like this:
+
+	DEFAULT tc
+	UI menu.c32
+	PROMPT 0
+	TIMEOUT 600
+	ONTIMEOUT tc
+	F1 f1
+	F2 f2
+	F3 f3
+	F4 f4
+	
+	MENU TITLE TinyCore
+	MENU MARGIN 10 
+	MENU VSHIFT 5
+	MENU ROWS 5
+	MENU TABMSGROW 14
+	MENU TABMSG Press ENTER to boot, TAB to edit, or press F1 for more information.
+	MENU HELPMSGROW 15
+	MENU HELPMSGENDROW -3
+	MENU AUTOBOOT BIOS default device boot in # second{,s}...
+
+There might be minor differences depending on the version of TinyCore being used.  Now the new PXE environments will be added to the menu.  The environment with the base init ramdisk image should look like this:
+
+	LABEL tc
+	MENU LABEL TinyCore Base
+	KERNEL /boot/vmlinuz
+	INITRD /boot/core.gz
+
+The Firefox environment will look the same as this base configuration with the exception of the INITRD configuration which will have a value of /boot/core-firefox.gz.  This completes the configuration of the PXE environments that will be available to boot into.  The remaining step involved configuring the network services that power our PXE boot environments:  DHCP and TFTP.
+
+Setting up the Backend:  DHCP and TFTP
+
+Not wanting to setup a whole new server for these services I opted to use a Raspberry Pi I had on my network to host the DHCP and TFTP servers.  Luckily for this project there is a single application that will run both of these services:  dnsmasq.  Dnsmasq is a server application that provides, among other services, DHCP, DNS, TFTP.  It should be noted that since services are being delivered over the network the server OS distribution is not important.  Luckily dnsmasq is available for most popular Linux distributions.  The first step is configuring the DHCP server portion of dnsmasq.  A basic DHCP configuration would be entered into the /etc/dnsmasq.conf file and would look like this:
+
+	interface=eth0
+	dhcp-range=192.168.1.100,192.168.1.200,12h
+	dhcp-option=3,192.168.1.1
+
+The first line uses the interface directive to set the network interface that the DHCP service will be listening on (in this case eth0).  The second line uses the dhcp-range directive to specify the range of IP addresses that will be available for client use and the DHCP lease length.  In this case the IP addresses between 192.168.1.100 and 192.168.1.200 will be available and will be leased for 12 hours.  The third line uses the dhcp-option directive to set an DHCP option 3, which corresponds to the default gateway address, to 192.168.1.1.  Once this has been completed the configuration of the custom DHCP parameters can be done to enable PXE boot.  This will involve adding the following lines to the /etc/dnsmasq.conf file:
+
+	dhcp-boot=/opt/lib/tftp/boot/pxelinux.0,192.168.1.10
+	dhcp-option-force=209,/boot/isolinux/isolinux.cfg
+	dhcp-option-force=210,/
+	dhcp-option-force=66,192,168.1.10
+	enable-tftp
+	tftp-root=/opt/lib/tftp
+
+The first line of this uses the dhcp-boot directive to specify the full path of the PXE firmware on the TFTP server along with the TFTP server IP address.  The second, third, and fourth lines are setting specific DHCP options.  Option 209 on line 2 is the relative path (within the TFTP root) to the pxelinux configuration file.  Since the configuration file was copies from the TinyCore ISO image it is named isolinux.cfg which corresponds to the type of syslinux that was used to boot the CD.  Since these are both types are based on syslinux this will not be an issue during this project.  Option 210 on line 3 sets the directory to look for pxelinux boot files (the kernel, the init ramdisk, etc.) which like option 209 is relative to the TFTP root path.  Option 66 on line 4 sets the IP address of the TFTP server.  All of these options will be returned in the DHCP response packet.  Lines 5 and 6 are configuring the TFTP server.  Line 5 uses the enable-tftp directive to enable listening for TFTP connections.  Line 6 uses the tftp-root directive to specify the full path where files that will be available over TFTP will be located.
+
+The PXE environment configuration is now complete and is ready to boot clients over a LAN.  On thing to remember is that f your network already has a DHCP server in use this could cause problems as there is no assurance which DHCP server will respond to the client first.  As such this should be deployed either on a network segment where DHCP is currently not running or configured to work with the existing DHCP service.  When I implemented this solution I was running DDWRT on my router which uses dnsmasq as its DNS and DHCP.  So, I added the advanced DHCP options above to my DDWRT instance and used my Raspberry Pi as the TFTP server only.
+
+Just Playing Around:  Retro PXE Functionality
+
+There is another really cool feature that can be implemented with our PXE environment however it falls outside the scope of what has been discussed up to this point.  This is the ability to boot legacy raw disk images over PXE.  This is accomplished using another component available within the syslinux package:  memdisk.  Within the syslinux archive that was downloaded earlier this file is located in the /syslinux-4.04/memdisk folder.  To enable booting a floppy disk over the network there are three steps.  First, the memdisk file must be placed in the TFTP root (preferably in the boot folder).  Second, the floppy disk image to be booted must be placed in the TFTP server root.  A folder off of the TFTP root named floppy could be created and the disk image placed there.  I would encourage playing with MinuetOS.  It is a floppy disk OS with a GUI and many fun applications.  Finally a menu item must be configured to enable booting of the floppy disk.  The menu item should look like this:
+
+	LABEL minuet
+	MENU LABEL MinuetOS
+	KERNEL /boot/memdisk
+	INITRD /floppy/minuet.img
+
+Note that the memdisk file is referenced as the kernel to be used and the floppy disk image is referenced as the init ramdisk.  This could also be configured to boot a larger disk image however this could impact load time and possibly performance.
+
+This project was a success for my kids and I.  They enjoy being able to use the internet, e-mail grandma and grandpa, and play a few old legacy games that I've put on floppy disks and I enjoy not having to re-image the laptop when it gets shut down incorrectly.  The resilience of the system is a great asset since.  This is also a great solution to make use of old computing hardware.  For more information related to this article see the related links below.
+
+syslinux - https://wiki.syslinux.org/
+dnsmasq  - http://www.thekelleys.org.uk/dnsmasq/doc.html
+TinyCore Linux - http://www.tinycorelinux.net/
+MinuetOS - http://www.menuetos.net
+inity.sh (manipulate init ramdisks) - http://git.andydoestech.com/git/scripts/.git/tree/shell/inity.sh</pre></section></article><article class="page" id="buildingabarebonesgitenvironment"><section>Click <a href="https://www.linuxjournal.com/content/building-bare-bones-git-environment" target="_blank">here</a> to read original<br><br><pre>With the recent news of Microsoft aquisition of Github many people have chose to research other code hosting options.  Self-hosted solutions like Gitlabs offer a polished UI similar in functionality to Github but requires reasonably well powered hardware and provides many features that the casual Git user will not find useful.  For those who want a simpler solution it is possible to host Git repositories locally on a Linux server using a few basic pieces of software that require minimal system resources and provide basic Git functionality including web accessibility and HTTP/SSH cloning.  In this article we will show how to migrate repositories from Github, configure the necessary software, and perform some basic operations.
+
+# Migrating repositories
+
+The first step in migrating away from Github is to relocate your repositories to the server where they will be hosted.  Since Git is a distributed version control system, a cloned copy of a repository contains all information necessary for running the entire repository.  As such, the repositories can be cloned from Github to your server and all of repository data including commit logs will be retained.  If you have a large number of repositories this could be a time-consuming process.  To ease this process here is a Bash function to return the URLs for all repositories hosted by a specific Github user (Figure 1).
+
+Figure 1:
+
+genrepos() {
+	if [ -z "$1" ]; then
+		echo "usage: genrepos &lt;github username&gt;"
+	else
+		repourl="https://github.com/$1?tab=repositories"
+		while [ -n "$repourl" ]; do
+			curl -s "$repourl" | awk '/href.*codeRepository/ { print gensub(/^.*href="\/(.*)\/(.*)" .*$/,"https://github.com/\\1/\\2.git","g",$0); }'
+			export repourl=$(curl -s "$repourl" | grep '&gt;Previous&lt;.*href.*&gt;Next&lt;' | grep -v 'disabled"&gt;Next' | sed 's/^.*href="//g;s/".*$//g;s/^/https:\/\/github.com/g')
+		done
+	fi
+}
+
+This function accepts a single argument of the Github username.  If the output of this command is piped into a while loop to read each line each line can be fed into a git clone statement.  In Figure 2 the repositories will be cloned into the /opt/repos directory.
+
+Figure 2:
+
+genrepos &lt;GITHUB-USERNAME&gt; | while read repourl; do
+	git clone $repourl /opt/repos/$(basename $repourl | sed 's/\.git$//g')
+	pushd .
+	cd /opt/repos/$(basename $repourl | sed 's/\.git$//g')
+	git config --bool core.bare true
+	popd
+done
+
+Let's run through what this while loop is doing.  The first line of the while loop simply clones the Github repository down to /opt/repos/REPONAME where REPONAME is the name of the repository.  The next four lines set the core.base attribute in the repository configuration which allows remote commits to be pushed to the server (pushd and popd are used to preserve the working directory while running the script).  At this point, all repositories will be cloned.  One way to test the integrity of the repository is to clone it from the local filesystem to a new location on the local filesystem.  In Figure 3 the repository named "scripts" will be cloned to the scripts directory in the users home directory:
+
+Figure 3:
+	git clone /opt/repos/scripts ~/scripts
+	
+The contents of the ~/scripts directory will contain the same files as the /opt/repos/scripts directory.  Verifying the commit logs between the two repositories should return identical log data (run "git log" from the repository directory).  At this point the Github repositories are all in place and ready to use.
+
+# Configuring software
+
+Having repositories on dedicated server is all well and good but if they cannot be accessed remotely the distributed nature of Git repositories is rendered useless.  To achieve a basic level of functionality there are a few applications that will need to be installed on the server:  git, openssh-server, apache2, and cgit (package names may vary by distribution).  Having reached this point in the process the git software should already be installed.  The SSH server will provide the ability to push/pull repository data using the SSH protocol.  The out-of-the-box configuration for SSH will work properly so no customization is necessary.  Apache and cgit on the other hand will require some customization.  
+
+First, we will configure the cgit application.  The cgit package contains a configuration file named cgit.conf and will be placed in the Apache configuration directory (location of configuration directory will vary by distribution).  For increased flexability with the Apache installation we will make some modifications to the cgit.conf file:
+
+1. Add the following text as the first line of the file:  &lt;Macro CgitPage $url&gt;
+2. Add the following text as the last line of the file:  &lt;/Macro&gt;
+3. Replace all occurances of "/cgit" with $url (note that /cgit/ will be replaced with $url/)
+
+The resulting configuration file will look something like what it is Figure 3.  Note that some of the paths in this macro might differ depending on the Linux distribution.
+
+Figure 3:
+
+&lt;Macro CgitPage $url&gt;
+ScriptAlias $url/ "/usr/lib/cgit/cgit.cgi/"
+RedirectMatch ^$url$ $url/
+Alias /cgit-css "/usr/share/cgit/"
+&lt;Directory "/usr/lib/cgit/"&gt;
+AllowOverride None
+Options ExecCGI FollowSymlinks
+Require all granted
+&lt;/Directory&gt;
+&lt;/Macro&gt;
+
+This macro will streamline implementation by allowing cgit to be enabled on any VirtualHost in the Apache config.  To enable cgit, place the below directive at the bottom of the default &lt;VirtualHost&gt; definition.  If you cannot find the default VirtualHost a new VirtualHost may be created and this directive may be added to the new VirtualHost.
+
+Use CgitPage /git
+
+In this example we are using /git as the URL where cgit will be accessed.  Upon installation, cgit was not installed with a default configuration file.  Such a configuration file is generated when the application is accessed for the first time.  The new configuration file will be located in the /etc directory and will be named cgitrc.  The cgit application can be access at the following URL:
+
+http://HOSTNAME/git
+
+Once the URL has been accessed the configuration file will be present on the filesystem.  We can now configure cgit to look in a specific directory where repositories will be stored.  Assuming the local repository path is /opt/repos the following line will be added to the /etc/cgitrc file:
+
+scan-path=/opt/repos
+
+The scan-path variable sets the directory where the Git repositories are located.  It should be noted that cgit has other customization options that we don't be going over. After making this change to the cgitrc file a listing of repositories will be on the page.  The contents of the repository can be accessed by clicking on a repository and then clicking the "Tree" link at the top of the page.
+
+&lt;Image cgit-tree.jpg&gt;
+
+# Interacting with Repositories
+
+Now that the the environment is completely setup with repositories in place we will need to do some basic operations such as clone, push, and pull repositories from the server.  As described above there are two main protocols that will be used performing these basic git operations:  HTTP and SSH.  In this environment these protocols will serve two distict purposes.  HTTP will provide read-only access to repositories which is useful for public access to repositories.  The HTTP clone URLs can be obtained from the cgit repository listing page and will have the following form:
+
+http://&lt;HOSTNAME&gt;/git/&lt;REPOSITORY&gt;/.git/
+
+For read-write access repositories can be cloned via SSH using a valid local user.  A good practice could be to provide read-write access to a group and give that group recursive access to the /opt/repos directory.  The format of the SSH clone address is:
+
+ssh://USER@HOSTNAME:PORT/opt/repos/&lt;REPOSITORY&gt;/
+
+If the port used by SSH is left as the default port 22 the PORT can be omitted from the clone address.  Note that firewall ports may need to be opened in order for remote SSH and HTTP connections to be possible.
+
+Our self-hosted minimalist Git environment is now complete.  While it may lack some of the advanced features provided by other solutions, it provides the basic functionality to distributedly manage code.  It is worth noting that the features of this environment can be expanded far beyond what has been implemented here with little impact on performance and overall complexity.  For more information on the applications used in this article please take a look at the following resources:
+
+Git command-line cheat sheet:  https://gist.github.com/davfre/8313299
+Additional cgitrc settings:  https://gist.github.com/schnell18/10391249</pre></section></article><article class="page" id="creatinganapplication-basedterminalsession"><section>Click <a href="https://www.linuxjournal.com/content/creating-application-based-terminal-session" target="_blank">here</a> to read original<br><br><pre>One of my first exposures to computers in a work environment was using a Wyse terminal to access a console based application for data entry.  It wasn't until a while later that I learned about terminals in Unix and how they work.  Once I understood this, I wanted to create my own self-contained application that was tied to a telnet or SSH session.  The method I've found to accomplish this involves the use of the trap command and some (seemingly) intimate loops.  The example code will be inserted into the .bashrc file of the user you wish to give application access to.  The example code was used for spam message entry into the sa-learn application for Spam Assassin.
+
+
+
+instanceid="$RANDOM"
+clean_session() {
+        [[ -f /tmp/spam.message-$instanceid ]] &amp;&amp; rm /tmp/spam.message-$instanceid
+        exit
+} 
+
+ 
+
+trap clean_session SIGINT
+
+while true; do
+        clear
+        printf "******** Spam Message Entry Menu ********\n"
+        printf "Enter the body of spam message, then press Ctrl-D\n"
+        printf "To exit at any time, press Ctrl-C\n\n"
+        cat &gt; /tmp/spam.message-$instanceid
+        clear
+        printf "Processing....\n\n"
+        /opt/bin/sa-learn --spam /tmp/spam.message-$instanceid
+        printf "\n\n"
+        rm /tmp/spam.message-$instanceid
+        read -s -n 1 -p "Press any key to continue...."
+done
+exit
+
+
+Let's examine the logic and functionality.  The first line establishes a unique session ID for application access.  If you have multiple users logging on with the same username this will help keep data straight between sessions.  The clean_session function needs to be declared at the beginning of the script for use with the following trap statement.  The trap statement will run the clean_session function whenever it detects that the user entered Ctrl-C (Interrupt signal or SIGINT).
+
+For the purpose of establishing a our data entry application, we will use an infinite while loop.  Once data is entered the first time and the end of the loop is reached the loop just starts over and is ready for more data entry.  This is where the clean_session function comes into play.  If the user wishes to exit, as per the instructional printouts, they type Ctrl-C.  Normally, this would drop them into a shell but since we want to isolate their usage to this application, we will invoke the clean_session function which will clean up their temporary file (if it exists) and log them off.  The body of the while loop just accepts input (the cat statement), feeds the data into sa-learn, and cleans up the temporary file.
+
+For this example, you will need to modify the sudoers file to allow your user root access to sa-learn and the actual location of sa-learn might vary with your installation.</pre></section></article><article class="page" id="developingconsoleapplicationswithbash"><section>Click <a href="https://www.linuxjournal.com/content/developing-console-applications-bash" target="_blank">here</a> to read original<br><br><pre>As a novice software developer, there is one thing I look for when choosing a programming language:  is there a library that allows me to interface with the system in to accomplish a task.  If Python didn't have Flask, I might choose a different language to write a web application.  For this same reason I've begun to develop many admittedly small applications with Bash.  While Python for example has many modules to import and extend functionality, Bash has thousands of commands that perform a variety of features including string manipulation, mathematic computation, encryption, and database operations.  We will take a look at these features and how to easily use them within a Bash application.
+
+** Reusable Code Snippets
+
+There are three features that Bash provides that I have found particularly useful when creating reusable functions:  alias', functions, and command substitution.  An alias is a command line shortcut for a long command.  Here is a example:
+
+	Example 1:
+
+	alias getloadavg='cat /proc/loadavg'
+
+The alias for this example is "getloadavg".  Once defined, it can be executed as any other Linux command.  In this instance, alias will dump the contents of the /proc/loadavg file.  Something to keep in mind is that this is a static command alias.  No matter how many time it is executed it will always dump the contents of the same file.  If there is a need to vary the way a command is executed (by passing arguments for instance), we can create a function.  A function is Bash functions the same was as a function in any other language:  arguments are evaluated and commands within the function are executed.  Here's an example function:
+
+	Example 2:	
+	
+	getfilecontent() {
+		if [ -f $1 ]; then
+			cat $1
+		else
+			echo "usage: getfilecontent &lt;filename&gt;"
+		fi
+	}
+	
+This function declaration defines the function name as getfilecontent.  The if-else statement is checking if the file specified as the first function argument ($1) exists.  If it does, the contents of the file is outputted.  If not, usage text is displayed.  Because of the incorporation of the argument the output of this function will vary based on argument provided.  The final feature that will be discussed is command substitution.  This is a mechanism for reassiging output of a command.  Because of the versatility of this feature we'll take a look at two example.  Here is an example that involves reassigning the output to a variable:
+
+	Example 3:
+	
+	LOADAVG="$(cat /proc/loadavg)"
+	
+The syntax for command substitution is $(command) where "comand" is the command to be executed.  In this example the LOADAVG variable will have the contents of the /proc/loadavg file stored in it.  At this point the variable can be evalutated, manipulated, or simply echoed to the console.
+
+** Text Manipulation
+
+If there is one feature that sets scripting on Unix apart from other environments it is the robust ability to process text.  While there are many text processing mechanisms available when scripting in Linux we will be looking at grep, awk, sed, and variable-based operations.  The grep command allows the searching through text whether in a file or piped from another command.  Here is a grep example:
+
+	Example 4:
+	
+	alias searchdate='grep "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]"'
+	
+The alias we created will search through data for a date in the YYYY-MM-DD format.  Like the grep command, text can either be provided as piped data or as a file path following the command.  As the example shows search syntax for the grep command includes the use of regular expressions (or regex).  When processing lines of text for the purpose of pulling out delimited fields awk is the easiest tool for the job.  We can use awk to create verbose output of the /proc/loadavg file:
+
+	Example 5:
+	
+	awk '{ printf("1-minute: %s\n5-minute: %s\n15-minute: %s\n",$1,$2,$3); }' /proc/loadavg
+	
+For the purpose of this example we will examine the structure of the /proc/loadavg file.  It is a single-line file and there are typically 5 space-delimited fields although this example only uses the first three fields.  Much like Bash function arguments fields in awk are references as variables named by their position in the line ($1 is the first field and so on).  In this example we are referencing the first three fields as arguments to the printf statement.  The printf statement will display 3 lines and each line will contain a description of the data and the data itself.  Note that each %s is substituted with the corresponding parameter to the printf function.  Within all of the commands availble for text processing on Linux sed may be considered the Swiss Army Knife for text processing.  Like grep, sed uses regex.  The specific operation we will look at involves regex substitution.  For an accurate comparison, we will recreate example 5 using sed:
+
+	Example 6:
+	
+	sed 's/^\([0-9]\+\.[0-9]\+\) \([0-9]\+\.[0-9]\+\) \([0-9]\+\.[0-9]\+\).*$/1-minute: \1\n5-minute: \2\n15-minute: \3/g' /proc/loadavg
+	
+Since this is a long example we will separate this into smaller parts.  As I mentioned we are using regex substitution which follows the following syntax:  s/search/replace/g.  The "s" begins the definition of the substitution statement.  the search value defines the text pattern you wish to search for and the replace value defines what you wish to replace the search value with.  The "g" at the end is a flag that denotes global substitution within the file and is one of many flag availble with the substitute statement.  The search pattern in this example is:
+
+	^\([0-9]\+\.[0-9]\+\) \([0-9]\+\.[0-9]\+\) \([0-9]\+\.[0-9]\+\).*$
+	
+The caret at the beginning of the string denotes the beginning of a line of text being processed and the dollar sign at the end of the string denotes the end of a line of text.  There are four things being searched for within this example.  The first three items are:
+
+	\([0-9]\+\.[0-9]\+\)
+	
+This entire string is enclude with escaped parenthesis which makes the value within availble for use in the replace value.  Just like the grep example, the [0-9] will match a single numeric character.  When followed by an escaped plus-sign it will match one or more numeric characters.  The escaped period will match a single period.  When you put this whole expression together you get an pattern for a decimal digit.  The fourth item in the search value is simply a period followed by an asterisk.  The period will match any character and the asterisk will match zero or more of whatever preceeded it.  The replace value of the example is:
+
+	1-minute: \1\n5-minute: \2\n15-minute: \3
+	
+This is largly composed of plain text however it contains four unique special items.  There are newline characters that are represented by the slash-"n".  The other three items are slashes followed by a number.  This number corresponds to the patterns in the search value surrounded by paranthesis.  Slash-1 is the first pattern in paranthesis, slash-2 is the second and so on.  The output of this sed command will be exactly the same as the awk command from earlier.  The final mechanism for string manipulation that we will discuss involves using Bash variable to manipulate strings.  While this is much less powerful than traditional regex it provides a number of ways to manipulate text.  Here are a few examples using bash variables:
+
+	Example 7:
+
+	MYTEXT="my example string"
+	echo "String Length:  ${#MYTEXT}"
+	echo "First 5 Characters: ${MYTEXT:0:5}"
+	echo "Remove \"example\": ${MYTEXT/ example/}"
+
+The variable named MYTEXT is the sample string that we will be working with.  The first echo command shows how to determine the length of a string variable.  The second echo command will return the first five characters of the string.  This substring syntax involves the beginning character index (in this case zero) and the length of the substring (in this case five).  The third echo command removes the word "example" along with a leading space.
+
+** Mathmatic Computation
+
+While text processing might be what make Bash scripting great the need to do mathematics still exists.  Basic math problems can be evaludated using either bc, awk, or Bash arithmetic expansion.  The bc command has the ability to evaluate math problems via an interactive console interface and piped input.  For the purpose of this example we will be looking at evaluating piped data.  Consider the following example:
+
+	Example 8:
+	
+	pow() {
+		if [ -z "$1" ]; then
+			echo "usage: pow &lt;base&gt; &lt;exponent&gt;"
+		else
+			echo "$1^$2" | bc
+		fi
+	}
+
+In this example we have created an implementation of the pow function from C++.  The function requires two arguments.  The result of the function will be the first number raised to the power of the second number.  The math statement of "$1^$2" is piped into the bc command for calculation.  While awk does provide the ability to do basic math calculation the ablity for awk to iterate through line of text makes is especially useful for creating summary data.  For instance, if you wanted to calculate the total size of all files within a folder you might use something like this:
+
+	Example 9:
+	
+	foldersize() {
+		if [ -d $1 ]; then
+			ls -alRF $1/ | grep '^-' | awk 'BEGIN {tot=0} { tot=tot+$5 } END { print tot }'
+		else
+			echo "$1: folder does not exist"
+		fi
+	}
+	
+This function will do a recursive long listing for all entries underneath the folder supplied as an argument.  It will then search for all lines beginning with a dash (this will select all files).  The final step is to use awk to iterate through the output and calculate the combined size of all files.  Here is how the awk statement breaks down.  Before processing of the piped data begins the BEGIN block sets a variable named tot to zero.  Then for each line the next block executed.  This block will add to tot the value of the fifth field in each line which is the file size.  Finally after the piped data has been processed the END block will then print the value of tot.  The other way to perform basic math is through arithmetic expansion.  This will take a similr visual for to command substitution.  We will rewrite example 8 using arithmetic expansion:
+
+	Example 10:
+	
+	pow() {
+		if [ -z "$1" ]; then
+			echo "usage: pow &lt;base&gt; &lt;exponent&gt;"
+		else
+			echo "$[$1**$2]"
+		fi
+	}
+
+The syntax for arithmetic expansion is $[expression] where expression is a mathematic expression.  You will notice that instead of using the caret operator for exponents we are using a double-asterisk.  While there are differences and limitation to this method of calculation the syntax can be more intuitive than piping data to the bc command.
+
+** Cryptography
+
+The ability to perform cryptographic operations on data may be necessary depending on the needs of an application.  If a string needs to be hashed, a file needs to be encrypted, or data needs to be base64 encoded this can all be accomplished using the openssl command.  While openssl provide a large set of ciphers, hashing algorithms, and other functions we will be looking at only a few.  The first example we will look at is encrypting a file using the blowfish cipher:
+
+	Example 11:
+	
+	bf-enc() {
+		if [ -f $1 ] &amp;&amp; [ -n "$2" ]; then
+			cat $1 | openssl enc -blowfish -pass pass:$2 &gt; $1.enc
+		else
+			echo "usage: bf-enc &lt;file&gt; &lt;password&gt;"
+		fi
+	}
+
+This function requires two arguments: a file to encrypt and the password to use to encrypt it.  After running this scipt produces a file named the same as your original but with the file extension of "enc".  Once we have the data encrypted we need a function to decrypt it.  Here is the decryption function:
+
+	Example 12:
+	
+	bf-dec() {
+		if [ -f $1 ] &amp;&amp; [ -n "$2" ]; then
+			cat $1 | openssl enc -d -blowfish -pass pass:$2 &gt; ${1%%.enc}
+		else
+			echo "usage: bf-dec &lt;file&gt; &lt;password&gt;"
+		fi
+	}
+	
+The syntax for the decryption function is almost identical to the encryption function with the addition of "-d" to decrypt the piped data and the syntax to remove ".enc" from the end of the decrypted filename.  Another piece of functionality provided by openssl is the ability to create hashes.  While files may be hashed using we will be focusing on hashing strings.  We will be making a function to create an MD5 hash of a string
+
+	Example 13:
+	
+	md5hash() {
+		if [ -z "$1" ]; then
+			echo "usage: md5hash &lt;string&gt;"
+		else
+			echo "$1" | openssl dgst -md5 | sed 's/^.*= //g'
+		fi
+	}
+
+This function will take the string argument provided to the function and generate an MD5 hash of that string.  The sed statement at the end of the command will strip off text that openssl puts at the beginning of the command output so that the only text returned by the function is the hash itself.  The way that you would validate a hash (as opposed to decrypting it) is to create a new hash and compare it to the old hash.  If the hashes match then the original strings will match.  We will also be discussing the ability to create a base64 encoded string of data.  One particular application that I have found this useful is creating an HTTP basic authentication header string (this contains username:password).  Here is a function that accomplishes this:
+
+	Example 14:
+	
+	basicauth() {
+		if [ -z "$1" ]; then
+			echo "usage: basicauth &lt;username&gt;"
+		else
+			echo "$1:$(read -s -p "Enter password: " pass ; echo $pass)" | openssl enc -base64
+		fi
+	}
+
+This function will take the username provided as the first function argument and the password provided by user input through command substitution and use openssl to base64 encode the string.  This string may then be added to an HTTP Authorization header field.
+
+** Database Operations
+
+An application is only as useful as the data that sits behind it.  While there are command line tools to interact with database server software we will be focusing on the sqlite file-based database.  Something that can be difficult when moving an application from one computer to another is that depending on the version of sqlite the executable may be named differently (typically either sqlite or sqlite3).  Using command substitution we can create a fool-proof way of calling sqlite:
+
+	Example 15:
+	
+	$(ls /usr/bin/sqlite* | grep 'sqlite[0-9]*$' | head -n1)
+	
+This will return the full file path of the sqlite executable available on a system.  Consider an application that, upon first execution, creates an empty database.  If this syntax is used to invoke the sqlite binary then the empty database will always be created using the correct version of sqlite on that system.  Here's an example of how to create a new database with a table for personal information:
+
+	Example 16:
+	
+	$(ls /usr/bin/sqlite* | grep 'sqlite[0-9]*$' | head -n1) test.db "CREATE TABLE people(fname text, lname text, age int)"
+	
+This will create a database file named test.db and will create the people table as described.  This same syntax could be used to perform any SQL operations that sqlite provides including SELECT, INSERT, DELETE, DROP, and many more.
+
+This article is only scraping the surface of commands availble to develop console applications Linux.  There are a number of great resources for learning more in-depth scripting techniques whether in Bash, awk, sed, or any other console-based toolset.  Here are a few resources I have found helpful:
+
+	The Advanced Bash-Scripting Guide - http://tldp.org/LDP/abs/html/index.html
+	GNU Awk User's Guide - https://www.gnu.org/software/gawk/manual/html_node/index.html
+	sed, a stream editor - https://www.gnu.org/software/sed/manual/html_node/index.html
+	My Github Gists - https://gists.github.com/bng44270/</pre></section></article><article class="page" id="integratingwebapplicationswithapache"><section>Click <a href="https://www.linuxjournal.com/content/integrating-web-applications-apache" target="_blank">here</a> to read original<br><br><pre>When you deploy a web application how is it accessed by end-users?  Often web applications are set behind a gateway device through which the end-user may access it.  One of the popular products to act as an application gatway on Linux is the Apache Web Server.  While it can function as a normal web server it also has the ability to connect through it to other web servers.  Today we're going to look at what it takes to integrate a web application into Apache.  This includes integrating the HTTP protocol functionality, customizing content to render properly, and reusing pieces of configuration.  Once these basic bits of functionality are understood you will have the tools to maximize your web applications usability.  So let's get started!
+
+**Crash Course in RegEx
+
+A mechanism that is used throughout this article that might need a brief introduction is Regular Expressions (or regex).  Regex is used to define a text pattern to search for within a URL or to find and replace text within content such as HTML or JavaScript.  The text processing command "sed" uses regex to do searches and substitutions.  For each example below there will be three parts:  input, regex pattern, and output.  The pattern will be applied to the input text and determine the value of the output text.
+
+Example 1:
+	Input:
+	  Name: Frank Sanatra
+	  Genre: Jazz
+	  Name: 2Pac
+	  Genre: Rap
+	  Name: Reel Big Fish
+	  Genre: Ska
+
+	Regex pattern: "^Name: "
+
+	Output:
+	  Name: Frank Sanatra
+	  Name: 2Pac
+	  Name: Reel Big Fish
+
+In this example we are searching the input text for text that matches the pattern "^Name: ".  This pattern says, "Look for the text 'Name: ' at the beginning of each line.  Since there are two lines that begin with that text, only those two lines are returned.  While "^" represents the beginning of a line, "$" represents the end of a line.  So if you were to apply the pattern "a$" two lines would be returned (Frank Sanatra and Ska).  Let's expand on that example.  We will use the input from Example 1 with a new pattern.
+
+Example 2:
+	Regex pattern: "^Name: [0-9]"
+
+	Output:
+	  Name: 2Pac
+
+As you can see we have taken the original regex pattern and added "[0-9]" to the end.  This will search for a single character which can be any number from 0 to 9 which is why "2Pac" was the only line returned.  A range may also be specified with alphabetic characters ([a-z] or [A-Z]).
+
+Along with pattern selection you can also do substitution with regex.  There are two formats for regex substitutions: s|pattern|replace|modifier or s/pattern/replace/modifier.  In Apache I find it easier to use the pipe-style substitution.  Here's an example.  We'll use the same input with a new pattern.
+
+Example 3:
+
+	Regex pattern: "s|^(.*)Frank(.*)$|\1Dwezil\2|g"
+
+	Output:
+	  Name: Dwezil Sanatra 
+	  Genre: Jazz
+	  Name: 2Pac
+	  Genre: Rap
+	  Name: Reel Big Fish
+	  Genre: Ska
+	  Name: Dwezil Zappa
+	  Genre: Unknown
+
+There is a lot to dissect in this pattern.  One of the great abilities of regex is the ability to match any character.  The dot operator will match any 1 character.  The asterisk operator will match 0 or more of whatever character or operator preceded it.  Putting these two operators together will match 0 or more of any character.  Enclosing this in parenthesis allows the matched text to be represented in the replace portion of the pattern with a variable.  In this case "\1" represents the first block of text within parenthesis and "\2" represents the second.  The only characters that are explicitly being matched is "Frank".  As such, the lines containing "Frank" will be replaced with everything up to "Frank" (represented by "\1"), "Dwezil", and everything following "Frank" (represented by "\2").  As you can see the entirety of the text input was sent to the output although modified by the pattern.
+
+**Protocol Integration
+
+When it is decided to that an application would benefit from Apache integration there is a high likelihood that it will reside on a separate server from Apache.  To fully integrate applications being accessed via HTTP any or all of these modules may be used:  mod_rewrite, mod_proxy, mod_ssl, and mod_headers.  Each of these modules allow you to customize the way communication between the end-user and web servers occur from modifying HTTP header data to managing proxy connections to other servers.
+
+First we will look at mod_rewrite.  There are a number of directives within the mod_rewrite module, but there are only a handful that will be discussed today:  RewriteEngine, RewriteCond, and RewriteRule.  The RewriteEngine directive simply enables URL rewriting and is invoked as follows:
+
+	RewriteEngine on
+
+RewriteRule allows the server to respond to an HTTP request to a specific URL by, among other things, returning an HTTP redirect (code 301 or 302) which will redirect the end-user to a specified URL or send a proxied request to a back-end server.  Here is an example of issuing an HTTP redirect:
+
+	RewriteRule /google http://www.google.com [R=301]
+
+In this example, when the URL of /google is accessed the server will respond with an HTTP 301 that will redirect the user to http://www.google.com.  This example will only work if the request URL is exactly equal to "/google".  If the need is to redirect on any URL starting with "/google" we will define a conditional redirect using
+RewriteCond as follows:
+
+	RewriteCond "%{REQUEST_URI}" "/google.*$"
+	RewriteRule "^.*$" http://www.google.com [R=301]
+
+The RewriteCond directive has two parts: a string value to check and a substring to search for.  In this example we are looking in the REQUEST_URI HTTP session variable for anything beginning with "/google".  If that condition is met, the RewriteRule on the following line is executed.  Since we are determining the value of the target URL in the RewriteCond, the value of the target URL in the RewriteRule is defined as "^.*$".
+
+The examples that have been given are all user-facing events like a 301 redirect.  The RewriteRule directive can also be used to proxy requests to a server.  This is done behind the scenes unlike an HTTP redirect so the request is forwarded without the users knowledge.  A proxied request may be configured like the example below.
+
+	RewriteRule "/home/(.*)$" http://back-end01.test:8080/$1 [P]
+
+This example illustrates an example of a virtual root directory.  When the user access anything underneath /home (note the ".*" expression) the request is sent to back-end01.test on port 8080 with the Location set to the URL path beneath /home.  For example if the user tries to access /home/test/image.jpg, the request is sent to back-end01.test:8080 with a location of /test/image.jpg.  A proxied RewriteRule may also be used in conjunction with RewriteCond for
+further customization.  It should be noted that this statement only proxies the HTTP request.  Proxying of  HTTP responses will require mod_proxy.
+
+Another option for proxying HTTP connections through Apache is mod_proxy which provides ProxyPass, ProxyPassReverse, and
+ProxyPassMatch among many other directives that provide more robust proxying options.  We will be primarily focusing on these three directives.  As mentioned above, RewriteRule provides proxying of HTTP
+requests.  Let's compare the example already given for proxying with RewriteRule and an example for ProxyPass.
+
+	ProxyPass /home http://back-end01.test:8080/
+
+This ProxyPass statement provides roughly the same level of functionality as the RewriteRule statement with a more simplistic command.  When a request comes in for any URL beginning with "/home" the request header will be rewritten so that the request will be received properly by "http://back-end01.test:8080/.  Consider the following first lines of an HTTP request.
+
+	From user to server:	GET /home/test/image.jpg HTTP/1.1
+	From server to back-end:	GET /test/image.jpg HTTP/1.1
+
+The first line of the header which contains method (GET in this case) and the URL being requested.  When the server receives the request from the client is strips off "/home" as specified in the ProxyPass directive and forwards the request to the back-end server.  If you want to proxy response packets as well as request packets the ProxyPassReverse statement below can be paired with the above ProxyPass statement.
+
+	ProxyPassReverse /home http://back-end01.test:8080/
+
+The syntax is exactly the same as ProxyPass adding to the simplicity of the mod_proxy configuration.  This will take any HTTP response matching an HTTP request for /home and forward the response back to the original client.  If there is a need to add some programmatic proxying (similar to RewriteCond) we can use the ProxyPassMatch.  When implementing a forward/reverse proxy configuration ProxyPassMatch can replace ProxyPass.  Here is an example.
+
+	ProxyPassMatch "^/home/([a-z0-9]*/docs)" http://docserver01.test:8080/$1
+	ProxyPassReverse /home http://docserver01.test:8080/
+
+This example suggests that within the /home folder there are many sub-folders (let's say user names) and within each of those exists a folder named "docs".  The "USERNAME/docs" URL exists on docserver01.test:8080 in the root of the web server as denoted by the $1 in the server URL.  The ProxyPassReverse will function in the same manner as it did in the previous example.  
+
+Securing websites with SSL in Apache is accomplished with mod_ssl.  While we will not discuss configuring SSL from the ground up, there are a few directives that relate to proxied SSL connections: SSLProxyCheckPeerExpire, SSLProxyCheckPeerName, and SSLProxyCheckPeerCN.  It is a common practice to use self-signed certificates on back-end servers (provided a valid cert is in place on the user-facing server) and these directives address common issues that can arise when using self-signed certs.  Any of these directives can have one of two arguments provided: "on" or "off".  If set to "off", SSLProxyCheckPeerExpire will skip checking the expiration date on the SSL cert used on a back-end server.  To avoid checking a certificates common name or alternate names against the server name used to access a back-end set SSLProxyCheckPeerName to "off".  In older versions of Apache you might be to use SSLProxyCheckPeerCN (set to "off") instead of SSLProxyCheckPeerName.
+
+Along with rewriting URLs it may be necessary to rewrite HTTP request or response header fields.  In Apache this is done with mod_headers.  There are only two directives within this module: Header and RequestHeader.  These directives are used to modify response and request header fields respectively.  There are a many actions that can be used with either of these directives but we will be looking at the set and edit actions.  Let's look at the following example.
+
+        Header set ReceiveTime "%t"
+
+This example will add and replace any existing header in an HTTP response named ReceiveTime and give it the value of the UNIX timestamp when the request was received by the server (represented by "%t").  If there is a need to replace the value of a header that comes from a back-end server you would use the edit action.  Consider the following example:
+
+        Header edit Location "^http://back-end01.test:8080/(.*)$" "http://public.test/$1"
+
+This example will replace the Location attribute in an HTTP response which will exist in a 301/302 redirect.  If it finds "http://back-end01.test:8080" at the beginning of the Location header and replace that part with "http://public.test" (the user-facing URL).
+
+**Content Integration
+
+Once a remote application is integrated with an Apache server from a protocol standpoint it may be necessary to integrate content.  This will generally manifest itself as URLs coded into HTML or JavaScript that are specific to a back-end server and not to a user-facing server.  The basic necessity is to be able to search and replace bits of HTML or JS content so that is can render and perform correctly when accessed through an Apache proxy.  The module that accomplishes this is mod_substitute and specifically the Substitute directive.  Substitute allows a simple regex substitute to be performed on the payload data of an HTTP response.
+
+Something to consider before attempting to replace text is to account for whether or not the back-end web server compresses data before sending it over the network.  If it does, your Substitute statements might not work as it will be searching for ASCII text within binary compressed data.  To account for this we can instruct Apache to decompress the data, manipulate the response, and then re-compress it.  This is done using the SetOutputFilter directive which is part of Apache core functionality.  Here's how it works:
+
+	SetOutputFilter INFLATE;SUBSTITUTE;DEFLATE
+	
+Reading the arguments from left to right, we are telling the Apache to "INFLATE" (decompress) the data from the back-end server, perform our substitute, and "DEFLATE" (compress) the data before returning it to the end-user.  
+
+The substitute statement uses a regex substitute expression.  As I mentioned above, I found it easier to use the pipe-style substitute express in Apache.  To recap, the syntax is s|search|replace|options.  Two common options that I tend to use:  "i" which denotes a case-insensitive search and "n" to allow the search and replace values to be processed as regex.  Let's take a look at a common use example:
+
+	Substitute "s|(href="http)(://)back-end01.test:8080|$1s$2public.test|in"
+	
+For this example let's assume that the user-facing site (public.test) runs HTTPS and the back-end server (back-end01.test) runs HTTP on port 8080.  This would be a solution if the back-end web server returned hyperlinks that were specific to itself as opposed to the user-facing site.  In the search portion of the regex substitute we are splitting out two groups of text in parenthesis:  (href=\"http) and (://).  These are blocks of text we want preserved in the replace section of the regex.  In the replace we are inserting an "s" after http and replacing the hostname/port with the user-facing site name.  After processing the resulting string will be href="https://public.test.  This will update hyperlinks that uses "href" attributes (&lt;a&gt; and &lt;link&gt;).  For &lt;img&gt; and &lt;script&gt; tags you could use this same Substitute statement and replace "href" with "src".  Another consideration would be to account for double- or single-quotes delimiting attribute values (href=' vs. href=").
+
+Another application of substitute is to extend functionality of page without manipulating the original source code.  Let's consider the following example.
+
+	Substitute "s|(&lt;body.*&gt;)|\1&lt;div style=\"font-size:14pt;font-weight:bold;background-color:#ff0000;color:#ffffff;display:block;text-align:center;\"&gt;This site will be down for 24 hours beginning at 8 pm tonight&lt;/div&gt;|in"
+
+If a website needs to be taken off-line for maintenance, this is an easy way to alert the user population of the outage without modifying the application itself.  This example simply inserts a red bar along the top of the page (right after the &lt;body&gt; tag) which displays information about the outage.  Depending on how your page is rendered you might need to choose another tag to act as your starting point instead of &lt;body&gt;.
+
+**Streamlining Future Integrations
+
+All of the topics that have been presented can be configured and maintained relatively easily if you have only a few statements.  In the real world there will typically be many sites that use a similar configuration and having to define the functionality for each site can be time consuming and can lead to mistakes.  Luckily Apache provides a mechanism to repeat functionality throughout your configuration through the use of mod_macro.  The &lt;Macro&gt; directive within an Apache config functions very much like a function or subroutine.  Once a macro is defined it can be referenced as many times as is necessary leaving you with one place within your config to maintain your detailed functionality.  Let's look at an example macro.
+
+	&lt;Macro RedirectSecure $host $path&gt;
+		RewriteCond "%{REQUEST_URI}" "^$path"
+		RewriteRule "^/(.*)$" "https://$host/$1"
+	&lt;/Macro&gt;
+
+When called, this macro will define a RewriteCond and RewriteRule that, if the access a URL starting with the value of the $path argument, will redirect the user to http://$host/$1 where $host is the hostname specified as a macro argument and $1 is the entire URL path.  The following syntax would be used to call this macro:
+
+	Use RedirectSecure public.test /users
+
+Something to consider is the location within the Apache config from which a macro is called.  A RewriteRule for example cannot be called outside of a &lt;VirtualHost&gt; block.  As such if the macro is called outside a &lt;VirtualHost&gt; block Apache will throw an error and not start.  Here's another example.
+
+	&lt;Macro ReplaceContentURL $backendurl $publicurl&gt;
+		Substitute "s|(href=\")$backendurl|$1$publicurl|in"
+		Substitute "s|(src=\")$backendurl|$1$publicurl|in"
+	&lt;/Macro&gt;
+
+This macro expands on the replacing of URLs we covered above.  This will search for tag attributes of "href" and "src" and replace the hyperlinks of the back-end server with that of the user-facing server.  Here's an example of how this might be called.
+
+	Use ReplaceContentURL http://back-end01.test:8080 https://public.test
+
+This will search for http://back-end01.test:8080 beginning with either href=" or src=" and replace the URL with https://public.test.  Macros can be used for any piece of Apache configuration.  They can be used to do small tasks as shown here as well as whole site configurations.  Although macro's are pretty simple they make the difference between a large amount of difficult-to-maintain configuration file and a simplified reusable configuration.
+
+At this point you have some basic knowledge of integrating HTTP, customizing content, and reproducing configuration within Apache.  While there are many directives and modules we haven't covered this will be a great starting point and can help you get starting with accessing your applications through Apache.  Here are some articles that I have found useful along with some example Apache configs I've written.
+
+Apache Module Reference (2.2) - http://httpd.apache.org/docs/2.2/mod/
+Apache Module Reference (2.4) - http://httpd.apache.org/docs/2.4/mod/
+Git Instaweb Reverse Proxy - https://gist.github.com/bng44270/cff67619db3e3f915957
+Monit Reverse Proxy - https://gist.github.com/bng44270/287277ea1975b9a3e3526d5a5bcb017c
+Adobe Experience Manager Apache Config - https://github.com/bng44270/aem-dispatcher-config</pre></section></article></content><footer><a href="https://github.com/bng44270">Return to Github profile</a></footer>
+</div></body>
 </html>
