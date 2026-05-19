@@ -52,11 +52,12 @@
     document.getElementById('applytemplate').onchange = function() {
       var selectedTemplate = document.getElementById('applytemplate').value;
 
-      if (Object.keys(graphTemplates).indexOf(selectedTemplate) > -1) {
+      if (selectedTemplate != 'NONE') {
         graphTemplates.filter(t => t['id'] == selectedTemplate).forEach(t => {
           document.getElementById('graphtext').value = t['text'];
         });
-        document.getElementById('graphselect').value = 'NONE';
+        
+        document.getElementById('applytemplate').value = 'NONE';
 
         document.getElementById('makegraph').click();
       }
