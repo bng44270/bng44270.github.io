@@ -9,7 +9,7 @@
   <span id="activegraph"></span>
   <button id="savegraph">Save</button>
   <button id="newgraph">New</button>
-  <select id="applytemplate"></select>
+  <select id="applytemplate"><option value="NONE">--Apply Template--</option></select>
   <!--<button id="downloadsvg">Download SVG</button>-->
   <button id="makegraph">Redraw Graph</button><br />
   <textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
@@ -59,6 +59,26 @@
         opt.innerText = g;
         document.getElementById('graphselect').appendChild(opt);
       });
+
+      Object.keys(graphTemplates).forEach(t => {
+        var opt = document.createElement('option');
+        opt.value = t['id'];
+        opt.innerText = t['id'];
+        document.getElementById('applytemplate').appendChild(opt);
+      });
+    };
+
+    document.getElementById('applytemplate').onchange = function() {
+      var selectedTemplate = document.getElementById('applytemplate').value;
+
+      if (Object.keys(graphTemplates).indexOf(selectedTemplate) > -1) {
+        graphTemplates.filter(t => t['id'] == selectedTemplate).forEach(t => {
+          document.getElementById('graphtext').value = t['text'];
+        });
+        document.getElementById('graphselect').value = 'NONE';
+
+        document.getElementById('makegraph').click();
+      }
     };
 
     document.getElementById('graphselect').onchange = function() {
