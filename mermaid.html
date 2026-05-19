@@ -60,7 +60,7 @@
         document.getElementById('graphselect').appendChild(opt);
       });
 
-      Object.keys(graphTemplates).forEach(t => {
+      graphTemplates.forEach(t => {
         var opt = document.createElement('option');
         opt.value = t['id'];
         opt.innerText = t['id'];
