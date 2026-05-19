@@ -12,7 +12,21 @@
   <!--<button id="downloadsvg">Download SVG</button>-->
   <button id="makegraph">Redraw Graph</button><br />
   <textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
-  <iframe style="height:400px;width:400px;overflow:auto;resize:both;" id="graphtarget"></iframe>
+  <iframe style="height:400px;width:400px;overflow:auto;resize:both;" id="graphtarget"></iframe><br/><br/>
+  <pre>
+    Two nodes with arrow connector:
+    
+           A[Box 1] --> B[Box 2]
+
+    Two nodes with straight-lien connector:
+    
+           A[Box 1] --- B[Box 2]
+
+    Two nodes with annotated arrow connector:
+    
+           A[Box 1] --"goes to"--> B[Box 2]
+    
+  </pre>
 
   <script type="text/javascript">
     var graphStore = null;
