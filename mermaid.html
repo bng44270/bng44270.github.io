@@ -6,7 +6,7 @@
         <button id="makegraph">Redraw Graph</button>
 	<button id="downloadsvg">Download SVG</button><br/>
 	<textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
-        <iframe style="height:400px;width:400px;" id="graphtarget"></iframe>
+        <iframe style="height:400px;width:400px;overflow:auto;resize:both;" id="graphtarget"></iframe>
 
         <script type="text/javascript">
           document.body.onload = function() {
@@ -46,7 +46,7 @@
 	  };
 
           document.getElementById('makegraph').onclick = function() {
-	    var htmlDoc = '<html><head><script type="text/javascript" src="https://bng44270.github.io/js/dragdoc.js"><\/script><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body onLoad="new DragDoc(\'graph\');"><div style="height:380px;width:380px;overflow:auto;" class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
+	    var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
 
 	    var fileToInclude = new Blob([htmlDoc], {type:'text/html'});
 
