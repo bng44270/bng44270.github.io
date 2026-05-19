@@ -51,7 +51,7 @@
     document.getElementById('newgraph').onclick = function() {
       var graphName = prompt("Please provide the name for the graph");
 
-      if (Object.keys(graphStore).indexOf(graphName) == -1) {      
+      if (graphName && Object.keys(graphStore).indexOf(graphName) == -1) {      
         var opt = document.createElement('option');
         opt.value = graphName;
         opt.innerText = graphName;
@@ -61,7 +61,7 @@
         document.getElementById('activegraph').innerText = graphName;
       }
       else {
-        alert("Graph " + graphName + " already exists");
+        alert("Invalid graph name (" + graphName.toString() + ")");
       }
     };
 
