@@ -1,59 +1,112 @@
 <html>
-    <head>
-    <title>Mermaid Demo</title>
-    </head>
-    <body>
-        <button id="makegraph">Redraw Graph</button>
-	<button id="downloadsvg">Download SVG</button><br/>
-	<textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
-        <iframe style="height:400px;width:400px;overflow:auto;resize:both;" id="graphtarget"></iframe>
 
-        <script type="text/javascript">
-          document.body.onload = function() {
-            if (Object.keys(localStorage).indexOf('mermaid_graph') > -1) {
-              document.getElementById('graphtext').value = localStorage.mermaid_graph;
-              document.getElementById('makegraph').click();
-            }
-	    else {
-	      localStorage.mermaid_graph = 'graph TD\nA[Client] --> B[Load Balancer]\nB --> C[Server01]\nB --> D[Server02]';
-	      document.getElementById('graphtext').value = localStorage.mermaid_graph;
-              document.getElementById('makegraph').click();
-	    }
-          };
-          
-	  document.getElementById('downloadsvg').onclick = function() {
-	    var svgText = document.getElementById('graphtarget').contentDocument.getElementById('graph').innerHTML;
+<head>
+  <title>Mermaid Demo</title>
+</head>
 
-	    var fileToDownload = new Blob([svgText],{type:'image/svg+xml'});
+<body>
+  <select id="graphselect"><option value="NONE">--Select Graph--</option></select>
+  <span id="activegraph"></span>
+  <button id="savegraph">Save</button>
+  <button id="newgraph">New</button>
+  <!--<button id="downloadsvg">Download SVG</button>-->
+  <button id="makegraph">Redraw Graph</button><br />
+  <textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
+  <iframe style="height:400px;width:400px;overflow:auto;resize:both;" id="graphtarget"></iframe>
 
-	    var fileName = "mermaid-graph-" + (new Date().toISOString().replace(/:/g,'.')) + '.svg';
+  <script type="text/javascript">
+    var graphStore = null;
+
+    document.body.onload = function () {
+      if (Object.keys(localStorage).indexOf('mermaid_graph') > -1) {
+        graphStore = JSON.parse(localStorage.mermaid_graph);
+      }
+      else {
+        localStorage.mermaid_graph = '{}';
+        graphStore = JSON.parse(localStorage.mermaid_graph);
+      }
+
+      Object.keys(graphStore).forEach(g => {
+        var opt = document.createElement('option');
+        opt.value = g;
+        opt.innerText = g;
+        document.getElementById('graphselect').appendChild(opt);
+      });
+    };
+
+    document.getElementById('graphselect').onchange = function() {
+      var selectedGraph = document.getElementById('graphselect').value;
+      
+      if (Object.keys(graphStore).indexOf(selectedGraph) > -1) {
+        document.getElementById('graphtext').value = graphStore[selectedGraph];
+        document.getElementById('activegraph').innerText = selectedGraph;
+        document.getElementById('graphselect').value = 'NONE';
+
+        if (graphStore[selectedGraph].length > 0) {
+            document.getElementById('makegraph').click();
+        }
+      }
+    };
+
+    document.getElementById('newgraph').onclick = function() {
+      var graphName = prompt("Please provide the name for the graph");
+
+      if (Object.keys(graphStore).indexOf(graphName) == -1) {      
+      graphStore[graphName] = document.getElementById('graphtext').value;
+      
+      var opt = document.createElement('option');
+      opt.value = graphName;
+      opt.innerText = graphName;
+      document.getElementById('graphselect').appendChild(opt);
+      
+      document.getElementById('graphtext').value = graphStore[graphName];
+      document.getElementById('activegraph').innerText = graphName;
+      }
+      else {
+        alert("Graph " + graphName + " already exists");
+      }
+    };
+
+    document.getElementById('savegraph').onclick = function() {
+      var activeGraph = document.getElementById('activegraph').innerText;
+
+      graphStore[activeGraph] = document.getElementById('graphtext').value;
+
+      localStorage.mermaid_graph = JSON.stringify(graphStore);
+    };
+
+    //document.getElementById('downloadsvg').onclick = function () {
+    //  var svgText = document.getElementById('graphtarget').contentDocument.getElementById('graph').innerHTML;
+
+    //  var fileToDownload = new Blob([svgText], { type: 'image/svg+xml' });
+
+    //  var fileName = "mermaid-graph-" + (new Date().toISOString().replace(/:/g, '.')) + '.svg';
 
 
-	    var downloadLink = document.createElement("a");
-            downloadLink.download = fileName;
-            downloadLink.innerHTML = "My Hidden Link";
+    //  var downloadLink = document.createElement("a");
+    //  downloadLink.download = fileName;
+    //  downloadLink.innerHTML = "My Hidden Link";
 
-            window.URL = window.URL || window.webkitURL;
+    //  window.URL = window.URL || window.webkitURL;
 
-            downloadLink.href = window.URL.createObjectURL(fileToDownload);
-            downloadLink.onclick = function(e) {
-              document.body.removeChild(e.target);
-            };
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink);
+    //  downloadLink.href = window.URL.createObjectURL(fileToDownload);
+    //  downloadLink.onclick = function (e) {
+    //    document.body.removeChild(e.target);
+    //  };
+    //  downloadLink.style.display = "none";
+    //  document.body.appendChild(downloadLink);
 
-            downloadLink.click();
-	  };
+    //  downloadLink.click();
+    //};
 
-          document.getElementById('makegraph').onclick = function() {
-	    var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
+    document.getElementById('makegraph').onclick = function () {
+      var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
 
-	    var fileToInclude = new Blob([htmlDoc], {type:'text/html'});
+      var fileToInclude = new Blob([htmlDoc], { type: 'text/html' });
 
-	    document.getElementById('graphtarget').src = window.URL.createObjectURL(fileToInclude);
+      document.getElementById('graphtarget').src = window.URL.createObjectURL(fileToInclude);
+    };
+  </script>
+</body>
 
-            localStorage.mermaid_graph = document.getElementById('graphtext').value;
-          };
-        </script>
-    </body>
 </html>
