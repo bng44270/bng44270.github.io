@@ -52,15 +52,13 @@
       var graphName = prompt("Please provide the name for the graph");
 
       if (Object.keys(graphStore).indexOf(graphName) == -1) {      
-      graphStore[graphName] = document.getElementById('graphtext').value;
+        var opt = document.createElement('option');
+        opt.value = graphName;
+        opt.innerText = graphName;
+        document.getElementById('graphselect').appendChild(opt);
       
-      var opt = document.createElement('option');
-      opt.value = graphName;
-      opt.innerText = graphName;
-      document.getElementById('graphselect').appendChild(opt);
-      
-      document.getElementById('graphtext').value = graphStore[graphName];
-      document.getElementById('activegraph').innerText = graphName;
+        document.getElementById('graphtext').value = graphStore[graphName];
+        document.getElementById('activegraph').innerText = graphName;
       }
       else {
         alert("Graph " + graphName + " already exists");
