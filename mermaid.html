@@ -9,6 +9,7 @@
   <span id="activegraph"></span>
   <button id="savegraph">Save</button>
   <button id="newgraph">New</button>
+  <select id="applytemplate"></select>
   <!--<button id="downloadsvg">Download SVG</button>-->
   <button id="makegraph">Redraw Graph</button><br />
   <textarea style="vertical-align:top;width:400px;height:400px;font-family:monospace;" id="graphtext"></textarea>
@@ -36,6 +37,13 @@
   <script type="text/javascript">
     var graphStore = null;
 
+    var graphTemplates = [];
+    graphTemplates.push({id:"topdown",text:"graph TD\nA[Box 1] --- B[Box 2]\nB --> C[\"Test\\nHere\"]\nC --\"there\"--> D[The End]"});
+    graphTemplates.push({id:"leftright",text:"graph LR\nA[Box 1] --- B[Box 2]\nB --> C[\"Test\\nHere\"]\nC --\"there\"--> D[The End]"});
+    graphTemplates.push({id:"pie",text:"pie title NETFLIX\n\"Time spent looking for movie\" : 90\n\"Time spent watching it\" : 10"});
+    graphTemplates.push({id:"sequence",text:"sequenceDiagram\nAlice ->> Bob: Hello Bob, how are you?\nBob-->>John: How about you John?\nBob--x Alice: I am good thanks!\nBob-x John: I am good thanks!\n\nNote right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.\n\nBob-->Alice: Checking with John...\nAlice->John: Yes... John, how are you?"});
+    graphTemplates.push({id:"class",text:"classDiagram\n    note \"From Duck till Zebra\"\n    Animal <|-- Duck\n    note for Duck \"can fly<br>can swim<br>can dive<br>can help in debugging\"\n    Animal <|-- Fish\n    Animal <|-- Zebra\n    Animal : +int age\n    Animal : +String gender\n    Animal: +isMammal()\n    Animal: +mate()\n    class Duck{\n        +String beakColor\n        +swim()\n        +quack()\n    }\n    class Fish{\n        -int sizeInFeet\n        -canEat()\n    }\n    class Zebra{\n        +bool is_wild\n        +run()\n    }"});
+    
     document.body.onload = function () {
       if (Object.keys(localStorage).indexOf('mermaid_graph') > -1) {
         graphStore = JSON.parse(localStorage.mermaid_graph);
@@ -117,7 +125,7 @@
     //};
 
     document.getElementById('makegraph').onclick = function () {
-      var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
+      var htmlDoc = '<html><head><script src="https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.min.js"><\/script><script type="text/javascript">mermaid.initialize({ startOnLoad: true });<\/script><\/head><body><div class="mermaid" id="graph">' + document.getElementById('graphtext').value + '<\/div></body></html>';
 
       var fileToInclude = new Blob([htmlDoc], { type: 'text/html' });
 
