@@ -11,6 +11,7 @@
 <p></p>
 <p style="font-size:12pt;">If you see any feedback or suggestions for how this list could be improved, <a href="#" id="showformlink">click here</a> to let us know.</p>
 <div id="treeview">
+<div id="confirmbox" style="display:none;"><b>Thanks for your feedback</b><br/><br/></div>
   Search: <input type="text" id="searchbox" /><br/>
 </div>
 <div id="formdisplay" style="display:none"></div>
@@ -45,7 +46,10 @@
     gform.addSubmitAction(function() {
       document.getElementById("formdisplay").style.display = "none";
       document.getElementById("treeview").style.display = "block";
-      alert("Thanks for your feedback");
+      document.getElementById("confirmbox").style.display = "block";
+      setTimeout(function() {
+        document.getElementById("confirmbox").style.display = "none"; 
+      },10000);
     });
     gform.render(formContainer);
 
@@ -182,6 +186,8 @@
       this.fieldList.forEach(e => {
         var lbl = document.createElement('label');
         lbl.innerText = e.label;
+	lbl.style.marginRight = "10px";
+	lbl.style.marginBottom = "5px";
         form.appendChild(lbl);
   
         var inp = null
@@ -217,28 +223,22 @@
           throw new TypeError("Invalid form element type (" + e.type + ")");
         }
 
+	inp.style.marginBottom = "5px";
         form.appendChild(inp);
 	form.appendChild(document.createElement('br'));
       });
 
       var submit = document.createElement('input');
+      submit.id = "formbutton";
       submit.type = 'submit';
+      submit.onclick = function() { this.style.display = "none"; };
       form.appendChild(submit);
       formdiv.appendChild(form);
     
       domparent.appendChild(formdiv);
 
-      var statusdiv = document.createElement('div');
-      statusdiv.id = "statusarea";
-      statusdiv.innerText = "Form submitted";
-      statusdiv.style.display = "none";
-
-      domparent.appendChild(statusdiv);
 
       ifr.onload = () => {
-        document.getElementById('formarea').style.display = 'none';
-        document.getElementById('statusarea').style.display = 'block';
-
 	if (this.onsubmit) {
 	  this.onsubmit();
 	}
