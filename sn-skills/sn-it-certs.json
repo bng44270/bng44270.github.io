@@ -1,0 +1,1175 @@
+[
+  {
+    "sn_skill": {
+      "name": "Extending Table Schema (Extending, Overriding)"
+    },
+    "it_skills": [
+      {
+        "name": "Database schema design",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Data modeling",
+        "certs": [
+          "DAMA Certified Data Management Professional (CDMP)",
+          "IBM Certified Data Engineer"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Building Table Schema (Field Types, Reference Qualifiers)"
+    },
+    "it_skills": [
+      {
+        "name": "Database design",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Reference data modeling",
+        "certs": [
+          "DAMA Certified Data Management Professional (CDMP)",
+          "IBM Certified Data Engineer"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Managing Database Views"
+    },
+    "it_skills": [
+      {
+        "name": "Database administration",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "SQL",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Database views",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Managing Reports"
+    },
+    "it_skills": [
+      {
+        "name": "Reporting",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      },
+      {
+        "name": "Business intelligence",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      },
+      {
+        "name": "SQL",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Data visualization",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Creating JDBC Connections"
+    },
+    "it_skills": [
+      {
+        "name": "JDBC",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Database connectivity",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "SQL",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Database administration",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Managing Transform Maps"
+    },
+    "it_skills": [
+      {
+        "name": "ETL",
+        "certs": [
+          "Informatica Certified Professional",
+          "Talend Data Integration Certified Developer",
+          "AWS Certified Data Analytics – Specialty"
+        ]
+      },
+      {
+        "name": "Data transformation",
+        "certs": [
+          "Informatica Certified Professional",
+          "Talend Data Integration Certified Developer",
+          "AWS Certified Data Analytics – Specialty"
+        ]
+      },
+      {
+        "name": "Data mapping",
+        "certs": [
+          "Informatica Certified Professional",
+          "Talend Data Integration Certified Developer",
+          "AWS Certified Data Analytics – Specialty"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using Java Libraries in MID Server Script Includes"
+    },
+    "it_skills": [
+      {
+        "name": "Java",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer"
+        ]
+      },
+      {
+        "name": "JVM",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer"
+        ]
+      },
+      {
+        "name": "Integration development",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing CSS in Service Portal"
+    },
+    "it_skills": [
+      {
+        "name": "CSS",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Web development",
+        "certs": []
+      },
+      {
+        "name": "Frontend development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing HTML in Service Portal"
+    },
+    "it_skills": [
+      {
+        "name": "HTML",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Web development",
+        "certs": []
+      },
+      {
+        "name": "Frontend development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing AngularJS in Service Portal"
+    },
+    "it_skills": [
+      {
+        "name": "AngularJS",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "JavaScript frameworks",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Frontend development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using Jelly Tags in UI Pages"
+    },
+    "it_skills": [
+      {
+        "name": "Server-side templating",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "XML",
+        "certs": []
+      },
+      {
+        "name": "Template engines",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using GlideRecord Script Library"
+    },
+    "it_skills": [
+      {
+        "name": "Server-side scripting",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Database querying",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using Advaned GlideRecord Feataures (dot-walking, encoded query, etc)"
+    },
+    "it_skills": [
+      {
+        "name": "Advanced querying",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Encoded queries",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      },
+      {
+        "name": "Query optimization",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the RESTMessage and RESTResponse Libraries"
+    },
+    "it_skills": [
+      {
+        "name": "REST APIs",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "HTTP",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "API integration",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the GlideDate and GlideDateTime Libraries"
+    },
+    "it_skills": [
+      {
+        "name": "Date/time handling",
+        "certs": []
+      },
+      {
+        "name": "Timezone management",
+        "certs": []
+      },
+      {
+        "name": "Temporal data",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the GlideAggregate Libraries"
+    },
+    "it_skills": [
+      {
+        "name": "Data aggregation",
+        "certs": []
+      },
+      {
+        "name": "Analytics",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      },
+      {
+        "name": "SQL aggregation",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the GlideAjax Client and Server Libraries"
+    },
+    "it_skills": [
+      {
+        "name": "AJAX",
+        "certs": []
+      },
+      {
+        "name": "Asynchronous requests",
+        "certs": []
+      },
+      {
+        "name": "Client-server communication",
+        "certs": []
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the GlideModal Client Library"
+    },
+    "it_skills": [
+      {
+        "name": "UI development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Modal dialogs",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist",
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      },
+      {
+        "name": "Frontend JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the GlideForm Client Library"
+    },
+    "it_skills": [
+      {
+        "name": "Client-side form scripting",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist",
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      },
+      {
+        "name": "Frontend development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the GlideList Client Library"
+    },
+    "it_skills": [
+      {
+        "name": "List rendering",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Frontend development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Custom Applications and Source Control"
+    },
+    "it_skills": [
+      {
+        "name": "Application development",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      },
+      {
+        "name": "Source control (Git)",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      },
+      {
+        "name": "CI/CD",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing Email Scripts"
+    },
+    "it_skills": [
+      {
+        "name": "Email protocols (SMTP)",
+        "certs": []
+      },
+      {
+        "name": "Scripting",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      },
+      {
+        "name": "Automation",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing Scripted REST API"
+    },
+    "it_skills": [
+      {
+        "name": "REST API development",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "Web services",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "API design",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "JSON",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using  Out-of-Box ServiceNow REST API's"
+    },
+    "it_skills": [
+      {
+        "name": "REST API consumption",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "API integration",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      },
+      {
+        "name": "HTTP",
+        "certs": [
+          "AWS Certified Developer – Associate",
+          "Microsoft Certified: Azure Developer Associate"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing Basic JavaScript (Types, Control Structures, Functions, etc)"
+    },
+    "it_skills": [
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Programming fundamentals",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing Object Oriented JavaScript (ES5)"
+    },
+    "it_skills": [
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Object-oriented programming",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Writing Object Oriented JavaScript (ES6)"
+    },
+    "it_skills": [
+      {
+        "name": "Modern JavaScript (ES6+)",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Object-oriented programming",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using Regular Expressions in JavaScript"
+    },
+    "it_skills": [
+      {
+        "name": "Regular expressions",
+        "certs": []
+      },
+      {
+        "name": "Text processing",
+        "certs": []
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Interacting with the DOM in JavaScript"
+    },
+    "it_skills": [
+      {
+        "name": "DOM manipulation",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "Frontend development",
+        "certs": [
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the JavaScript Math Library"
+    },
+    "it_skills": [
+      {
+        "name": "Mathematical programming",
+        "certs": []
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Using the JavaScript Date Library"
+    },
+    "it_skills": [
+      {
+        "name": "Date/time handling",
+        "certs": []
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Building and using JSON objects in JavaScript"
+    },
+    "it_skills": [
+      {
+        "name": "JSON",
+        "certs": []
+      },
+      {
+        "name": "Data serialization",
+        "certs": []
+      },
+      {
+        "name": "JavaScript",
+        "certs": [
+          "Oracle Certified Professional: Java SE Developer",
+          "CIW JavaScript Specialist",
+          "Tableau Desktop Specialist"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Access Control (ACL)"
+    },
+    "it_skills": [
+      {
+        "name": "Access control",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "Authorization",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "Security policies",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Access Control (Users, Groups, Roles)"
+    },
+    "it_skills": [
+      {
+        "name": "Identity and access management",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "RBAC",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "User provisioning",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "SAML Authentication"
+    },
+    "it_skills": [
+      {
+        "name": "SAML",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "Single sign-on (SSO)",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "Identity federation",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "OAuth Authentication"
+    },
+    "it_skills": [
+      {
+        "name": "OAuth",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "OAuth2",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "Authorization frameworks",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "LDAP Authentication"
+    },
+    "it_skills": [
+      {
+        "name": "LDAP",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      },
+      {
+        "name": "Directory services",
+        "certs": []
+      },
+      {
+        "name": "Active Directory",
+        "certs": [
+          "Microsoft Certified: Identity and Access Administrator Associate (SC-300)",
+          "Certified Information Systems Security Professional (CISSP)"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Analyzing System Logs"
+    },
+    "it_skills": [
+      {
+        "name": "Log analysis",
+        "certs": [
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      },
+      {
+        "name": "Monitoring",
+        "certs": [
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      },
+      {
+        "name": "SIEM",
+        "certs": [
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Log Analysis"
+    },
+    "it_skills": [
+      {
+        "name": "Log analysis",
+        "certs": [
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      },
+      {
+        "name": "ELK/Logging stacks",
+        "certs": [
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      },
+      {
+        "name": "Splunk",
+        "certs": [
+          "Splunk Core Certified User",
+          "Splunk Core Certified Power User",
+          "Elastic Certified Engineer"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Managing Discovery Configuration"
+    },
+    "it_skills": [
+      {
+        "name": "Discovery tools",
+        "certs": [
+          "ITIL Foundation",
+          "ServiceNow Certified System Administrator",
+          "CompTIA Network+",
+          "Cisco Certified Network Associate (CCNA)"
+        ]
+      },
+      {
+        "name": "Network discovery",
+        "certs": [
+          "CompTIA Network+",
+          "Cisco Certified Network Associate (CCNA)"
+        ]
+      },
+      {
+        "name": "Configuration management",
+        "certs": [
+          "ITIL Foundation",
+          "ServiceNow Certified System Administrator"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Managing CMDB Data"
+    },
+    "it_skills": [
+      {
+        "name": "CMDB management",
+        "certs": [
+          "Oracle Certified Professional (OCP) — Oracle Database",
+          "Microsoft Certified: Azure Database Administrator Associate (DP-300)",
+          "AWS Certified Database – Specialty",
+          "IBM Certified Database Administrator",
+          "ITIL Foundation",
+          "ServiceNow Certified System Administrator"
+        ]
+      },
+      {
+        "name": "Configuration management",
+        "certs": [
+          "ITIL Foundation",
+          "ServiceNow Certified System Administrator"
+        ]
+      },
+      {
+        "name": "Asset management",
+        "certs": [
+          "ITIL Foundation",
+          "ServiceNow Certified System Administrator",
+          "CompTIA Network+",
+          "Cisco Certified Network Associate (CCNA)"
+        ]
+      },
+      {
+        "name": "Data reconciliation",
+        "certs": [
+          "Certified Jenkins Engineer",
+          "HashiCorp Certified: Terraform Associate",
+          "AWS Certified DevOps Engineer – Professional"
+        ]
+      }
+    ]
+  },
+  {
+    "sn_skill": {
+      "name": "Managing Performance Analytics (KPI. Reporting)"
+    },
+    "it_skills": [
+      {
+        "name": "Performance analytics",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      },
+      {
+        "name": "KPI design",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      },
+      {
+        "name": "Business intelligence",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      },
+      {
+        "name": "Reporting",
+        "certs": [
+          "Microsoft Certified: Power BI Data Analyst Associate (PL-300)",
+          "Tableau Desktop Specialist",
+          "Certified Business Intelligence Professional (CBIP)"
+        ]
+      }
+    ]
+  }
+]
