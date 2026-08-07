@@ -79,9 +79,14 @@
 
 	    var thisSkillCertList = new DomUnorderedList(itSkillList.getList());
 
-	    s.certs.forEach(c => {
-	      thisSkillCertList.addItem("IT Certification:  " + c,"itcert");
-	    });
+	    if (s.certs.length > 0) {
+	      s.certs.forEach(c => {
+	        thisSkillCertList.addItem("IT Certification:  " + c,"itcert");
+	      });
+	    }
+	    else {
+	      thisSkillCertList.addItem("# No Certifications for this skill","itcert");
+	    }
 
 	    thisSkillCertList.showHideList();
 
