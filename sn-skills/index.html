@@ -10,7 +10,9 @@
 <p style="font-size:12pt;">To view the IT skills we've associated with ServiceNow skills, click on the ServiceNow skill and to view the certifications we've associated with IT skills click on the IT skill</p>
 <p></p>
 <p style="font-size:12pt;">If you see any feedback or suggestions for how this list could be improved, <a href="#" id="showformlink">click here</a> to let us know.</p>
-<div id="treeview"></div>
+<div id="treeview">
+  Search: <input type="text" id="searchbox" /><br/>
+</div>
 <div id="formdisplay" style="display:none"></div>
 </div>
 <script type="text/javascript">
@@ -18,6 +20,19 @@
     document.getElementById('showformlink').onclick = function() {
       document.getElementById('treeview').style.display = "none";
       document.getElementById("formdisplay").style.display = "block";
+    };
+
+    document.getElementById('searchbox').oninput = function() {
+      var searchText = document.getElementById("searchbox").value;
+      
+      Array.prototype.slice.call(document.getElementsByClassName('snskill')).forEach(i => { i.style.display = "block"; });
+
+      Array.prototype.slice.call(document.querySelectorAll("li.snskill")).filter(i => {
+        var re = new RegExp(searchText,"i");
+	return !(i.innerText.match(re));
+      }).forEach(i => {
+        i.style.display = "none";
+      });
     };
 
 
@@ -54,18 +69,18 @@
         j.forEach(e => {
           var snSkill = e.sn_skill.name;
 
-	  var snListItem = snSkillList.addItem("ServiceNow Skill:  " + snSkill);
+	  var snListItem = snSkillList.addItem("ServiceNow Skill:  " + snSkill,"snskill");
 
 	  var itSkillList = new DomUnorderedList(snSkillList.getList());
 
 	  e.it_skills.forEach(s => {
 	    var itSkill = s.name;
-	    var listItem = itSkillList.addItem("Related IT Skill:  " + itSkill);
+	    var listItem = itSkillList.addItem("Related IT Skill:  " + itSkill,"itskill");
 
 	    var thisSkillCertList = new DomUnorderedList(itSkillList.getList());
 
 	    s.certs.forEach(c => {
-	      thisSkillCertList.addItem("IT Certification:  " + c);
+	      thisSkillCertList.addItem("IT Certification:  " + c,"itcert");
 	    });
 
 	    thisSkillCertList.showHideList();
@@ -98,13 +113,15 @@
       return this.l;
     }
 
-    addItem(s) {
+    addItem(s,c) {
       var i = document.createElement('li');
       var t = document.createElement('span');
       t.innerText = s;
       i.style.marginBottom = "5px";
+      i.style.listStyleType = "none";
       i.appendChild(t);
       this.l.appendChild(i);
+      i.className = c;
 
       return t;
     }
