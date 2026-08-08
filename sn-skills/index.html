@@ -1,6 +1,8 @@
 <html>
 <head>
 <title>Test</title>
+<script type="text/javascript" src="./googleforms.js"></script>
+<script type="text/javascript" src="./ulist.js"></script>
 </head>
 <body>
 <div style="font-weight:bold;font-size:18pt;text-align:center;">ServiceNow Exit Strategy</div>
@@ -39,7 +41,7 @@
 
     var formContainer = document.getElementById("formdisplay");
 
-    var gform = new GoogleForm('https://docs.google.com/forms/d/e/1FAIpQLSdiyvpDtTYuET1O2WwlgN2uIpajsu7QEK2fH75tKhVIF94xLw');
+    var gform = new GoogleForm('https://docs.google.com/forms/d/e/1FAIpQLSdiyvpDtTYuET1O2WwlgN2uIpajsu7QEK2fH75tKhVIF94xLw/viewform?usp=header');
     gform.addTextField("Name","entry.504571833",true);
     gform.addTextField("E-mail","entry.937497949",true);
     gform.addParagraphField("Comments","entry.853622389",true);
@@ -110,141 +112,6 @@
       });
     });
   };
-
-  class DomUnorderedList {
-    constructor(container) {
-      this.l = document.createElement('ul');
-      this.l.style.display = 'block';
-      container.appendChild(this.l);
-    }
-
-    getList() {
-      return this.l;
-    }
-
-    addItem(s,c) {
-      var i = document.createElement('li');
-      var t = document.createElement('span');
-      t.innerText = s;
-      i.style.marginBottom = "5px";
-      i.style.listStyleType = "none";
-      i.appendChild(t);
-      this.l.appendChild(i);
-      i.className = c;
-
-      return t;
-    }
-
-    showHideList() {
-      var disp = this.l.style.display;
-
-      if (disp == 'none') {
-        this.l.style.display = 'block';
-      }
-      else {
-        this.l.style.display = 'none';
-      }
-    }
-  }
-
-  class GoogleForm {
-    constructor(respurl) {
-      this.fieldList = [];
-      this.respUrl = respurl;
-      this.onsubmit = null;
-    }
-
-    addTextField(l,n,r=false,c=[]) {
-      this.fieldList.push({"name":n,"label":l,"type":"text","required":r,"choices":c});
-    }
-  
-    addParagraphField(l,n,r=false) {
-      this.fieldList.push({"name":n,"label":l,"type":"paragraph","required":r});
-    }
-
-    addSubmitAction(f) {
-      this.onsubmit = f;
-    }
-
-    render(domparent) {
-      var ifr = document.createElement('iframe');
-      ifr.id = "formtarget";
-      ifr.name = "formtarget";
-      ifr.style.display = "none";
-
-      domparent.appendChild(ifr);
- 
-      var formdiv = document.createElement('div');
-      formdiv.id = "formarea";
-
-      var form = document.createElement('form');
-      form.id = "googleform";
-      form.target = "formtarget";
-      form.method = "POST";
-      form.action = this.respUrl + "/formResponse";
-
-      this.fieldList.forEach(e => {
-        var lbl = document.createElement('label');
-        lbl.innerText = e.label;
-	lbl.style.marginRight = "10px";
-	lbl.style.marginBottom = "5px";
-        form.appendChild(lbl);
-  
-        var inp = null
-        if (e.type == 'text') {
-          if (e.choices.length == 0) {
-            inp = document.createElement('input');
-            inp.type = "text";
-            inp.name = e.name;
-            inp.required = e.required;
-          }
-          else {
-            inp = document.createElement('select');
-            inp.name = e.name;
-            inp.required = e.required;
-  
-            e.choices.forEach(c => {
-              var opt = document.createElement('option');
-              opt.value = c;
-              opt.innerText = c;
-              inp.appendChild(opt);
-            });
-          }
-        }
-        else if (e.type == "paragraph") {
-	  form.appendChild(document.createElement('br'));
-          inp = document.createElement('textarea');
-          inp.cols = 30;
-          inp.rows = 10;
-          inp.name = e.name;
-          inp.required = e.required;
-        }
-        else {
-          throw new TypeError("Invalid form element type (" + e.type + ")");
-        }
-
-	inp.style.marginBottom = "5px";
-        form.appendChild(inp);
-	form.appendChild(document.createElement('br'));
-      });
-
-      var submit = document.createElement('input');
-      submit.id = "formbutton";
-      submit.type = 'submit';
-      submit.onclick = function() { this.style.display = "none"; };
-      form.appendChild(submit);
-      formdiv.appendChild(form);
-    
-      domparent.appendChild(formdiv);
-
-
-      ifr.onload = () => {
-	if (this.onsubmit) {
-	  this.onsubmit();
-	}
-      };
-    }
-  }
 </script>
 </body>
 </html>
